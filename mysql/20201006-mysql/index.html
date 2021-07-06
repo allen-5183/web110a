@@ -1,0 +1,2350 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="mysql 資料庫, 個人博客 呆呆 學習 Allen">
+    <meta name="description" content="網頁技術| 物聯網應用 | AI 智能">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>mysql 資料庫 | 呆呆-博客</title>
+    <link rel="icon" type="image/gif" href="/medias/diamond.gif">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery.min.js"></script>
+
+<style type="text/css" lang="css">
+    #loading-container{
+        position: fixed;
+        top: 0;
+        left: 0;
+        min-height: 100vh;
+        width: 100vw;
+        z-index: 9999;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background: #FFF;
+        text-align: center;
+        /* loader页面消失采用渐隐的方式*/
+        -webkit-transition: opacity 1s ease;
+        -moz-transition: opacity 1s ease;
+        -o-transition: opacity 1s ease;
+        transition: opacity 1s ease;
+    }
+    .loading-image{
+        width: 120px;
+        height: 50px;
+        transform: translate(-50%);
+    }
+
+    .loading-image div:nth-child(2) {
+        -webkit-animation: pacman-balls 1s linear 0s infinite;
+        animation: pacman-balls 1s linear 0s infinite
+    }
+
+    .loading-image div:nth-child(3) {
+        -webkit-animation: pacman-balls 1s linear .33s infinite;
+        animation: pacman-balls 1s linear .33s infinite
+    }
+
+    .loading-image div:nth-child(4) {
+        -webkit-animation: pacman-balls 1s linear .66s infinite;
+        animation: pacman-balls 1s linear .66s infinite
+    }
+
+    .loading-image div:nth-child(5) {
+        -webkit-animation: pacman-balls 1s linear .99s infinite;
+        animation: pacman-balls 1s linear .99s infinite
+    }
+
+   .loading-image div:first-of-type {
+        width: 0;
+        height: 0;
+        border: 25px solid #49b1f5;
+        border-right-color: transparent;
+        border-radius: 25px;
+        -webkit-animation: rotate_pacman_half_up .5s 0s infinite;
+        animation: rotate_pacman_half_up .5s 0s infinite;
+    }
+    .loading-image div:nth-child(2) {
+        width: 0;
+        height: 0;
+        border: 25px solid #49b1f5;
+        border-right-color: transparent;
+        border-radius: 25px;
+        -webkit-animation: rotate_pacman_half_down .5s 0s infinite;
+        animation: rotate_pacman_half_down .5s 0s infinite;
+        margin-top: -50px;
+    }
+    @-webkit-keyframes rotate_pacman_half_up {0% {transform: rotate(270deg)}50% {transform: rotate(1turn)}to {transform: 
+rotate(270deg)}}
+
+    @keyframes rotate_pacman_half_up {0% {transform: rotate(270deg)}50% {transform: rotate(1turn)}to {transform: 
+rotate(270deg)}}
+
+    @-webkit-keyframes rotate_pacman_half_down {0% {transform: rotate(90deg)}50% {transform: rotate(0deg)}to {transform: 
+rotate(90deg)}}
+
+    @keyframes rotate_pacman_half_down {0% {transform: rotate(90deg)}50% {transform: rotate(0deg)}to {transform: 
+rotate(90deg)}}
+
+    @-webkit-keyframes pacman-balls {75% {opacity: .7}to {transform: translate(-100px, -6.25px)}}
+
+    @keyframes pacman-balls {75% {opacity: .7}to {transform: translate(-100px, -6.25px)}}
+
+
+    .loading-image div:nth-child(3),
+    .loading-image div:nth-child(4),
+    .loading-image div:nth-child(5),
+    .loading-image div:nth-child(6){
+        background-color: #49b1f5;
+        width: 15px;
+        height: 15px;
+        border-radius: 100%;
+        margin: 2px;
+        width: 10px;
+        height: 10px;
+        position: absolute;
+        transform: translateY(-6.25px);
+        top: 25px;
+        left: 100px;
+    }
+    .loading-text{
+        margin-bottom: 20vh;
+        text-align: center;
+        color: #2c3e50;
+        font-size: 2rem;
+        box-sizing: border-box;
+        padding: 0 10px;
+        text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+    @media only screen and (max-width: 500px) {
+         .loading-text{
+            font-size: 1.5rem;
+         }
+    }
+    .fadeout {
+        opacity: 0;
+        filter: alpha(opacity=0);
+    }
+    /* logo出现动画 */
+    @-webkit-keyframes 
+fadeInDown{0%{opacity:0;-webkit-transform:translate3d(0,-100%,0);transform:translate3d(0,-100%,0)}100%{opacity:1;-webkit-transform:none;transform:none}}
+    @keyframes fadeInDown{0%{opacity:0;-webkit-transform:translate3d(0,-100%,0);}}
+ </style>
+ <script>
+(function () {
+    const loaded = function(){
+       setTimeout(function(){
+            const loader = document.getElementById("loading-container");
+            loader.className="fadeout" ;//使用渐隐的方法淡出loading page
+            // document.getElementById("body-wrap").style.display="flex";
+            setTimeout(function(){
+                loader.style.display="none";
+            },1000); 
+        },1000);//强制显示loading page 1s  
+    };
+    loaded();
+})()
+ </script><meta name="generator" content="Hexo 5.2.0"><link rel="alternate" href="/atom.xml" title="呆呆-博客" type="application/atom+xml">
+</head>
+
+
+<script src="/js/instant.page.js" type="module"></script>
+
+<script type="text/javascript">
+var OriginTitile=document.title,st;
+document.addEventListener("visibilitychange",function(){document.hidden?(document.title="看不見我🙈~看不見我🙈~",clearTimeout(st)):(document.title=" 被發現了～",st=setTimeout(function(){document.title=OriginTitile},3e3))})</script>
+
+<script type="text/javascript">
+  //只在桌上出版網頁啟用特效
+  var windowWidth = $(window).width();
+  if (windowWidth > 768) {
+    //雪花特效
+    document.write('<script type="text/javascript" src="/js/xuehuapiaoluo.js"><\/script>');
+    //櫻花特效
+    //document.write('<script type="text/javascript" src="/js/sakura.js"><\/script>');
+    //無效 
+    //document.write('<script type="text/javascript" src="/js/xingxing.js"><\/script>');
+    //滑鼠點擊文字特效。(❤富強❤,❤民主❤,❤文明❤,❤和諧❤,❤自由❤,❤平等❤,❤公正❤,❤法治❤,❤愛國❤,❤敬業❤,❤誠信❤,❤友善❤);)
+    //document.write('<script type="text/javascript" src="/js/wenzi.js"><\/script>');
+
+  }
+</script>
+
+
+
+ <div id="loading-container">
+     <p class="loading-text">努力加載中 . . . </p> 
+     <div class="loading-image">
+         <div></div>
+         <div></div>
+         <div></div>
+         <div></div> 
+         <div></div>
+     </div>
+ </div><body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/loading.gif" data-original="/medias/diamond.gif" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">呆呆-博客</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首頁</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>關於</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情連結</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="" class="waves-effect waves-light">
+
+      
+      <i class="fas fa-meh-rolling-eyes" style="zoom: 0.6;"></i>
+      
+      <span>收納櫃</span>
+      <i class="fas fa-chevron-down" aria-hidden="true" style="zoom: 0.6;"></i>
+    </a>
+    <ul class="sub-nav menus_item_child ">
+      
+      <li>
+        <a href="/tags">
+          
+          <i class="fas fa-tags" style="margin-top: -20px; zoom: 0.6;"></i>
+          
+          <span>標籤</span>
+        </a>
+      </li>
+      
+      <li>
+        <a href="/categories">
+          
+          <i class="fas fa-bookmark" style="margin-top: -20px; zoom: 0.6;"></i>
+          
+          <span>分類</span>
+        </a>
+      </li>
+      
+      <li>
+        <a href="/archives">
+          
+          <i class="fas fa-archive" style="margin-top: -20px; zoom: 0.6;"></i>
+          
+          <span>歸檔</span>
+        </a>
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="" class="waves-effect waves-light">
+
+      
+      <i class="fas fa-list" style="zoom: 0.6;"></i>
+      
+      <span>媒體</span>
+      <i class="fas fa-chevron-down" aria-hidden="true" style="zoom: 0.6;"></i>
+    </a>
+    <ul class="sub-nav menus_item_child ">
+      
+      <li>
+        <a href="/movie">
+          
+          <i class="fas fa-film" style="margin-top: -20px; zoom: 0.6;"></i>
+          
+          <span>電影</span>
+        </a>
+      </li>
+      
+      <li>
+        <a href="/video">
+          
+          <i class="fas fa-film" style="margin-top: -20px; zoom: 0.6;"></i>
+          
+          <span>視頻</span>
+        </a>
+      </li>
+      
+      <li>
+        <a href="/galleries">
+          
+          <i class="fas fa-image" style="margin-top: -20px; zoom: 0.6;"></i>
+          
+          <span>相冊</span>
+        </a>
+      </li>
+      
+      <li>
+        <a href="/books">
+          
+          <i class="fas fa-book" style="margin-top: -20px; zoom: 0.6;"></i>
+          
+          <span>書籍</span>
+        </a>
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/loading.gif" data-original="/medias/diamond.gif" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">呆呆-博客</div>
+        <div class="logo-desc">
+            
+            網頁技術| 物聯網應用 | AI 智能
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首頁
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			關於
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情連結
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="javascript:;">
+			
+				<i class="fa-fw fas fa-meh-rolling-eyes"></i>
+			
+			收納櫃
+			<span class="m-icon"><i class="fas fa-chevron-right"></i></span>
+		</a>
+            <ul  style="background:  ;" >
+              
+                <li>
+
+                  <a href="/tags " style="margin-left:75px">
+				  
+				   <i class="fa fas fa-tags" style="position: absolute;left:50px" ></i>
+			      
+		          <span>標籤</span>
+                  </a>
+                </li>
+              
+                <li>
+
+                  <a href="/categories " style="margin-left:75px">
+				  
+				   <i class="fa fas fa-bookmark" style="position: absolute;left:50px" ></i>
+			      
+		          <span>分類</span>
+                  </a>
+                </li>
+              
+                <li>
+
+                  <a href="/archives " style="margin-left:75px">
+				  
+				   <i class="fa fas fa-archive" style="position: absolute;left:50px" ></i>
+			      
+		          <span>歸檔</span>
+                  </a>
+                </li>
+              
+            </ul>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="javascript:;">
+			
+				<i class="fa-fw fas fa-list"></i>
+			
+			媒體
+			<span class="m-icon"><i class="fas fa-chevron-right"></i></span>
+		</a>
+            <ul  style="background:  ;" >
+              
+                <li>
+
+                  <a href="/movie " style="margin-left:75px">
+				  
+				   <i class="fa fas fa-film" style="position: absolute;left:50px" ></i>
+			      
+		          <span>電影</span>
+                  </a>
+                </li>
+              
+                <li>
+
+                  <a href="/video " style="margin-left:75px">
+				  
+				   <i class="fa fas fa-film" style="position: absolute;left:50px" ></i>
+			      
+		          <span>視頻</span>
+                  </a>
+                </li>
+              
+                <li>
+
+                  <a href="/galleries " style="margin-left:75px">
+				  
+				   <i class="fa fas fa-image" style="position: absolute;left:50px" ></i>
+			      
+		          <span>相冊</span>
+                  </a>
+                </li>
+              
+                <li>
+
+                  <a href="/books " style="margin-left:75px">
+				  
+				   <i class="fa fas fa-book" style="position: absolute;left:50px" ></i>
+			      
+		          <span>書籍</span>
+                  </a>
+                </li>
+              
+            </ul>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+<script src="/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '5616b70ad3dda5e6509877de73ccd63eddb79073a6749dcbd1ec23f1bbb0856a';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('請輸入訪問本文章的密碼')).toString(CryptoJS.enc.Hex)) {
+                alert('密碼錯誤，將返回主頁！');
+                location.href = '/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/13.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title"></h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        height: calc(100vh - 250px);
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章內容詳情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/mysql/">
+                                <span class="chip bg-color">mysql</span>
+                            </a>
+                        
+                            <a href="/tags/MariaDB/">
+                                <span class="chip bg-color">MariaDB</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/mysql/" class="post-category">
+                                mysql
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>發佈日期:&nbsp;&nbsp;
+                    2020-10-05
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="1-MySQL資料庫使用與管理"><a href="#1-MySQL資料庫使用與管理" class="headerlink" title="1. MySQL資料庫使用與管理"></a>1. MySQL資料庫使用與管理</h2><h3 id="1-1-關於資料庫"><a href="#1-1-關於資料庫" class="headerlink" title="1.1 關於資料庫"></a>1.1 關於資料庫</h3><p>  要使一個網站達到互動的效果，不是讓網頁充滿了動畫、音樂，而是當瀏覽者對網頁提出要求時能出現回應的結果。而這樣的效果，大多必須搭配資料庫的使用，讓網頁讀出儲存在資料庫中的資料，顯示在網頁上，也因為每個瀏覽者對於某一個相同的網頁所提出的要求不同，顯示出的結果即不同，這才是真正的互動網站。</p>
+<h3 id="1-2-認識資料庫"><a href="#1-2-認識資料庫" class="headerlink" title="1.2 認識資料庫"></a>1.2 認識資料庫</h3><p>資料庫 (Database)<br>  可以說是一些相關資料的集合並進行儲存的地方，我們可以一定的原則與方法新增、編輯、刪除資料的內容，進而搜尋、分析、比對所有資料，取得可用的資訊，產生所需的結果。</p>
+<p>目前巿面上的主流是「關聯式資料庫管理系統」（Relational Database Management System），例如：<code>Access</code>、<code>MySQL</code>、<code>SQL Server</code> 和 <code>Oracle</code> 等，可以用來管理關聯式資料庫。</p>
+<img src="/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/allen-5183/blog.allen5183.synology.me/images/mysql-1.png" class="nofancybox img-center">
+
+<h3 id="1-3-關聯式資料庫"><a href="#1-3-關聯式資料庫" class="headerlink" title="1.3 關聯式資料庫"></a>1.3 關聯式資料庫</h3><p>  關聯式資料庫（Relational Database）是由一個或多個資料表所組成，在資料表之間是使用欄位資料值來建立連接，以便實作資料表之間的關聯性。</p>
+<p>  在關聯式資料庫是使用二維表格的資料表來儲存記錄資料，在各資料表之間使用欄位值建立關聯性。</p>
+<p>例如：使用【學號】欄位值建立兩個資料表之間的關聯性，就可以查詢此學號所修的課程，如右圖所示：</p>
+<img src="/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/allen-5183/blog.allen5183.synology.me/images/mysql-2.png" class="nofancybox img-center">
+
+<h3 id="1-4-資料表、記錄與欄位"><a href="#1-4-資料表、記錄與欄位" class="headerlink" title="1.4 資料表、記錄與欄位"></a>1.4 資料表、記錄與欄位</h3><p>  關聯式資料庫是使用「資料表」（Tables）的二維表格儲存資料，每一個資料表使用「欄位」（Fields）分類成很多群組，每一個群組是一筆「記錄」（Records），例如：通訊錄資料表，如下表所示：</p>
+<img src="/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/allen-5183/blog.allen5183.synology.me/images/mysql-3.png" class="nofancybox img-center">
+
+<p>  資料表可以使用「索引」（Index）將資料系統化的整理，以便在大量資料中快速找到所需的資料或進行排序。</p>
+<p>例如：在通訊錄資料表使用編號欄位建立主索引鍵，或稱為「主鍵」（Primary Key），如此就可以透過編號來加速資料表記錄的搜尋和排序。</p>
+<h3 id="1-5-MySQL-資料庫的特色"><a href="#1-5-MySQL-資料庫的特色" class="headerlink" title="1.5 MySQL 資料庫的特色"></a>1.5 MySQL 資料庫的特色</h3><p>  早期的資料庫大都屬於操作在單機或是區域網路的系統，雖然在操作上方便，管理上也比較輕鬆，但是談到資料庫本身的效能或是安全性都是相當不利的弱點。</p>
+<p>  隨著 Internet 的興起，開始興起 Internet 資料庫的概念，此時資料庫的角色已經化為一個在網際網路上提供資料存取編輯、應用查詢的伺服器了。<br>  MySQL 資料庫就是這個概念的一個具體表現，在與網站伺服器結合作業後，MySQL 資料庫就成為了一個網路型的資料庫系統。</p>
+<h3 id="1-6-資料庫的字元集與連線校對-使用phpMyAdmin-管理程式"><a href="#1-6-資料庫的字元集與連線校對-使用phpMyAdmin-管理程式" class="headerlink" title="1.6 資料庫的字元集與連線校對(使用phpMyAdmin 管理程式)"></a>1.6 資料庫的字元集與連線校對(使用phpMyAdmin 管理程式)</h3><ul>
+<li><p><strong>登入 phpMyAdmin 的管理畫面</strong><br>輸入: <code>http://127.0.0.1/phpmyadmin</code></p>
+<img src="/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/allen-5183/blog.allen5183.synology.me/images/mysql-4.png" width="60%" height="40%" class="nofancybox img-center">
+</li>
+<li><p><strong>MySQL 資料庫的字元集與連線校對</strong><br>  MySQL 資料庫在 4.1 版本後支援 utf8 字元編碼來儲存，如此即可解決資料在不同語系文字上儲存與顯示上的問題。所以在 MySQL 中讀取或是寫入資料時能指定正確的字元集與連線校對，是維持資料內容正確的重要課題。</p>
+</li>
+<li><p>認識字元集與連線校對：<br>字元集 (character set) 是指資料庫中資料文字的編碼方式，而連線校對 (collation) 是資料中字元的排序方式。</p>
+</li>
+<li><p>中文衝碼問題：<br>在中文的環境中，我們可以選取 big5 繁體中文與 utf8 的編碼方式做為操作MySQL 資料庫的字元集。</p>
+<blockquote>
+<p>建議中文使用的字元集與連線校對方式:<br>   在 MySQL 資料庫最完美的解決方式還是選擇使用 <code>utf8</code> 的方式來進行文字編碼，如此即可將中文字以 <code>Unicode</code> 的方式進行儲存，徹底解決衝碼問題。</p>
+</blockquote>
+</li>
+<li><p>MySQL 使用的字元集與連線校對：<br>MySQL 由資料庫、資料表、資料欄位各個層級中，都可以單獨設定採用的字體集與連線校對方式。若在某一層操作時沒有設定使用字體集與連線校對方式為何，就會繼承上一層的設定來使用，若都沒有設定就會以MySQL 資料庫的預設值來做使用標準。</p>
+</li>
+<li><p>mysql 裡 <code>utf8_general_ci</code> 跟 <code>utf8_unicode_ci</code> 連線校對的差異<br>mysql 要在兩個 codepage 裡面找出來相對應的字元位置在哪裡。對 <code>utf8_general_ci</code> 來說，來源 codepage 裡面的一個字元只能對應到目標 codepage 裡面的一個字元，而 <code>utf8_unicode_ci</code> 則可以把來源codepage 裡的一個字元對應到目標 codepage 裡的多個字元（或反過來）。</p>
+<p>例如德文裡的 ß 要轉換成英文的時候如果是用 <code>utf8_unicode_ci</code> 轉換會變成正確的 ss ，但是如果用 <code>utf8_general_ci</code> 的話則會變成單一的 s 而已。<br>所以如果可以的話請盡量用 <code>utf8_unicode_ci</code> 而不要用 <code>utf8_general_ci</code>，雖然對 multibyte 字元來說這兩個都沒差，但是 utf8 的網頁誰也不知道哪天會不會有這種字元出現在你的網頁上，所以如果設成 <code>utf8_unicode_ci</code> 你就不需要擔心貼上去之後資料在轉換間遺失了。</p>
+</li>
+<li><p><strong>新增資料庫</strong><br>回到 phpMyAdmin，我們將要在 MySQL 中建置一個學校班級的資料庫：「class」，並新增一個同學通訊錄資料表：「students」。</p>
+<img src="/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/allen-5183/blog.allen5183.synology.me/images/mysql-5.png" width="60%" height="40%" class="nofancybox img-center">
+
+<p><strong>認識資料表的欄位：</strong><br>在資料表新增前，首要的動作是要先規劃資料表中所要使用的欄位。其中設定資料欄位的類型非常重要，使用正確的資料型態才能正確的儲存、應用資料。</p>
+<p><strong>數值型態：</strong><br>可運用來儲存、計算的數值資料欄位，例如會員的編號或是產品的價格等。在<br>MySQL 中的數值欄位依照所儲存的資料所需空間大小有以下的區別：</p>
+<img src="/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/allen-5183/blog.allen5183.synology.me/images/mysql-6.png" class="nofancybox img-center">
+
+<p><strong>文字型態：</strong><br>可用來儲存文字類型的資料，如學生姓名、地址等。在 MySQL 中文字型態資料有下列幾種格式：</p>
+<img src="/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/allen-5183/blog.allen5183.synology.me/images/mysql-59.png" width="60%" height="40%" class="nofancybox img-center">
+
+<p><strong>日期及時間型態：</strong><br>日期及時間型態：可用來儲存日期或是時間類型的資料，例如會員的生日、留言的時間等。<br>MySQL 中的日期及時間型態有下列幾種格式：</p>
+<img src="/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/allen-5183/blog.allen5183.synology.me/images/mysql-7.png" class="nofancybox img-center">
+<img src="/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/allen-5183/blog.allen5183.synology.me/images/mysql-8.png" class="nofancybox img-center">
+
+<p><strong>特殊資料型態：</strong><br>還有二個特殊的資料型態，嚴格來說它們都屬於文字型態，但是因為它們的內容只能由固定的選項內挑選，又有人稱它們為「列舉資料型態」，內容如下：</p>
+<img src="/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/allen-5183/blog.allen5183.synology.me/images/mysql-9.png" width="60%" height="40%" class="nofancybox img-center">
+
+<p><strong>重要的欄位屬性：</strong><br>在建置資料表時，除了要依不同性質的資料選擇適合的欄位型態，有些重要的欄位屬性定義也能在不同的型態欄位中發揮其功能，常用的設定如下：</p>
+<img src="/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/allen-5183/blog.allen5183.synology.me/images/mysql-10.png" class="nofancybox img-center">
+</li>
+<li><p>新增資料表<br><strong>欄位規劃：</strong></p>
+<p>以下我們要新增一個同學個人資料表：「students」，以下是這個資料表欄位的規劃：</p>
+<img src="/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/allen-5183/blog.allen5183.synology.me/images/mysql-11.png" class="nofancybox img-center">
+
+<p>實作如下：</p>
+<img src="/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/allen-5183/blog.allen5183.synology.me/images/mysql-12.png" class="nofancybox img-center">
+<img src="/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/allen-5183/blog.allen5183.synology.me/images/mysql-13.png" class="nofancybox img-center">
+<img src="/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/allen-5183/blog.allen5183.synology.me/images/mysql-14.png" class="nofancybox img-center">
+
+<p><strong>資料新增、資料的新增、瀏覽、編輯與刪除</strong></p>
+<img src="/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/allen-5183/blog.allen5183.synology.me/images/mysql-15.png" class="nofancybox img-center">
+<img src="/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/allen-5183/blog.allen5183.synology.me/images/mysql-16.png" class="nofancybox img-center">
+<img src="/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/allen-5183/blog.allen5183.synology.me/images/mysql-17.png" class="nofancybox img-center">
+<img src="/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/allen-5183/blog.allen5183.synology.me/images/mysql-18.png" class="nofancybox img-center">
+
+<p><strong>SQL 指令輸入：</strong></p>
+<img src="/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/allen-5183/blog.allen5183.synology.me/images/mysql-19.png" class="nofancybox img-center">
+
+<p><strong>資料瀏覽：</strong></p>
+<img src="/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/allen-5183/blog.allen5183.synology.me/images/mysql-20.png" class="nofancybox img-center">
+
+<p><strong>資料的編輯：</strong></p>
+<img src="/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/allen-5183/blog.allen5183.synology.me/images/mysql-21.png" class="nofancybox img-center">
+
+<p><strong>資料的刪除：</strong></p>
+<img src="/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/allen-5183/blog.allen5183.synology.me/images/mysql-22.png" class="nofancybox img-center">
+
+<p><strong>新增欄位：</strong></p>
+<img src="/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/allen-5183/blog.allen5183.synology.me/images/mysql-23.png" class="nofancybox img-center">
+</li>
+<li><p><strong>資料庫的備份與還原</strong><br>在 <code>MySQL</code> 資料庫裡備份資料，是十分簡單又輕鬆的事情。在本節中我們將說明如何使用 <code>phpMyAdmin</code> 備份 <code>MySQL</code> 的資料表，以及資料表匯入還原的動作。<br>我們可以使用 <code>phpMyAdmin</code> 的管理程式選取資料庫中的所有資料表，匯出成一個單獨的文字檔。當資料庫受到損壞或是要將資料搬移到新的 <code>MySQL</code> 資料庫時，只要將這個文字檔匯入即可完成。</p>
+<ul>
+<li><p><strong>資料庫備份：</strong></p>
+<img src="/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/allen-5183/blog.allen5183.synology.me/images/mysql-24.png" class="nofancybox img-center">
+<img src="/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/allen-5183/blog.allen5183.synology.me/images/mysql-25.png" class="nofancybox img-center">
+再按「執行」
+</li>
+<li><p><strong>資料庫還原：</strong></p>
+<img src="/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/allen-5183/blog.allen5183.synology.me/images/mysql-26.png" class="nofancybox img-center">
+<img src="/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/allen-5183/blog.allen5183.synology.me/images/mysql-27.png" class="nofancybox img-center">
+再按「執行」
+<img src="/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/allen-5183/blog.allen5183.synology.me/images/mysql-28.png" class="nofancybox img-center">
+</li>
+</ul>
+</li>
+<li><p><strong>MySQL 資料庫的安全設定</strong><br>MySQL 資料庫管理系統不同於一般檔案型的資料庫，放置在網路上雖然不會直接被下載，但是只要針對MySQL 服務端口進行攻擊，還是有安全上的顧慮。以下將深入討論 MySQL資料庫在安全性上的設定。</p>
+<ul>
+<li><strong>對於 MySQL 資料庫的安全問題：</strong></li>
+</ul>
+<p>MySQL 資料庫是一個存在於網際網路上的資料庫系統，換句話說只要是網際網路上的使用者都可以連接到這個資源，如果沒有權限或其他措施的控管，任何人都可以對 MySQL 資料庫予取予求，為所欲為。</p>
+<ul>
+<li><p><strong>對於 phpMyAdmin 資料庫的安全考量：</strong><br>phpMyAdmin 是一套網頁介面的 MySQL 管理程式，有許多 PHP 的程式設計師都會將這套工具直接上傳到他的 PHP 網站資料夾裡，那麼管理者只要從遠端透過瀏覽器登入phpMyAdmin 來管理的資料庫了！</p>
+</li>
+<li><p><strong>防堵安全漏洞的好建議：</strong><br>無論是 MySQL 資料庫本身的權限設定或是 phpMyAdmin 管理程式的安全漏洞，為了避免他人透過網路入侵您的資料庫，有幾件事必須要先做的：</p>
+<ol>
+<li><p><strong>修改 phpMyAdmin</strong><br>管理程式的資料夾名稱。最好是修改成一個不容易猜，與管理或是MySQL、phpMyAdmin等關鍵字。</p>
+</li>
+<li><p><strong>為MySQL資料庫的管理帳號加上密碼</strong></p>
+</li>
+<li><p><strong>養成備份 MySQL 資料庫的習慣</strong></p>
+</li>
+</ol>
+</li>
+<li><p><strong>MySQL 的帳號管理</strong><br>在 MySQL 資料庫中的管理者帳號為：「root」，現在我們就使用 phpMyAdmin 來檢視這個帳號的設定。</p>
+<ol>
+<li><strong>檢視帳號設定：</strong><img src="/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/allen-5183/blog.allen5183.synology.me/images/mysql-29.png" class="nofancybox img-center"></li>
+<li><strong>修改帳號的權限：</strong><br>每個帳號可以設定對於資料編輯、結構調整，甚至是系統管理的權限。請依照下述步驟檢視目前帳號的權限：<img src="/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/allen-5183/blog.allen5183.synology.me/images/mysql-30.png" class="nofancybox img-center"></li>
+<li><strong>建立或修改密碼：</strong><br>若您的帳號沒有使用密碼或是要修改原來的密碼，請在該頁繼續往下捲動並進行下述步驟：<img src="/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/allen-5183/blog.allen5183.synology.me/images/mysql-31.png" class="nofancybox img-center">
+</li>
+</ol>
+</li>
+</ul>
+</li>
+<li><p><strong>設定 phpMyAdmin 的登入方式</strong><br> phpMyAdmin 是許多人在管理、操作 MySQL 資料庫最常使用的工具。<br> 因為 phpMyAdmin 是以網頁的方式存在，無論是管理者或是一般使用者都可以藉由瀏覽器開啟，登入機制的啟用便是防堵沒有帳號權限的人入侵資料庫的最後一道關卡。<br> phpMyAdmin 有三種登入認證模式：<code>config</code>、<code>cookie</code> 及 <code>http</code>，以下將說明這三種認證模式的差異與設定方法。</p>
+<ol>
+<li><p>config 登入認證模式：<br>若是您的程式是處於本機開發階段，並沒有安全性上的考量，不希望每次使用 phpMyAdmin 來管理操作 MySQL資料庫時都要一再輸入帳號、密碼，造成開發時的困擾，您可以將資料庫的帳號、密碼直接寫到phpMyAdmin 的設定檔 <code>config.inc.php</code> 中，如此在進入 phpMyAdmin<br>時就會直接跳過登入步驟進入管理畫面中。<br>a. 將root加入密碼：1234</p>
+   <img src="/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/allen-5183/blog.allen5183.synology.me/images/mysql-32.png" class="nofancybox img-center">
+
+<p>b. 開啟「phpMyAdmin/config.inc.php」</p>
+   <pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token comment">/* Authentication type and info */</span>
+<span class="token variable">$cfg</span><span class="token punctuation">[</span><span class="token single-quoted-string string">'Servers'</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token variable">$i</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token single-quoted-string string">'auth_type'</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token single-quoted-string string">'config'</span><span class="token punctuation">;</span>
+<span class="token variable">$cfg</span><span class="token punctuation">[</span><span class="token single-quoted-string string">'Servers'</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token variable">$i</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token single-quoted-string string">'user'</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token single-quoted-string string">'root'</span><span class="token punctuation">;</span>
+<span class="token variable">$cfg</span><span class="token punctuation">[</span><span class="token single-quoted-string string">'Servers'</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token variable">$i</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token single-quoted-string string">'password'</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token single-quoted-string string">'1qaz@wsx'</span><span class="token punctuation">;</span>
+
+<span class="token comment">/* Bind to the localhost ipv4 address and tcp */</span>
+<span class="token variable">$cfg</span><span class="token punctuation">[</span><span class="token single-quoted-string string">'Servers'</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token variable">$i</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token single-quoted-string string">'host'</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token single-quoted-string string">'127.0.0.1'</span><span class="token punctuation">;</span>
+<span class="token variable">$cfg</span><span class="token punctuation">[</span><span class="token single-quoted-string string">'Servers'</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token variable">$i</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token single-quoted-string string">'port'</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token single-quoted-string string">'3306'</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>c. 即可跳過登入步驟進入管理畫面</p>
+</li>
+<li><p>http 登入認證模式：<br>若是您的網站伺服器是使用 httpd 的方式來編譯 PHP 的程式頁面，即可使用 http 登入認證模式，如 Apache 伺服器。但若是使用 CGI 的方式來使用 PHP 程式頁面就不能使用，例如 IIS 伺服器。<br>a. 開啟「phpMyAdmin/config.inc.php」</p>
+   <pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token comment">/* Authentication type and info */</span>
+<span class="token variable">$cfg</span><span class="token punctuation">[</span><span class="token single-quoted-string string">'Servers'</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token variable">$i</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token single-quoted-string string">'auth_type'</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token single-quoted-string string">'http'</span><span class="token punctuation">;</span>
+<span class="token variable">$cfg</span><span class="token punctuation">[</span><span class="token single-quoted-string string">'Servers'</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token variable">$i</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token single-quoted-string string">'user'</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token single-quoted-string string">'root'</span><span class="token punctuation">;</span>
+<span class="token variable">$cfg</span><span class="token punctuation">[</span><span class="token single-quoted-string string">'Servers'</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token variable">$i</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token single-quoted-string string">'password'</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token single-quoted-string string">'1qaz@wsx'</span><span class="token punctuation">;</span>
+<span class="token comment">/* Bind to the localhost ipv4 address and tcp */</span>
+<span class="token variable">$cfg</span><span class="token punctuation">[</span><span class="token single-quoted-string string">'Servers'</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token variable">$i</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token single-quoted-string string">'host'</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token single-quoted-string string">'127.0.0.1'</span><span class="token punctuation">;</span>
+<span class="token variable">$cfg</span><span class="token punctuation">[</span><span class="token single-quoted-string string">'Servers'</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token variable">$i</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token single-quoted-string string">'port'</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token single-quoted-string string">'3306'</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>b. 即會顯示對話方塊要求輸入帳號、密碼</p>
+   <img src="/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/allen-5183/blog.allen5183.synology.me/images/mysql-33.png" class="nofancybox img-center">
+</li>
+<li><p>cookie 登入認證模式：<br>這是一種在設定上限制最少，使用上也很方便的認證模式。只要是使用者的瀏覽器允許 cookie 的使用，即可使用cookie 登入認證模式。</p>
+   <pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token comment">/* Authentication type and info */</span>
+<span class="token variable">$cfg</span><span class="token punctuation">[</span><span class="token single-quoted-string string">'Servers'</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token variable">$i</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token single-quoted-string string">'auth_type'</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token single-quoted-string string">'cookie'</span><span class="token punctuation">;</span>
+<span class="token variable">$cfg</span><span class="token punctuation">[</span><span class="token single-quoted-string string">'Servers'</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token variable">$i</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token single-quoted-string string">'user'</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token single-quoted-string string">'root'</span><span class="token punctuation">;</span>
+<span class="token variable">$cfg</span><span class="token punctuation">[</span><span class="token single-quoted-string string">'Servers'</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token variable">$i</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token single-quoted-string string">'password'</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token single-quoted-string string">'1qaz@wsx'</span><span class="token punctuation">;</span>
+<span class="token comment">/* Bind to the localhost ipv4 address and tcp */</span>
+<span class="token variable">$cfg</span><span class="token punctuation">[</span><span class="token single-quoted-string string">'Servers'</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token variable">$i</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token single-quoted-string string">'host'</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token single-quoted-string string">'127.0.0.1'</span><span class="token punctuation">;</span>
+<span class="token variable">$cfg</span><span class="token punctuation">[</span><span class="token single-quoted-string string">'Servers'</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token variable">$i</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token single-quoted-string string">'port'</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token single-quoted-string string">'3306'</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ol>
+</li>
+<li><p>資料庫的字元集與連線校對(使用命令提示字元介面下使用指令)</p>
+<ul>
+<li><p><strong>設定 MySQL 的管理密碼</strong><br>  開啟命令提示字元，輸入以下指令：<br>  <code>cd \xampp\mysql\bin</code></p>
+</li>
+<li><p><strong>登入</strong><br><code>mysql -uroot -p</code><br><code>mysql -uroot -p -P3066</code></p>
+<blockquote>
+<p>首先在指令模式用 MySQL 的 root 帳號連接到 MySQL</p>
+</blockquote>
+</li>
+<li><p><strong>修改使用者密碼</strong><br><code>mysqladmin -uroot -p1qaz@wsx password 1234</code></p>
+<blockquote>
+<p>知道密碼的情況下。</p>
+</blockquote>
+</li>
+<li><p><strong>忘記 Windows 平台上的 MySQL 密碼</strong></p>
+<ol>
+<li><p>停止MySQL服務</p>
+</li>
+<li><p>使用命令提示字元</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">cd</span> <span class="token punctuation">\</span>xampp<span class="token punctuation">\</span>mysql<span class="token punctuation">\</span>bin
+mysqld --datadir<span class="token operator">=</span>e:<span class="token punctuation">\</span>xampp<span class="token punctuation">\</span>mysql<span class="token punctuation">\</span>data --skip-grant-tables<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>或 \xampp\mysq\data\my.ini 加入</p>
+<pre class="line-numbers language-ini" data-language="ini"><code class="language-ini"><span class="token selector">[mysqld]</span>
+<span class="token constant">datadir</span><span class="token attr-value"><span class="token punctuation">=</span>/xampp/mysql/data</span>
+<span class="token constant">socket</span><span class="token attr-value"><span class="token punctuation">=</span>/xampp/tmp/mysql.sock</span>
+skip-grant-tables<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<blockquote>
+<p>使用MySQL安全模式啟動，跳過權限檢查</p>
+</blockquote>
+</li>
+<li><p>開啟一個新視窗</p>
+<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">cd \xampp\mysql\bin
+mysql
+mysql<span class="token operator">&gt;</span> <span class="token keyword">use</span> mysql<span class="token punctuation">;</span>
+mysql<span class="token operator">&gt;</span> <span class="token keyword">describe</span> <span class="token keyword">user</span><span class="token punctuation">;</span>
+mysql<span class="token operator">&gt;</span> <span class="token keyword">update</span> <span class="token keyword">user</span> <span class="token keyword">set</span> authentication_string<span class="token operator">=</span>PASSWORD<span class="token punctuation">(</span><span class="token string">"你的密碼"</span><span class="token punctuation">)</span> <span class="token keyword">where</span> <span class="token keyword">user</span><span class="token operator">=</span><span class="token string">'root'</span><span class="token punctuation">;</span>
+mysql<span class="token operator">&gt;</span> <span class="token keyword">UPDATE</span> mysql<span class="token punctuation">.</span><span class="token keyword">user</span> <span class="token keyword">SET</span> authentication_string <span class="token operator">=</span> PASSWORD<span class="token punctuation">(</span><span class="token string">'你的密碼'</span><span class="token punctuation">)</span><span class="token punctuation">,</span> plugin <span class="token operator">=</span> <span class="token string">'mysql_native_password'</span> <span class="token keyword">WHERE</span> <span class="token keyword">User</span> <span class="token operator">=</span> <span class="token string">'root'</span> <span class="token operator">AND</span> Host <span class="token operator">=</span> <span class="token string">'localhost'</span><span class="token punctuation">;</span>
+mysql<span class="token operator">&gt;</span> flush <span class="token keyword">privileges</span><span class="token punctuation">;</span>
+mysql<span class="token operator">&gt;</span> quit<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>檢查欄位與是否是檢視表(View)</strong></p>
+<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">mysql<span class="token operator">&gt;</span> <span class="token keyword">select</span> host<span class="token punctuation">,</span><span class="token keyword">user</span><span class="token punctuation">,</span>password<span class="token punctuation">,</span>authentication_string<span class="token punctuation">,</span>plugin <span class="token keyword">from</span> <span class="token keyword">user</span><span class="token punctuation">;</span>
+mysql<span class="token operator">&gt;</span> <span class="token keyword">SHOW</span> <span class="token keyword">FULL</span> <span class="token keyword">TABLES</span> <span class="token operator">IN</span> mysql <span class="token keyword">WHERE</span> TABLE_TYPE <span class="token operator">LIKE</span> <span class="token string">'VIEW'</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</li>
+<li><p>重新啟動 <code>MySQL</code></p>
+</li>
+<li><p>即可登入</p>
+</li>
+</ol>
+</li>
+</ul>
+</li>
+<li><p>顯示資料庫</p>
+<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">mysql <span class="token operator">-</span>uroot <span class="token operator">-</span>p
+mysql<span class="token operator">&gt;</span> <span class="token keyword">show</span> <span class="token keyword">databases</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</li>
+<li><p>查詢：</p>
+<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">mysql <span class="token operator">-</span>uroot <span class="token operator">-</span>p<span class="token punctuation">;</span>
+mysql<span class="token operator">&gt;</span> <span class="token keyword">show</span> <span class="token keyword">databases</span><span class="token punctuation">;</span>
+mysql<span class="token operator">&gt;</span> <span class="token keyword">use</span> class<span class="token punctuation">;</span>
+mysql<span class="token operator">&gt;</span> <span class="token keyword">show</span> <span class="token keyword">tables</span><span class="token punctuation">;</span>
+mysql<span class="token operator">&gt;</span> <span class="token keyword">SELECT</span> <span class="token operator">*</span> <span class="token keyword">FROM</span> <span class="token punctuation">`</span>class<span class="token punctuation">`</span><span class="token punctuation">.</span><span class="token punctuation">`</span>students<span class="token punctuation">`</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+</li>
+</ul>
+<h2 id="2-SQL-語法"><a href="#2-SQL-語法" class="headerlink" title="2. SQL 語法"></a>2. SQL 語法</h2><h3 id="2-1-結構化查詢語言：SQL"><a href="#2-1-結構化查詢語言：SQL" class="headerlink" title="2.1 結構化查詢語言：SQL"></a>2.1 結構化查詢語言：SQL</h3><p>  <code>SQL</code> 全名是結構化查詢語言(Structured Query Language)，是用於資料庫中的標準數據查詢語言。<br>  <code>SQL</code> 是目前關聯式資料庫系統所使用查詢語法的標準，使用者可以應用 SQL 語法對資料庫系統進行資料的存取、編輯、刪除及管理…等動作。<br>  <code>SQL</code> 語法的內容是利用簡單的英文語句所構成，使用上十分的白話。</p>
+<h3 id="2-2-定義資料庫物件語法"><a href="#2-2-定義資料庫物件語法" class="headerlink" title="2.2 定義資料庫物件語法"></a>2.2 定義資料庫物件語法</h3><p>  SQL 語法在應用上對於 DDL (Data Definition Language)：定義資料庫物件使用的語法是很基礎而重要的，其中重要的功能關鍵字有：</p>
+<ol>
+<li>CREATE 建立資料庫的物件。</li>
+<li>ALTER  變更資料庫的物件。</li>
+<li>DROP   刪除資料庫的物件。</li>
+</ol>
+<ul>
+<li><p>建立資料庫<br>CREATE 是 SQL 指中建立資料庫或資料表的關鍵字，新增資料庫的語法如下：</p>
+<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">CREATE</span> <span class="token keyword">DATABASE</span> <span class="token punctuation">[</span><span class="token keyword">IF</span> <span class="token operator">NOT</span> <span class="token keyword">EXISTS</span><span class="token punctuation">]</span> 資料庫名稱
+<span class="token punctuation">[</span><span class="token keyword">DEFAULT</span><span class="token punctuation">]</span><span class="token keyword">CHARACTER</span> <span class="token keyword">SET</span> <span class="token punctuation">[</span><span class="token operator">=</span><span class="token punctuation">]</span> 字元集
+<span class="token punctuation">[</span><span class="token keyword">DEFAULT</span><span class="token punctuation">]</span><span class="token keyword">COLLATE</span><span class="token punctuation">[</span><span class="token operator">=</span><span class="token punctuation">]</span> 連線校對<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>建立資料表<br>新增資料表的動作更為頻繁而重要，其語法如下：</p>
+<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">CREATE</span> <span class="token keyword">TABLE</span> <span class="token punctuation">[</span><span class="token keyword">IF</span> <span class="token operator">NOT</span> <span class="token keyword">EXISTS</span><span class="token punctuation">]</span> 資料表名稱
+<span class="token punctuation">(</span>欄位名稱 資料類別 <span class="token punctuation">[</span>資料屬性<span class="token punctuation">]</span>
+<span class="token punctuation">[</span><span class="token punctuation">,</span>欄位名稱 資料類別 <span class="token punctuation">[</span>資料屬性<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<blockquote>
+<p>資料庫或是資料表在新增後，可以使用 <code>ALTER</code> 指令語法進行修改。</p>
+</blockquote>
+</li>
+<li><p>修改資料庫<br><code>ALTER DATABASE</code> 指令可以修改存在的資料庫結構，基本語法如下：</p>
+<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">ALTER</span> <span class="token keyword">DATABASE</span> 資料庫名稱
+<span class="token punctuation">[</span><span class="token keyword">DEFAULT</span><span class="token punctuation">]</span> <span class="token keyword">CHARACTER</span> <span class="token keyword">SET</span> <span class="token punctuation">[</span><span class="token operator">=</span><span class="token punctuation">]</span> 字元集
+<span class="token punctuation">[</span><span class="token keyword">DEFAULT</span><span class="token punctuation">]</span> <span class="token keyword">COLLATE</span> <span class="token punctuation">[</span><span class="token operator">=</span><span class="token punctuation">]</span> 連線校對<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>修改資料表欄位<br><code>ALTER TABLE</code> 指令可以修改存在的資料表結構，基本語法如下：</p>
+<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">ALTER</span> <span class="token keyword">TABLE</span> 資料表名稱
+CHANGE 原欄位名稱 新欄位名稱 資料類別 <span class="token punctuation">[</span>資料屬性<span class="token punctuation">]</span>
+<span class="token punctuation">[</span><span class="token punctuation">,</span>原欄位名稱 新欄位名稱 資料類別 <span class="token punctuation">[</span>資料屬性<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>新增資料表欄位<br><code>ALTER TABLE</code> 指令可以在已存在的資料表中新增資料表欄位，其語法如下：</p>
+<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">ALTER</span> <span class="token keyword">TABLE</span> 資料表名稱
+<span class="token keyword">ADD</span> 欄位名稱 資料類別 <span class="token punctuation">[</span>資料屬性<span class="token punctuation">]</span>
+<span class="token punctuation">[</span><span class="token punctuation">,</span><span class="token keyword">ADD</span> 欄位名稱 資料類別<span class="token punctuation">[</span>資料屬性<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token punctuation">[</span><span class="token keyword">FIRST</span> <span class="token operator">|</span> <span class="token keyword">AFTER</span> 欄位名稱<span class="token punctuation">]</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>刪除資料表欄位<br><code>ALTER TABLE</code> 指令可以在已存在的資料表中刪除資料表欄位，其語法如下：</p>
+<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">ALTER</span> <span class="token keyword">TABLE</span> 資料表名稱
+<span class="token keyword">DROP</span> 欄位名稱<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</li>
+<li><p>DROP：刪除資料庫及資料表內容<br>資料庫或是資料表在新增後，可以使用 <code>DROP</code> 指令語法進行修改。<br>刪除資料庫與資料表的語法相似，刪除資料庫的語法如下：</p>
+<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">DROP</span> <span class="token keyword">DATABASE</span> <span class="token punctuation">[</span><span class="token keyword">IF</span> <span class="token keyword">EXISTS</span><span class="token punctuation">]</span> 資料庫名稱<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>這個刪除資料庫的動作會連同儲存在資料庫中的所有物件，如資料表都一同刪除。刪除資料表的語法如下：</p>
+<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">DROP</span> <span class="token keyword">TABLE</span> <span class="token punctuation">[</span><span class="token keyword">IF</span> <span class="token keyword">EXISTS</span><span class="token punctuation">]</span> 資料表名稱<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+</li>
+</ul>
+<h3 id="2-3-查詢資料庫資料的內容"><a href="#2-3-查詢資料庫資料的內容" class="headerlink" title="2.3 查詢資料庫資料的內容"></a>2.3 查詢資料庫資料的內容</h3><p>  SQL 語法在應用上對於 DML(Data Manipulation Language)：查詢維護資料庫資料內容的語法在使用上是更重要的，無論是查詢資料庫或顯示資料庫的內容，更新或刪除資料庫中的資料，都必須依靠這些指令。其中重要的功能關鍵字有：</p>
+<ol>
+<li>SELECT：查詢選取資料庫中的資料。</li>
+<li>INSERT：新增資料到資料表中。</li>
+<li>UPDATE：更改資料表中的資料。</li>
+<li>DELETE：刪除資料表中的資料。</li>
+</ol>
+<ul>
+<li><p>SELECT：查詢資料<br>資料的查詢應是資料庫系統最重要的工作了，所以 SELECT 可能是 SQL 語法中最重要的指令，因為所有查詢資料的動作都必須由這個指令開始。</p>
+<p>SELECT 基本語法：<br><code>SELECT</code> 指令應用於使用者要向資料庫系統查詢資料的時候，其基本的語法格式如下：</p>
+<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">SELECT</span> 欄位名稱 <span class="token keyword">FROM</span> 資料表名稱<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p><strong>選取所有的欄位：</strong></p>
+<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">SELECT</span> <span class="token operator">*</span> <span class="token keyword">FROM</span> students<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p><strong>指定資料表選取欄位：</strong><br>基本格式如下：</p>
+<p><code>SELECT 資料表名稱.欄位名稱　FROM 資料表名稱；</code></p>
+<p>例:</p>
+<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">SELECT</span> <span class="token punctuation">`</span>students<span class="token punctuation">`</span><span class="token punctuation">.</span><span class="token punctuation">`</span>cName<span class="token punctuation">`</span> <span class="token keyword">FROM</span> <span class="token punctuation">`</span>students<span class="token punctuation">`</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p><strong>AS:設定選取欄位別名：</strong><br>在選取要顯示的欄位時，可能因為該欄位名稱不易判讀或是套用函式而不易顯示，可使用<code>AS</code>設定顯示時使用的別名，其基本的語法格式如下：</p>
+<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">SELECT</span> 欄位名稱 <span class="token keyword">AS</span> 欄位別名 <span class="token keyword">FROM</span> 資料表名稱；<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>例:</p>
+<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">SELECT</span> <span class="token punctuation">`</span>cID<span class="token punctuation">`</span> <span class="token keyword">AS</span> <span class="token string">'座號'</span><span class="token punctuation">,</span> <span class="token punctuation">`</span>cName<span class="token punctuation">`</span> <span class="token keyword">AS</span> <span class="token string">'姓名'</span> <span class="token keyword">FROM</span> <span class="token punctuation">`</span>students<span class="token punctuation">`</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p><strong>SELECT DISTINCT:去除重複資料顯示一筆：</strong><br>如果需要知道某個資料表欄位內有哪些不同的值，而每個值出現的次數並不重要時，可以使用 <code>SELECT DISTINCT</code> 的方式去達成，其基本的語法格式如下：</p>
+<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">SELECT</span> <span class="token keyword">DISTINCT</span> 欄位名稱　<span class="token keyword">FROM</span> 資料表名稱；<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>問 1: 想知道全班有幾種性別 ！<br>結果: <img src="/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/allen-5183/blog.allen5183.synology.me/images/mysql-34.png" class="nofancybox img-center"></p>
+</li>
+<li><p>WHERE：設定篩選條件<br>在查詢資料時，並不是每一次都要顯示所有的內容。我們可能會為顯示的資料設定一些條件，來篩選顯示的內容，這就是 <code>WHERE</code> 指令的功能。</p>
+<p><strong>WHERE 基本語法：</strong><br>WHERE 的基本語法格式為：</p>
+<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">SELECT</span> 欄位名稱 <span class="token keyword">FROM</span> 資料表名稱 <span class="token keyword">WHERE</span> 條件敘述句<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>問 2: 想要由 students 資料表中挑出所有男性的資料！<br>結果: <img src="/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/allen-5183/blog.allen5183.synology.me/images/mysql-35.png" class="nofancybox img-center"></p>
+<p><strong>比較運算子：</strong></p>
+<table>
+<thead>
+<tr>
+<th align="left">=</th>
+<th align="left">!=</th>
+<th align="left">&lt;&gt;</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">&gt;</td>
+<td align="left">&lt;=</td>
+<td align="left">IS NULL</td>
+</tr>
+</tbody></table>
+<p><strong>AND、OR、NOT：連接多個條件式：</strong><br>問 3: 想要由 students 資料表中找出座號大於<code>5</code>的男生<br>結果: <img src="/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/allen-5183/blog.allen5183.synology.me/images/mysql-36.png" class="nofancybox img-center"></p>
+<p>問 4: 想要由 students 資料表中找出座號不大於<code>5</code>的男生<br>結果: <img src="/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/allen-5183/blog.allen5183.synology.me/images/mysql-37.png" class="nofancybox img-center"></p>
+<p>問 5: 想要由 students 資料表中找出座號大於<code>5</code>的男生以外的資料<br>結果: <img src="/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/allen-5183/blog.allen5183.synology.me/images/mysql-38.png" class="nofancybox img-center"></p>
+</li>
+<li><p>BETWEEN … AND：設定篩選範圍<br>BETWEEN … AND 基本語法<br>BETWEEN … AND 設定篩選範圍是加在 WHERE 之後，它的基本語法格式為：</p>
+<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">SELECT</span> 欄位名稱 <span class="token keyword">FROM</span> 資料表名稱 <span class="token keyword">WHERE</span> 條件敘述句<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p><strong>設定數值篩選範圍：</strong><br>問 6: 由 students 資料表中找出座號大於<code>3</code>且小於<code>7</code>的學生資料<br>結果: <img src="/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/allen-5183/blog.allen5183.synology.me/images/mysql-39.png" class="nofancybox img-center"></p>
+<p><strong>設定日期時間範圍：</strong><br>問 7: 想要尋找日期在 <code>1987 ~ 1988</code> 之間的學生資料<br>結果: <img src="/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/allen-5183/blog.allen5183.synology.me/images/mysql-40.png" class="nofancybox img-center"></p>
+</li>
+<li><p>IN：指定多個篩選值<br><code>IN</code> 指定多個篩選值是加在 <code>WHERE</code> 之後，它的基本語法格式為：</p>
+<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">SELECT</span> 欄位名稱
+<span class="token keyword">FROM</span> 資料表名稱
+<span class="token keyword">WHERE</span> 欄位名稱 <span class="token operator">IN</span> <span class="token punctuation">(</span>欄位值<span class="token number">1</span><span class="token punctuation">,</span>欄位值<span class="token number">2</span><span class="token punctuation">,</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>若是設定篩選值時，若想要直接由某個欄位指定幾個值來顯示可以使用 IN 進行值的指定。指定的值必須放置在「()」左右括號中，每個值之間以「,」逗號區隔。<br>問 8: 想要由 students 資料表中找出座號為 1,3,5,7,9 的學生資料<br>結果: <img src="/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/allen-5183/blog.allen5183.synology.me/images/mysql-41.png" class="nofancybox img-center"></p>
+</li>
+<li><p>LIKE：設定字串比對的篩選值<br><strong>萬用字元的使用：</strong><br>在文字資料中常要找以某些文字開頭、某些文字結尾，或是字串中包含哪些文字的內容，此時即可以使用 <code>LIKE</code> 運算子，並搭配以下萬用字元來進行查詢：</p>
+<p>問 9:  想要由 students 資料表中，出電話號碼是「0918」開頭的學生資料<br>結果: <img src="/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/allen-5183/blog.allen5183.synology.me/images/mysql-42.png" class="nofancybox img-center"></p>
+<p>問10: 想要由 students 資料表中，找出學生的名字中有「林」這個字的學生資料。<br>結果: <img src="/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/allen-5183/blog.allen5183.synology.me/images/mysql-43.png" class="nofancybox img-center"></p>
+<p>問11: 想要由 students 資料表中，找出學生的地址中有「建國」這個字的資料。<br>結果: <img src="/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/allen-5183/blog.allen5183.synology.me/images/mysql-44.png" class="nofancybox img-center"></p>
+</li>
+<li><p>ORDER BY：設定查詢結果的排序<br><code>ORDER BY</code> 的功能是用來設定欄位，進行排序查詢結果，它的基本語法如下：</p>
+<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">SELECT</span> 欄位名稱
+<span class="token keyword">FROM</span> 資料表名稱
+<span class="token keyword">ORDER</span> <span class="token keyword">BY</span> 指定排序的欄位 排序方式<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>其中排序方式有二種：</p>
+<ol>
+<li><strong>ASC</strong>：遞增排序，由小排到大，也是未指定時預設的排序方法。</li>
+<li><strong>DESC</strong>：遞減排序，由大排到小。</li>
+</ol>
+<p>問12: 想要由 students 資料表所有同學的資料依生日遞減排序。<br>結果: <img src="/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/allen-5183/blog.allen5183.synology.me/images/mysql-45.png" class="nofancybox img-center"></p>
+<p>問13: 想要由 students 資料表所有同學的資料依性別遞增排序，再依生日遞減排序。<br>結果: <img src="/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/allen-5183/blog.allen5183.synology.me/images/mysql-46.png" class="nofancybox img-center"></p>
+</li>
+<li><p>LIMIT：設定查詢顯示的筆數<br>LIMIT 可以設定查詢後由哪一筆開始顯示，並顯示多少筆數，它的基本語法如下：</p>
+<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">SELECT</span> 欄位名稱
+<span class="token keyword">FROM</span> 資料表名稱
+<span class="token keyword">LIMIT</span> 開始顯示的筆數<span class="token punctuation">,</span>顯示多少筆資料<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>LIMIT 是由查詢後的結果再進行擷取資料的動作，如果與 ORDER BY 進行排序搭配可以輕易取得最前的 10 筆資料或是最後的 10 筆資料的結果。<br>也因為如此，LIMIT 在使用時必須放置在 ORDER BY 之後。</p>
+<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">SELECT</span> <span class="token operator">*</span> <span class="token keyword">FROM</span> <span class="token punctuation">`</span>students<span class="token punctuation">`</span> <span class="token keyword">ORDER</span> <span class="token keyword">BY</span> <span class="token punctuation">`</span>students<span class="token punctuation">`</span><span class="token punctuation">.</span><span class="token punctuation">`</span>cSex<span class="token punctuation">`</span> <span class="token keyword">ASC</span><span class="token punctuation">,</span> <span class="token punctuation">`</span>students<span class="token punctuation">`</span><span class="token punctuation">.</span><span class="token punctuation">`</span>cBirthday<span class="token punctuation">`</span> <span class="token keyword">DESC</span> <span class="token keyword">LIMIT</span> <span class="token number">5</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+</li>
+</ul>
+<h3 id="2-4-MySQL-常用函式"><a href="#2-4-MySQL-常用函式" class="headerlink" title="2.4 MySQL 常用函式"></a>2.4 MySQL 常用函式</h3><p>  <code>MySQL</code> 資料庫系統本身提供了許多函式可供使用者搜尋資料時進行相關的處理，以下將分成幾個較常使用的函式類別加以介紹。</p>
+<ul>
+<li><p>算術運算子與數學函式<br>面對數值資料欄位，可以使用算術運算子及數學函式對於欄位的值進行處理成為查詢結果。為了以下的範例說明，我們將要在「students」資料表新增二個欄位：「身高」、「體重」，其格式內容如下：</p>
+<table>
+<thead>
+<tr>
+<th align="left">名稱</th>
+<th align="left">欄位名稱</th>
+<th align="left">資料型態</th>
+<th align="left">屬性</th>
+<th align="left">NULL</th>
+<th align="left">其他</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">身高</td>
+<td align="left">cHeight</td>
+<td align="left">TINYINT(3)</td>
+<td align="left">UNSIGNED</td>
+<td align="left">是</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">體重</td>
+<td align="left">cWeight</td>
+<td align="left">TINYINT(3)</td>
+<td align="left">UNSIGNED</td>
+<td align="left">是</td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+<p>問14: 計算每個學生的標準體重，其公式為 <code>身高-70 x 0.6</code>，並顯示一欄計算目前體重與標準體重的差距。<br>結果: <img src="/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/allen-5183/blog.allen5183.synology.me/images/mysql-47.png" class="nofancybox img-center"></p>
+</li>
+<li><p>數學函數</p>
+<table>
+<thead>
+<tr>
+<th align="left">名稱</th>
+<th align="left">語法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">ABS()</td>
+<td align="left">ABS(數值)</td>
+</tr>
+<tr>
+<td align="left">POW()</td>
+<td align="left">POW(基數,次方數)</td>
+</tr>
+<tr>
+<td align="left">SQRT()</td>
+<td align="left">SQRT(數值)</td>
+</tr>
+<tr>
+<td align="left">PI()</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">ROUND()</td>
+<td align="left">ROUND(數值,小數位數)</td>
+</tr>
+</tbody></table>
+<p>問15: 每個學生的BMI值，其公式為:體重除以身高的平方 (BMI= kg / m^2)<br>結果: <img src="/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/allen-5183/blog.allen5183.synology.me/images/mysql-48.png" class="nofancybox"></p>
+<blockquote>
+<p>m 指單位: 公尺</p>
+</blockquote>
+</li>
+<li><p>日期時間函式<br>MySQL 可以使用日期時間函式處理資欄位或是語法中相關的部份，常用的函式如下：</p>
+<table>
+<thead>
+<tr>
+<th align="left">函式</th>
+<th align="left">說明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">NOW()</td>
+<td align="left">返回目前日期時間，格式為「YYYY-MM-DD HH:MM:SS」、「YYYYMMDD HHMMSS」或時戳記，依需求返回。</td>
+</tr>
+<tr>
+<td align="left">CURDATE()</td>
+<td align="left">返回目前系統年月日。也可寫為 CURRENT_DATE()，CURRENT_DATE。</td>
+</tr>
+<tr>
+<td align="left">CURTIME()</td>
+<td align="left">返回目前系統時分秒。 CURRENT_TIME()，CURRENT_TIME。</td>
+</tr>
+<tr>
+<td align="left">YEAR(日期時間)</td>
+<td align="left">返回指定時間的年份，範圍在 1000 到 9999。</td>
+</tr>
+<tr>
+<td align="left">MONTH(日期時間)</td>
+<td align="left">返回指定時間的月份，範圍在 1 到 12。</td>
+</tr>
+<tr>
+<td align="left">DAY(日期時間)</td>
+<td align="left">返回指定時間的日期，範圍在 1 到 31。</td>
+</tr>
+<tr>
+<td align="left">DATE(日期時間)</td>
+<td align="left">返回指定時間的年月日。</td>
+</tr>
+<tr>
+<td align="left">TIME(日期時間)</td>
+<td align="left">返回指定時間的時分秒。</td>
+</tr>
+<tr>
+<td align="left">HOUR(日期時間)</td>
+<td align="left">返回指定時間的小時，範圍在 0 到 23。</td>
+</tr>
+<tr>
+<td align="left">MINUTE(日期時間)</td>
+<td align="left">返回指定時間的分鐘，範圍在 0 到 59。</td>
+</tr>
+<tr>
+<td align="left">SECOND(日期時間)</td>
+<td align="left">返回指定時間的秒數，範圍在 0 到 59。</td>
+</tr>
+<tr>
+<td align="left">DAYNAME(日期時間)</td>
+<td align="left">返回指定時間的星期名，如 Sunday、Monday 等。</td>
+</tr>
+<tr>
+<td align="left">MONTHNAME(日期時間)</td>
+<td align="left">返回指定時間的月份名，如 January、Febrary。</td>
+</tr>
+<tr>
+<td align="left">QUARTER(日期時間)</td>
+<td align="left">返回指定時間一年中的季度，範圍 1 到 4。</td>
+</tr>
+<tr>
+<td align="left">DAYOFWEEK(日期時間)</td>
+<td align="left">返回指定時間的星期索引 (1=週日、2=周一、…7=週六)。</td>
+</tr>
+<tr>
+<td align="left">DAYOFMONTH(日期時間)</td>
+<td align="left">與 DAY() 相同, 返回指定時間的日期，範圍在 1 到 31 範圍內。</td>
+</tr>
+<tr>
+<td align="left">DAYOFYEAR(日期時間)</td>
+<td align="left">返回指定時間在一年中的日數，在 1 到 366 範圍內。</td>
+</tr>
+<tr>
+<td align="left">LAST_DAY(日期時間)</td>
+<td align="left">返回指定時間該月的最後一天，一般可用來判斷是否為閏年。</td>
+</tr>
+<tr>
+<td align="left">TO_DAYS(日期時間)</td>
+<td align="left">返回指定時間由西元元年到原目前的天數。</td>
+</tr>
+</tbody></table>
+<p>問16: 篩選出生日日期在星期二的同學<br>結果: <img src="/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/allen-5183/blog.allen5183.synology.me/images/mysql-49.png" class="nofancybox img-center"></p>
+<blockquote>
+<p>提示: 利用 DAYNAME() 函數得到 「cBirthday」欄位的星期名稱</p>
+</blockquote>
+<p>問17: 篩選大於 20 歲的同學<br>結果: <img src="/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/allen-5183/blog.allen5183.synology.me/images/mysql-50.png" class="nofancybox img-center"></p>
+<blockquote>
+<p>提示: 衍生屬性</p>
+</blockquote>
+</li>
+<li><p>統計函式<br>MySQL 的 SQL 語法還提供許多統計函式，可以總計出一些資料表中的彙整資料。為了以下的範例說明，我們要在「class」資料庫中再加入一個儲存成績的資料表：「scorelist」，以下是這個資料表欄位的規劃：</p>
+<table>
+<thead>
+<tr>
+<th align="left">名稱</th>
+<th align="left">欄位</th>
+<th align="left">資料型態</th>
+<th align="left">屬性</th>
+<th align="left">NULL</th>
+<th align="left">其他</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">編號</td>
+<td align="left">id</td>
+<td align="left">TINYINT(4)</td>
+<td align="left">UNSIGNED</td>
+<td align="left">否</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">座號</td>
+<td align="left">cID</td>
+<td align="left">TINYINT(2)</td>
+<td align="left">UNSIGNED ZEROFILL</td>
+<td align="left">否</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">科目</td>
+<td align="left">course</td>
+<td align="left">ENUM(‘國文’,’英文’,’數學’)</td>
+<td align="left"></td>
+<td align="left">否</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">分數</td>
+<td align="left">score</td>
+<td align="left">TINYINT(3)</td>
+<td align="left"></td>
+<td align="left">否</td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+<ul>
+<li><p>SUM():合計值<br>問18: 想要算出全班國文、英文及數學總分<br>結果: <img src="/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/allen-5183/blog.allen5183.synology.me/images/mysql-51.png" class="nofancybox img-center"></p>
+<p>問19: 想要算出全班國文總分<br>結果: <img src="/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/allen-5183/blog.allen5183.synology.me/images/mysql-52.png" class="nofancybox img-center"></p>
+</li>
+<li><p>AVG():平均值<br>問20: 想要算出全班國文的平均分數<br>結果: <img src="/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/allen-5183/blog.allen5183.synology.me/images/mysql-53.png" class="nofancybox img-center"></p>
+</li>
+<li><p>count():計次<br>問21: 由 students 資料表統計全班人數<br>結果: <img src="/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/allen-5183/blog.allen5183.synology.me/images/mysql-54.png" class="nofancybox img-center"></p>
+</li>
+<li><p>MAX()、MIN():最大值、最小值<br>問22: 找出全班國文最高分<br>結果: <img src="/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/allen-5183/blog.allen5183.synology.me/images/mysql-55.png" class="nofancybox img-center"></p>
+<p>問23: 找出全班數學最低分<br>結果: <img src="/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/allen-5183/blog.allen5183.synology.me/images/mysql-56.png" class="nofancybox img-center"></p>
+</li>
+<li><p>GROUP BY:分組排列<br>結果: 問24: 想要顯示每個學生的總分</p>
+<img src="/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/allen-5183/blog.allen5183.synology.me/images/mysql-57.png" class="nofancybox img-center">
+</li>
+<li><p>HAVING:GROUP BY 的條件式<br>若希望對 GROUP BY 的 SQL 敘述加上條件式的限制，就不能使用 WHERE 的方法，而是用 HAVING。</p>
+<p>問25: 想要顯示座號 1 到 5 同學的分數總計<br>結果:<img src="/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/allen-5183/blog.allen5183.synology.me/images/mysql-58.png" class="nofancybox img-center"></p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-5-新增、更新、刪除"><a href="#2-5-新增、更新、刪除" class="headerlink" title="2.5 新增、更新、刪除"></a>2.5 新增、更新、刪除</h3><p>  查詢雖然是資料庫中重要的功能，但是新增、更新與刪除資料的動作，才是維護資料庫內容的主要核心功能，以下將說明 SQL 語法中新增、更新與刪除資料的指令與語法。</p>
+<ul>
+<li><p>INSERT:新增資料<br>可以使用 <code>INSERT</code> 語法為資料表新增資料，其基本語法如下：</p>
+<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">INSERT</span> <span class="token punctuation">[</span><span class="token keyword">INTO</span><span class="token punctuation">]</span> 資料表名稱<span class="token punctuation">[</span><span class="token punctuation">(</span>欄位名稱<span class="token number">1</span><span class="token punctuation">,</span>欄位名稱<span class="token number">2</span><span class="token punctuation">,</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span><span class="token punctuation">]</span> <span class="token keyword">VALUE</span> <span class="token punctuation">(</span>值<span class="token number">1</span><span class="token punctuation">,</span> 值<span class="token number">2</span><span class="token punctuation">,</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p><strong>例:新增繼續新增 3 位同學進入 <code>students</code> 資料表</strong></p>
+<table>
+<thead>
+<tr>
+<th align="left">座號</th>
+<th align="left">姓名</th>
+<th align="left">性別</th>
+<th align="left">生日</th>
+<th align="left">電子郵件</th>
+<th align="left">電話</th>
+<th align="left">地址</th>
+<th align="left">身高</th>
+<th align="left">體重</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"></td>
+<td align="left">Bill1</td>
+<td align="left">男</td>
+<td align="left">1988-02-10</td>
+<td align="left"><a href="mailto:Bill1@bb.com">Bill1@bb.com</a></td>
+<td align="left">0925932221</td>
+<td align="left">台北</td>
+<td align="left">176</td>
+<td align="left">89</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left">Bill2</td>
+<td align="left">男</td>
+<td align="left">1988-02-10</td>
+<td align="left"><a href="mailto:Bill2@bb.com">Bill2@bb.com</a></td>
+<td align="left">0925932222</td>
+<td align="left">新竹</td>
+<td align="left">170</td>
+<td align="left">81</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left">Bill3</td>
+<td align="left">男</td>
+<td align="left">1988-02-10</td>
+<td align="left"><a href="mailto:Bill3@bb.com">Bill3@bb.com</a></td>
+<td align="left">0925932223</td>
+<td align="left">桃園</td>
+<td align="left">172</td>
+<td align="left">84</td>
+</tr>
+</tbody></table>
+<ul>
+<li><p>新增一筆資料</p>
+<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">INSERT</span> <span class="token keyword">INTO</span> <span class="token punctuation">`</span>students<span class="token punctuation">`</span> <span class="token punctuation">(</span><span class="token punctuation">`</span>cName<span class="token punctuation">`</span><span class="token punctuation">,</span><span class="token punctuation">`</span>cSex<span class="token punctuation">`</span><span class="token punctuation">,</span><span class="token punctuation">`</span>cBirthday<span class="token punctuation">`</span><span class="token punctuation">,</span><span class="token punctuation">`</span>cEmail<span class="token punctuation">`</span><span class="token punctuation">,</span><span class="token punctuation">`</span>cPhone<span class="token punctuation">`</span><span class="token punctuation">,</span><span class="token punctuation">`</span>cAddr<span class="token punctuation">`</span><span class="token punctuation">,</span><span class="token punctuation">`</span>cHeight<span class="token punctuation">`</span><span class="token punctuation">,</span><span class="token punctuation">`</span>cWeight<span class="token punctuation">`</span><span class="token punctuation">)</span> <span class="token keyword">VALUES</span><span class="token punctuation">(</span><span class="token string">'Bill1'</span><span class="token punctuation">,</span><span class="token string">'M'</span><span class="token punctuation">,</span><span class="token string">'1988-02-10'</span><span class="token punctuation">,</span><span class="token string">'Bill1@bb.com'</span><span class="token punctuation">,</span><span class="token string">'0925932221'</span><span class="token punctuation">,</span><span class="token string">'台北'</span><span class="token punctuation">,</span><span class="token string">'176'</span><span class="token punctuation">,</span><span class="token string">'89'</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+<li><p>新增多筆資料(以「,」加以區隔)</p>
+<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">INSERT</span> <span class="token keyword">INTO</span> <span class="token punctuation">`</span>students<span class="token punctuation">`</span> <span class="token punctuation">(</span><span class="token punctuation">`</span>cName<span class="token punctuation">`</span><span class="token punctuation">,</span><span class="token punctuation">`</span>cSex<span class="token punctuation">`</span><span class="token punctuation">,</span><span class="token punctuation">`</span>cBirthday<span class="token punctuation">`</span><span class="token punctuation">,</span><span class="token punctuation">`</span>cEmail<span class="token punctuation">`</span><span class="token punctuation">,</span><span class="token punctuation">`</span>cPhone<span class="token punctuation">`</span><span class="token punctuation">,</span><span class="token punctuation">`</span>cAddr<span class="token punctuation">`</span><span class="token punctuation">,</span><span class="token punctuation">`</span>cHeight<span class="token punctuation">`</span><span class="token punctuation">,</span><span class="token punctuation">`</span>cWeight<span class="token punctuation">`</span><span class="token punctuation">)</span> <span class="token keyword">VALUES</span> <span class="token punctuation">(</span><span class="token string">'Bill2'</span><span class="token punctuation">,</span><span class="token string">'M'</span><span class="token punctuation">,</span><span class="token string">'1988-02-10'</span><span class="token punctuation">,</span><span class="token string">'Bill2@bb.com'</span><span class="token punctuation">,</span><span class="token string">'0925932223'</span><span class="token punctuation">,</span><span class="token string">'台北'</span><span class="token punctuation">,</span><span class="token string">'170'</span><span class="token punctuation">,</span><span class="token string">'81'</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token punctuation">(</span><span class="token string">'Bill3'</span><span class="token punctuation">,</span><span class="token string">'M'</span><span class="token punctuation">,</span><span class="token string">'1988-02-10'</span><span class="token punctuation">,</span><span class="token string">'Bill3@bb.com'</span><span class="token punctuation">,</span><span class="token string">'0925932223'</span><span class="token punctuation">,</span><span class="token string">'台北'</span><span class="token punctuation">,</span><span class="token string">'172'</span><span class="token punctuation">,</span><span class="token string">'84'</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+</ul>
+</li>
+<li><p>UPDATE:更新資料<br>可以使用 <code>UPDATE</code> 語法為資料表更新資料，其基本語法如下：</p>
+<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">UPDATE</span> 資料表名稱
+<span class="token keyword">SET</span> 欄位名稱<span class="token number">1</span> <span class="token operator">=</span> 值<span class="token number">1</span><span class="token punctuation">,</span> 欄位名稱<span class="token number">2</span> <span class="token operator">=</span> 值<span class="token number">2</span><span class="token punctuation">,</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token keyword">WHERE</span> 條件式<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<blockquote>
+<p>UPDATE 更新資料的動作可以一次更動多筆資料的內容，所以 <code>WHERE</code> 後加上的條件式十分重要，只要符合條件的資料內容即會進行更新的動作，要特別注意。</p>
+</blockquote>
+<ul>
+<li><p>問 26: 要修改座號為 <code>11</code> 同學的身高體重。</p>
+</li>
+<li><p>解 26:</p>
+<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">UPDATE</span> <span class="token punctuation">`</span>students<span class="token punctuation">`</span> <span class="token keyword">SET</span> <span class="token punctuation">`</span>cHeight<span class="token punctuation">`</span><span class="token operator">=</span><span class="token number">174</span><span class="token punctuation">,</span> <span class="token punctuation">`</span>cWeight<span class="token punctuation">`</span><span class="token operator">=</span><span class="token number">92</span> <span class="token keyword">WHERE</span> <span class="token punctuation">`</span>cID<span class="token punctuation">`</span><span class="token operator">=</span><span class="token number">11</span><span class="token punctuation">`</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+</ul>
+</li>
+<li><p>DELETE:刪除資料<br>可以使用 <code>DELETE</code> 語法為資料表刪除資料，其基本語法如下：</p>
+<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">DELETE</span> <span class="token keyword">FROM</span> 資料表名稱
+<span class="token keyword">WHERE</span> 條件式<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p><code>DELETE</code> 刪除資料的動作可以一次刪除多筆資料的內容，所以 <code>WHERE</code> 後加上的條件式十分重要，只要符合條件的資料內容即會進行刪除的動作，要特別注意。</p>
+<ul>
+<li><p>問 27: 刪除座號大於 <code>11</code> 的同學的資料。</p>
+</li>
+<li><p>解 27:</p>
+<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">DELETE</span> <span class="token keyword">FROM</span> <span class="token punctuation">`</span>students<span class="token punctuation">`</span> <span class="token keyword">WHERE</span> <span class="token punctuation">`</span>cID<span class="token punctuation">`</span><span class="token operator">&gt;</span><span class="token number">11</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-6-多資料表關聯查詢"><a href="#2-6-多資料表關聯查詢" class="headerlink" title="2.6 多資料表關聯查詢"></a>2.6 多資料表關聯查詢</h3><p>  除了在一個資料表中選取欄位進行查詢，我們也可以在多個資料表中之中選取不同的欄位，進行查詢的動作。這樣的查詢方式是必須有前提的，那就是資料表之間要有一欄可以指定相關或是建立關聯。</p>
+<ul>
+<li><p>結合資料表的查詢<br>結合資料表的基本語法，若要結合二個資料表的基本語法如下：</p>
+<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">SELECT</span> 顯示欄位<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token keyword">FROM</span> 資料表_A<span class="token punctuation">,</span> 資料表_B
+<span class="token keyword">WHERE</span> 資料表_A<span class="token punctuation">.</span>相關欄位 <span class="token operator">=</span> 資料表_B<span class="token punctuation">.</span>相關欄位<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<img src="/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/allen-5183/blog.allen5183.synology.me/images/mysql_relation.png" class="nofancybox img-center">
+
+<ul>
+<li><p>問 28: 在「class」資料庫中 students 資料表與「scorelist」資料表，分別記錄著學生的個人資料及成績。在這兩個資料表中可以使用 <code>cID</code> 欄位結合並進行查詢。</p>
+</li>
+<li><p>解 28:</p>
+<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">SELECT</span> <span class="token punctuation">`</span>students<span class="token punctuation">`</span><span class="token punctuation">.</span><span class="token punctuation">`</span>cID<span class="token punctuation">`</span><span class="token punctuation">,</span><span class="token punctuation">`</span>scorelist<span class="token punctuation">`</span><span class="token punctuation">.</span><span class="token punctuation">`</span>course<span class="token punctuation">`</span><span class="token punctuation">,</span><span class="token punctuation">`</span>scorelist<span class="token punctuation">`</span><span class="token punctuation">.</span><span class="token punctuation">`</span>score<span class="token punctuation">`</span>  <span class="token keyword">FROM</span> <span class="token punctuation">`</span>students<span class="token punctuation">`</span><span class="token punctuation">,</span> <span class="token punctuation">`</span>scorelist<span class="token punctuation">`</span> <span class="token keyword">WHERE</span> <span class="token punctuation">`</span>students<span class="token punctuation">`</span><span class="token punctuation">.</span><span class="token punctuation">`</span>cID<span class="token punctuation">`</span> <span class="token operator">=</span> <span class="token punctuation">`</span>scorelist<span class="token punctuation">`</span><span class="token punctuation">.</span><span class="token punctuation">`</span>cID<span class="token punctuation">`</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+<li><p>問 29: 在「class」資料庫中 students 資料表與「scorelist」資料表，分別記錄著學生的個人資料及成績。使用 <code>cID</code> 欄位結合並進行查詢，顯示出學生座號、姓名及其國文成績的查詢。</p>
+</li>
+<li><p>解 29:</p>
+<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">SELECT</span> <span class="token punctuation">`</span>students<span class="token punctuation">`</span><span class="token punctuation">.</span><span class="token punctuation">`</span>cID<span class="token punctuation">`</span><span class="token punctuation">,</span> <span class="token punctuation">`</span>students<span class="token punctuation">`</span><span class="token punctuation">.</span><span class="token punctuation">`</span>cName<span class="token punctuation">`</span><span class="token punctuation">,</span> <span class="token punctuation">`</span>scorelist<span class="token punctuation">`</span><span class="token punctuation">.</span><span class="token punctuation">`</span>score<span class="token punctuation">`</span> <span class="token keyword">FROM</span> <span class="token punctuation">`</span>students<span class="token punctuation">`</span><span class="token punctuation">,</span> <span class="token punctuation">`</span>scorelist<span class="token punctuation">`</span> <span class="token keyword">WHERE</span> <span class="token punctuation">`</span>students<span class="token punctuation">`</span><span class="token punctuation">.</span><span class="token punctuation">`</span>cID<span class="token punctuation">`</span> <span class="token operator">=</span> <span class="token punctuation">`</span>scorelist<span class="token punctuation">`</span><span class="token punctuation">.</span><span class="token punctuation">`</span>cID<span class="token punctuation">`</span> <span class="token operator">AND</span> <span class="token punctuation">`</span>scorelist<span class="token punctuation">`</span><span class="token punctuation">.</span><span class="token punctuation">`</span>course<span class="token punctuation">`</span><span class="token operator">=</span><span class="token string">'國文 '</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+<li><p>問 30: 在「class」資料庫中 students 資料表與「scorelist」資料表，分別記錄著學生的個人資料及成績。使用 <code>cID</code> 欄位結合並進行查詢，想要顯示同學的座號、姓名、總分及總平均的查詢。</p>
+</li>
+<li><p>解 30:</p>
+<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">SELECT</span> <span class="token punctuation">`</span>students<span class="token punctuation">`</span><span class="token punctuation">.</span><span class="token punctuation">`</span>cID<span class="token punctuation">`</span><span class="token punctuation">,</span> <span class="token punctuation">`</span>students<span class="token punctuation">`</span><span class="token punctuation">.</span><span class="token punctuation">`</span>cName<span class="token punctuation">`</span><span class="token punctuation">,</span> <span class="token function">SUM</span><span class="token punctuation">(</span><span class="token punctuation">`</span>scorelist<span class="token punctuation">`</span><span class="token punctuation">.</span><span class="token punctuation">`</span>score<span class="token punctuation">`</span><span class="token punctuation">)</span> <span class="token keyword">AS</span> <span class="token punctuation">`</span>總分<span class="token punctuation">`</span><span class="token punctuation">,</span> <span class="token function">AVG</span><span class="token punctuation">(</span><span class="token punctuation">`</span>scorelist<span class="token punctuation">`</span><span class="token punctuation">.</span><span class="token punctuation">`</span>score<span class="token punctuation">`</span><span class="token punctuation">)</span> <span class="token keyword">AS</span> <span class="token punctuation">`</span>平均<span class="token punctuation">`</span> <span class="token keyword">FROM</span> <span class="token punctuation">`</span>students<span class="token punctuation">`</span><span class="token punctuation">,</span><span class="token punctuation">`</span>scorelist<span class="token punctuation">`</span> <span class="token keyword">WHERE</span> <span class="token punctuation">`</span>students<span class="token punctuation">`</span><span class="token punctuation">.</span><span class="token punctuation">`</span>cID<span class="token punctuation">`</span> <span class="token operator">=</span> <span class="token punctuation">`</span>scorelist<span class="token punctuation">`</span><span class="token punctuation">.</span><span class="token punctuation">`</span>cID<span class="token punctuation">`</span> <span class="token keyword">GROUP</span> <span class="token keyword">BY</span> <span class="token punctuation">`</span>students<span class="token punctuation">`</span><span class="token punctuation">.</span><span class="token punctuation">`</span>cID<span class="token punctuation">`</span> <span class="token keyword">ORDER</span> <span class="token keyword">BY</span> <span class="token punctuation">`</span>總分<span class="token punctuation">`</span> <span class="token keyword">DESC</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<img src="/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/allen-5183/blog.allen5183.synology.me/images/mysql_relation2.png" class="nofancybox img-center">
+
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-7-使用-JOIN-結合資料表"><a href="#2-7-使用-JOIN-結合資料表" class="headerlink" title="2.7 使用 JOIN 結合資料表"></a>2.7 使用 JOIN 結合資料表</h3><ul>
+<li><p>JOIN 的基本語法</p>
+<ul>
+<li><p>若要 JOIN 語法結合二個資料表的基本語法如下：</p>
+<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">SELECT</span> 顯示欄位<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token keyword">FROM</span> 資料表_A<span class="token punctuation">[</span><span class="token keyword">INNER</span><span class="token punctuation">]</span> <span class="token keyword">JOIN</span> 資料表_B
+<span class="token keyword">ON</span> 資料表_A<span class="token punctuation">.</span>相關欄位 <span class="token operator">=</span> 資料表_B<span class="token punctuation">.</span>相關欄位<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>另一個方式為：</p>
+<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">SELECT</span> 顯示欄位<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token keyword">FROM</span> 資料表_A<span class="token punctuation">[</span><span class="token keyword">INNER</span><span class="token punctuation">]</span> <span class="token keyword">JOIN</span> 資料表_B
+<span class="token keyword">USING</span><span class="token punctuation">(</span>相關欄位<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+</li>
+</ul>
+<blockquote>
+<p>無論何種方式結合資料表，會顯示的資料必須在兩邊資料表有資料，只要有一方法有，即不會出現在結果中。例如有一個學生沒有登錄成績，就不會顯示結果中，如此很容易有漏失資訊的情況。</p>
+</blockquote>
+</li>
+<li><p>例:顯示出學生座號、姓名及其國文成績的查詢。</p>
+<ul>
+<li><p>使用 <code>JOIN</code></p>
+<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">SELECT</span> <span class="token punctuation">`</span>students<span class="token punctuation">`</span><span class="token punctuation">.</span><span class="token punctuation">`</span>cID<span class="token punctuation">`</span><span class="token punctuation">,</span> <span class="token punctuation">`</span>students<span class="token punctuation">`</span><span class="token punctuation">.</span><span class="token punctuation">`</span>cName<span class="token punctuation">`</span><span class="token punctuation">,</span><span class="token punctuation">`</span>scorelist<span class="token punctuation">`</span><span class="token punctuation">.</span><span class="token punctuation">`</span>score<span class="token punctuation">`</span> <span class="token keyword">FROM</span> <span class="token punctuation">`</span>students<span class="token punctuation">`</span> <span class="token keyword">JOIN</span> <span class="token punctuation">`</span>scorelist<span class="token punctuation">`</span> <span class="token keyword">WHERE</span> <span class="token punctuation">`</span>scorelist<span class="token punctuation">`</span><span class="token punctuation">.</span><span class="token punctuation">`</span>course<span class="token punctuation">`</span> <span class="token operator">=</span> <span class="token string">'國文'</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+</ul>
+</li>
+<li><p>例:希望可以列出全班同學每個人的成績總分與平均。</p>
+<ul>
+<li><p>使用<strong>結合資料表基本語法</strong></p>
+<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">SELECT</span> <span class="token punctuation">`</span>students<span class="token punctuation">`</span><span class="token punctuation">.</span><span class="token punctuation">`</span>cID<span class="token punctuation">`</span><span class="token punctuation">,</span> <span class="token punctuation">`</span>students<span class="token punctuation">`</span><span class="token punctuation">.</span><span class="token punctuation">`</span>cName<span class="token punctuation">`</span><span class="token punctuation">,</span> <span class="token function">SUM</span><span class="token punctuation">(</span><span class="token punctuation">`</span>scorelist<span class="token punctuation">`</span><span class="token punctuation">.</span><span class="token punctuation">`</span>score<span class="token punctuation">`</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token function">AVG</span><span class="token punctuation">(</span><span class="token punctuation">`</span>scorelist<span class="token punctuation">`</span><span class="token punctuation">.</span><span class="token punctuation">`</span>score<span class="token punctuation">`</span><span class="token punctuation">)</span> <span class="token keyword">FROM</span> <span class="token punctuation">`</span>students<span class="token punctuation">`</span><span class="token punctuation">,</span><span class="token punctuation">`</span>scorelist<span class="token punctuation">`</span> <span class="token keyword">WHERE</span> <span class="token punctuation">`</span>students<span class="token punctuation">`</span><span class="token punctuation">.</span><span class="token punctuation">`</span>cID<span class="token punctuation">`</span> <span class="token operator">=</span> <span class="token punctuation">`</span>scorelist<span class="token punctuation">`</span><span class="token punctuation">.</span><span class="token punctuation">`</span>cID<span class="token punctuation">`</span> <span class="token keyword">GROUP</span> <span class="token keyword">BY</span> <span class="token punctuation">`</span>students<span class="token punctuation">`</span><span class="token punctuation">.</span><span class="token punctuation">`</span>cID<span class="token punctuation">`</span><span class="token punctuation">,</span> <span class="token punctuation">`</span>students<span class="token punctuation">`</span><span class="token punctuation">.</span><span class="token punctuation">`</span>cName<span class="token punctuation">`</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<img src="/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/allen-5183/blog.allen5183.synology.me/images/mysql_relation4.png" class="nofancybox img-center">
+</li>
+<li><p>LEFT JOIN、RIGHT JOIN 語法</p>
+<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">SELECT</span> 顯示欄位 <span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token keyword">FROM</span> 資料表 A <span class="token keyword">LEFT</span><span class="token operator">|</span><span class="token keyword">RIGHT</span> <span class="token keyword">JOIN</span> 資料表 B
+<span class="token keyword">ON</span> A<span class="token punctuation">.</span>相關欄位＝ B<span class="token punctuation">.</span>相關欄位<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<ul>
+<li><p>使用 JOIN 基本語法：</p>
+<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">SELECT</span> <span class="token punctuation">`</span>students<span class="token punctuation">`</span><span class="token punctuation">.</span><span class="token punctuation">`</span>cID<span class="token punctuation">`</span><span class="token punctuation">,</span> <span class="token punctuation">`</span>students<span class="token punctuation">`</span><span class="token punctuation">.</span><span class="token punctuation">`</span>cName<span class="token punctuation">`</span><span class="token punctuation">,</span> <span class="token function">SUM</span><span class="token punctuation">(</span><span class="token punctuation">`</span>scorelist<span class="token punctuation">`</span><span class="token punctuation">.</span><span class="token punctuation">`</span>score<span class="token punctuation">`</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">AVG</span><span class="token punctuation">(</span><span class="token punctuation">`</span>scorelist<span class="token punctuation">`</span><span class="token punctuation">.</span>score<span class="token punctuation">`</span><span class="token punctuation">)</span> <span class="token keyword">FROM</span> <span class="token punctuation">`</span>students<span class="token punctuation">`</span> <span class="token keyword">JOIN</span> <span class="token punctuation">`</span>scorelist<span class="token punctuation">`</span> <span class="token keyword">ON</span> <span class="token punctuation">`</span>students<span class="token punctuation">`</span><span class="token punctuation">.</span><span class="token punctuation">`</span>cID<span class="token punctuation">`</span> <span class="token operator">=</span> <span class="token punctuation">`</span>scorelist<span class="token punctuation">`</span><span class="token punctuation">.</span><span class="token punctuation">`</span>cID<span class="token punctuation">`</span> <span class="token keyword">GROUP</span> <span class="token keyword">BY</span> <span class="token punctuation">`</span>students<span class="token punctuation">`</span><span class="token punctuation">.</span><span class="token punctuation">`</span>cID<span class="token punctuation">`</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<img src="/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/allen-5183/blog.allen5183.synology.me/images/mysql_relation5_1.png" class="nofancybox img-center">
+</li>
+<li><p>使用 LEFT JOIN：</p>
+<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">SELECT</span> <span class="token punctuation">`</span>students<span class="token punctuation">`</span><span class="token punctuation">.</span><span class="token punctuation">`</span>cID<span class="token punctuation">`</span><span class="token punctuation">,</span> <span class="token punctuation">`</span>students<span class="token punctuation">`</span><span class="token punctuation">.</span><span class="token punctuation">`</span>cName<span class="token punctuation">`</span><span class="token punctuation">,</span> <span class="token function">SUM</span><span class="token punctuation">(</span><span class="token punctuation">`</span>scorelist<span class="token punctuation">`</span><span class="token punctuation">.</span><span class="token punctuation">`</span>score<span class="token punctuation">`</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">AVG</span><span class="token punctuation">(</span><span class="token punctuation">`</span>scorelist<span class="token punctuation">`</span><span class="token punctuation">.</span><span class="token punctuation">`</span>score<span class="token punctuation">`</span><span class="token punctuation">)</span> <span class="token keyword">FROM</span> <span class="token punctuation">`</span>students<span class="token punctuation">`</span> <span class="token keyword">LEFT</span> <span class="token keyword">JOIN</span> <span class="token punctuation">`</span>scorelist<span class="token punctuation">`</span> <span class="token keyword">ON</span> <span class="token punctuation">`</span>students<span class="token punctuation">`</span><span class="token punctuation">.</span><span class="token punctuation">`</span>cID<span class="token punctuation">`</span> <span class="token operator">=</span> <span class="token punctuation">`</span>scorelist<span class="token punctuation">`</span><span class="token punctuation">.</span><span class="token punctuation">`</span>cID<span class="token punctuation">`</span> <span class="token keyword">GROUP</span> <span class="token keyword">BY</span> <span class="token punctuation">`</span>students<span class="token punctuation">`</span><span class="token punctuation">.</span><span class="token punctuation">`</span>cID<span class="token punctuation">`</span><span class="token punctuation">,</span> <span class="token punctuation">`</span>students<span class="token punctuation">`</span><span class="token punctuation">.</span><span class="token punctuation">`</span>cName<span class="token punctuation">`</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<img src="/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/allen-5183/blog.allen5183.synology.me/images/mysql_relation5_2.png" class="nofancybox img-center">
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>練習</p>
+<ul>
+<li><p>mysql</p>
+<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token comment">--</span>
+<span class="token comment">-- 資料庫： `mydatabase`</span>
+<span class="token comment">--</span>
+<span class="token keyword">CREATE</span> <span class="token keyword">DATABASE</span> <span class="token keyword">IF</span> <span class="token operator">NOT</span> <span class="token keyword">EXISTS</span> <span class="token punctuation">`</span>mydatabase<span class="token punctuation">`</span> <span class="token keyword">DEFAULT</span> <span class="token keyword">CHARACTER</span> <span class="token keyword">SET</span> utf8 <span class="token keyword">COLLATE</span> utf8_unicode_ci<span class="token punctuation">;</span>
+<span class="token keyword">USE</span> <span class="token punctuation">`</span>mydatabase<span class="token punctuation">`</span><span class="token punctuation">;</span>
+<span class="token comment">--</span>
+<span class="token comment">-- 資料表結構 `grade`</span>
+<span class="token comment">--</span>
+<span class="token keyword">DROP</span> <span class="token keyword">TABLE</span> <span class="token keyword">IF</span> <span class="token keyword">EXISTS</span> <span class="token punctuation">`</span>grade<span class="token punctuation">`</span><span class="token punctuation">;</span>
+<span class="token keyword">CREATE</span> <span class="token keyword">TABLE</span> <span class="token keyword">IF</span> <span class="token operator">NOT</span> <span class="token keyword">EXISTS</span> <span class="token punctuation">`</span>grade<span class="token punctuation">`</span> <span class="token punctuation">(</span>
+  <span class="token punctuation">`</span>GID<span class="token punctuation">`</span> <span class="token keyword">int</span><span class="token punctuation">(</span><span class="token number">11</span><span class="token punctuation">)</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+  <span class="token punctuation">`</span>SNO<span class="token punctuation">`</span> <span class="token keyword">varchar</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span> <span class="token keyword">COLLATE</span> utf8_unicode_ci <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+  <span class="token punctuation">`</span>COURSE<span class="token punctuation">`</span> <span class="token keyword">varchar</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span> <span class="token keyword">COLLATE</span> utf8_unicode_ci <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+  <span class="token punctuation">`</span>SCORE<span class="token punctuation">`</span> <span class="token keyword">int</span><span class="token punctuation">(</span><span class="token number">11</span><span class="token punctuation">)</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span>
+<span class="token punctuation">)</span> <span class="token keyword">ENGINE</span><span class="token operator">=</span><span class="token keyword">InnoDB</span> <span class="token keyword">DEFAULT</span> <span class="token keyword">CHARSET</span><span class="token operator">=</span>utf8 <span class="token keyword">COLLATE</span><span class="token operator">=</span>utf8_unicode_ci<span class="token punctuation">;</span>
+<span class="token comment">--</span>
+<span class="token comment">-- 資料表的匯出資料 `grade`</span>
+<span class="token comment">--</span>
+<span class="token keyword">INSERT</span> <span class="token keyword">INTO</span> <span class="token punctuation">`</span>grade<span class="token punctuation">`</span> <span class="token punctuation">(</span><span class="token punctuation">`</span>GID<span class="token punctuation">`</span><span class="token punctuation">,</span> <span class="token punctuation">`</span>SNO<span class="token punctuation">`</span><span class="token punctuation">,</span> <span class="token punctuation">`</span>COURSE<span class="token punctuation">`</span><span class="token punctuation">,</span> <span class="token punctuation">`</span>SCORE<span class="token punctuation">`</span><span class="token punctuation">)</span> <span class="token keyword">VALUES</span>
+<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token string">'1001'</span><span class="token punctuation">,</span> <span class="token string">'CHI'</span><span class="token punctuation">,</span> <span class="token number">70</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token string">'1002'</span><span class="token punctuation">,</span> <span class="token string">'ENG'</span><span class="token punctuation">,</span> <span class="token number">80</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+<span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token string">'1002'</span><span class="token punctuation">,</span> <span class="token string">'MATH'</span><span class="token punctuation">,</span> <span class="token number">90</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+<span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">,</span> <span class="token string">'1003'</span><span class="token punctuation">,</span> <span class="token string">'CHI'</span><span class="token punctuation">,</span> <span class="token number">80</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+<span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">,</span> <span class="token string">'1003'</span><span class="token punctuation">,</span> <span class="token string">'ENG'</span><span class="token punctuation">,</span> <span class="token number">70</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+<span class="token punctuation">(</span><span class="token number">6</span><span class="token punctuation">,</span> <span class="token string">'1003'</span><span class="token punctuation">,</span> <span class="token string">'ENG'</span><span class="token punctuation">,</span> <span class="token number">70</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+<span class="token punctuation">(</span><span class="token number">7</span><span class="token punctuation">,</span> <span class="token string">'1005'</span><span class="token punctuation">,</span> <span class="token string">'CHI'</span><span class="token punctuation">,</span> <span class="token number">50</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">--</span>
+<span class="token comment">-- 資料表結構 `student`</span>
+<span class="token comment">--</span>
+<span class="token keyword">DROP</span> <span class="token keyword">TABLE</span> <span class="token keyword">IF</span> <span class="token keyword">EXISTS</span> <span class="token punctuation">`</span>student<span class="token punctuation">`</span><span class="token punctuation">;</span>
+<span class="token keyword">CREATE</span> <span class="token keyword">TABLE</span> <span class="token keyword">IF</span> <span class="token operator">NOT</span> <span class="token keyword">EXISTS</span> <span class="token punctuation">`</span>student<span class="token punctuation">`</span> <span class="token punctuation">(</span>
+  <span class="token punctuation">`</span>SNO<span class="token punctuation">`</span> <span class="token keyword">varchar</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span> <span class="token keyword">COLLATE</span> utf8_unicode_ci <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+  <span class="token punctuation">`</span>SNAME<span class="token punctuation">`</span> <span class="token keyword">varchar</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span> <span class="token keyword">COLLATE</span> utf8_unicode_ci <span class="token operator">NOT</span> <span class="token boolean">NULL</span>
+<span class="token punctuation">)</span> <span class="token keyword">ENGINE</span><span class="token operator">=</span><span class="token keyword">InnoDB</span> <span class="token keyword">DEFAULT</span> <span class="token keyword">CHARSET</span><span class="token operator">=</span>utf8 <span class="token keyword">COLLATE</span><span class="token operator">=</span>utf8_unicode_ci<span class="token punctuation">;</span>
+<span class="token comment">--</span>
+<span class="token comment">-- 資料表的匯出資料 `student`</span>
+<span class="token comment">--</span>
+<span class="token keyword">INSERT</span> <span class="token keyword">INTO</span> <span class="token punctuation">`</span>student<span class="token punctuation">`</span> <span class="token punctuation">(</span><span class="token punctuation">`</span>SNO<span class="token punctuation">`</span><span class="token punctuation">,</span> <span class="token punctuation">`</span>SNAME<span class="token punctuation">`</span><span class="token punctuation">)</span> <span class="token keyword">VALUES</span>
+<span class="token punctuation">(</span><span class="token string">'1001'</span><span class="token punctuation">,</span> <span class="token string">'JOHN'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+<span class="token punctuation">(</span><span class="token string">'1002'</span><span class="token punctuation">,</span> <span class="token string">'MARY'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+<span class="token punctuation">(</span><span class="token string">'1003'</span><span class="token punctuation">,</span> <span class="token string">'TOM'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+<span class="token punctuation">(</span><span class="token string">'1004'</span><span class="token punctuation">,</span> <span class="token string">'JERRY'</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>資料庫: MYDATABASE</p>
+</li>
+<li><p>資料表(): STUDENT</p>
+<table>
+<thead>
+<tr>
+<th align="left">SNO</th>
+<th align="left">SNAME</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">CHAR(10)</td>
+<td align="left">CHAR(10)</td>
+</tr>
+<tr>
+<td align="left">1001</td>
+<td align="left">JOHN</td>
+</tr>
+<tr>
+<td align="left">1002</td>
+<td align="left">MARY</td>
+</tr>
+<tr>
+<td align="left">1003</td>
+<td align="left">TOM</td>
+</tr>
+<tr>
+<td align="left">1004</td>
+<td align="left">JERRY</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>資料表(): GRADE</p>
+<table>
+<thead>
+<tr>
+<th align="left">GID</th>
+<th align="left">SNO</th>
+<th align="left">COURSE</th>
+<th align="left">SCORE</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">INT</td>
+<td align="left">CHAR(10)</td>
+<td align="left">CHAR(10)</td>
+<td align="left">INT</td>
+</tr>
+<tr>
+<td align="left">1</td>
+<td align="left">1001</td>
+<td align="left">CHI</td>
+<td align="left">70</td>
+</tr>
+<tr>
+<td align="left">2</td>
+<td align="left">1002</td>
+<td align="left">ENG</td>
+<td align="left">80</td>
+</tr>
+<tr>
+<td align="left">3</td>
+<td align="left">1002</td>
+<td align="left">MATH</td>
+<td align="left">90</td>
+</tr>
+<tr>
+<td align="left">4</td>
+<td align="left">1003</td>
+<td align="left">CHI</td>
+<td align="left">80</td>
+</tr>
+<tr>
+<td align="left">5</td>
+<td align="left">1003</td>
+<td align="left">ENG</td>
+<td align="left">70</td>
+</tr>
+<tr>
+<td align="left">6</td>
+<td align="left">1003</td>
+<td align="left">MATH</td>
+<td align="left">60</td>
+</tr>
+<tr>
+<td align="left">7</td>
+<td align="left">1005</td>
+<td align="left">CHI</td>
+<td align="left">50</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>使用 JOIN</p>
+<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">select</span> <span class="token punctuation">`</span>student<span class="token punctuation">`</span><span class="token punctuation">.</span><span class="token punctuation">`</span>SNO<span class="token punctuation">`</span><span class="token punctuation">,</span><span class="token punctuation">`</span>student<span class="token punctuation">`</span><span class="token punctuation">.</span><span class="token punctuation">`</span>SNAME<span class="token punctuation">`</span><span class="token punctuation">,</span><span class="token punctuation">`</span>grade<span class="token punctuation">`</span><span class="token punctuation">.</span><span class="token punctuation">`</span>COURSE<span class="token punctuation">`</span><span class="token punctuation">,</span><span class="token punctuation">`</span>grade<span class="token punctuation">`</span><span class="token punctuation">.</span><span class="token punctuation">`</span>SCORE<span class="token punctuation">`</span>
+<span class="token keyword">FROM</span> <span class="token punctuation">`</span>student<span class="token punctuation">`</span> <span class="token keyword">JOIN</span> <span class="token punctuation">`</span>grade<span class="token punctuation">`</span>
+<span class="token keyword">ON</span> <span class="token punctuation">`</span>student<span class="token punctuation">`</span><span class="token punctuation">.</span><span class="token punctuation">`</span>SNO<span class="token punctuation">`</span> <span class="token operator">=</span> <span class="token punctuation">`</span>grade<span class="token punctuation">`</span><span class="token punctuation">.</span><span class="token punctuation">`</span>SNO<span class="token punctuation">`</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>使用 JOIN LEFT</p>
+<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">select</span> <span class="token punctuation">`</span>student<span class="token punctuation">`</span><span class="token punctuation">.</span><span class="token punctuation">`</span>SNO<span class="token punctuation">`</span><span class="token punctuation">,</span><span class="token punctuation">`</span>student<span class="token punctuation">`</span><span class="token punctuation">.</span><span class="token punctuation">`</span>SNAME<span class="token punctuation">`</span><span class="token punctuation">,</span><span class="token punctuation">`</span>grade<span class="token punctuation">`</span><span class="token punctuation">.</span><span class="token punctuation">`</span>COURSE<span class="token punctuation">`</span><span class="token punctuation">,</span><span class="token punctuation">`</span>grade<span class="token punctuation">`</span><span class="token punctuation">.</span><span class="token punctuation">`</span>SCORE<span class="token punctuation">`</span>
+<span class="token keyword">FROM</span> <span class="token punctuation">`</span>student<span class="token punctuation">`</span> <span class="token keyword">LEFT</span> <span class="token keyword">JOIN</span> <span class="token punctuation">`</span>grade<span class="token punctuation">`</span>
+<span class="token keyword">ON</span> <span class="token punctuation">`</span>student<span class="token punctuation">`</span><span class="token punctuation">.</span><span class="token punctuation">`</span>SNO<span class="token punctuation">`</span> <span class="token operator">=</span> <span class="token punctuation">`</span>grade<span class="token punctuation">`</span><span class="token punctuation">.</span><span class="token punctuation">`</span>SNO<span class="token punctuation">`</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>使用 JOIN RIGHT</p>
+<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">select</span> <span class="token punctuation">`</span>student<span class="token punctuation">`</span><span class="token punctuation">.</span><span class="token punctuation">`</span>SNO<span class="token punctuation">`</span><span class="token punctuation">,</span><span class="token punctuation">`</span>student<span class="token punctuation">`</span><span class="token punctuation">.</span><span class="token punctuation">`</span>SNAME<span class="token punctuation">`</span><span class="token punctuation">,</span><span class="token punctuation">`</span>grade<span class="token punctuation">`</span><span class="token punctuation">.</span><span class="token punctuation">`</span>COURSE<span class="token punctuation">`</span><span class="token punctuation">,</span><span class="token punctuation">`</span>grade<span class="token punctuation">`</span><span class="token punctuation">.</span><span class="token punctuation">`</span>SCORE<span class="token punctuation">`</span>
+<span class="token keyword">FROM</span> <span class="token punctuation">`</span>student<span class="token punctuation">`</span> <span class="token keyword">RIGHT</span> <span class="token keyword">JOIN</span> <span class="token punctuation">`</span>grade<span class="token punctuation">`</span>
+<span class="token keyword">ON</span> <span class="token punctuation">`</span>student<span class="token punctuation">`</span><span class="token punctuation">.</span><span class="token punctuation">`</span>SNO<span class="token punctuation">`</span> <span class="token operator">=</span> <span class="token punctuation">`</span>grade<span class="token punctuation">`</span><span class="token punctuation">.</span><span class="token punctuation">`</span>SNO<span class="token punctuation">`</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+</li>
+</ul>
+</li>
+</ul>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">Allen Tai</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章連結:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="http://blog.allen5183.synology.me/mysql/20201006-mysql/">http://blog.allen5183.synology.me/mysql/20201006-mysql/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版權聲明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別聲明外，均採用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    授權合約。轉載請注明來源
+                    <a href="/about" target="_blank">Allen Tai</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>複製成功，請遵循本文的轉載規則</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/mysql/">
+                                    <span class="chip bg-color">mysql</span>
+                                </a>
+                            
+                                <a href="/tags/MariaDB/">
+                                    <span class="chip bg-color">MariaDB</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,wechat,linkedin" data-wechat-qrcode-helper="<p>微信掃一掃即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+        <link rel="stylesheet" href="/libs/gitalk/gitalk.css">
+<link rel="stylesheet" href="/css/my-gitalk.css">
+
+<div class="card gitalk-card" data-aos="fade-up">
+    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
+        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+        <span>評論</span>
+    </div>
+    <div id="gitalk-container" class="card-content"></div>
+</div>
+
+<script src="/libs/gitalk/gitalk.min.js"></script>
+<script>
+    let gitalk = new Gitalk({
+        clientID: 'e484b237dd5bd59118c0',
+        clientSecret: '7071e58c699bdbdce68a1d36b72b4184f24e98b1',
+        repo: 'hexo-matery',
+        owner: 'allen-5183',
+        admin: ["allen-5183"],
+        id: '2020-10-05T19-53-15',
+        distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+
+    gitalk.render('gitalk-container');
+</script>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+        
+
+     <article id="prenext-posts" class="prev-next articles">
+         <div class="row article-row">
+             
+             <div class="article col s12 m6" data-aos="fade-up">
+                 <div class="article-badge left-badge text-color">
+                     <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                 <div class="card">
+                     <a href="/jquery/20201116-jquery/">
+                         <div class="card-image">
+                             
+                             
+                             <img src="/medias/loading.gif" data-original="/medias/featureimages/10.jpg" class="responsive-img" alt="jquery">
+                             
+                             <span class="card-title">jquery</span>
+                         </div>
+                     </a>
+                     <div class="card-content article-content">
+                         <div class="summary block-with-text">
+                             
+                                 1. jQuery 基本概念
+學習目標：學會如何使用 jQuery，掌握 jQuery 的常用 api，能夠使用 jQuery 實現常見的效果。
+
+1.1 為什麼要學習 jQuery?
+【01-讓div 顯示與設置內容(JS).html】
+
+                             
+                         </div>
+                         <div class="publish-info">
+                             <span class="publish-date">
+                                 <i class="far fa-clock fa-fw icon-date"></i>2020-11-16
+                             </span>
+                             <span class="publish-author">
+                                 
+                                 <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                 
+                                 <a href="/categories/jquery/" class="post-category">
+                                         jquery
+                                     </a>
+                                 
+                                 
+                             </span>
+                         </div>
+                     </div>
+                     
+                     <div class="card-action article-tags">
+                         
+                         <a href="/tags/jquery/">
+                             <span class="chip bg-color">jquery</span>
+                         </a>
+                        
+                     </div>
+                     
+                 </div>
+             </div>
+             
+             
+             <div class="article col s12 m6" data-aos="fade-up">
+                 <div class="article-badge right-badge text-color">
+                     下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+                 </div>
+                 <div class="card">
+                     <a href="/ajax/20201005-ajax/">
+                         <div class="card-image">
+                             
+                             
+                        <img src="/medias/loading.gif" data-original="/medias/featureimages/4.jpg" class="responsive-img" alt="原生 Ajax 對象">
+                        
+                        <span class="card-title">原生 Ajax 對象</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            Ajax 與 Http 協議Ajax 與 Http 協議詳解  在 jQuery 中 已經提到了 Ajax，並且通過 $.ajax() 方法實現了和前後臺完成的簡單交互。但事實上在工作當中 jQuery 所提供的功能卻是遠遠不夠的，絕大部分
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-10-05
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/ajax/" class="post-category">
+                                    ajax
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/ajax/">
+                        <span class="chip bg-color">ajax</span>
+                    </a>
+                    
+                    <a href="/tags/http/">
+                        <span class="chip bg-color">http</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+      </div>
+    </article>
+
+</div>
+
+
+
+<!-- 代碼塊功能依賴 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代碼語言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代碼塊複製 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代碼塊收縮 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+<!-- 代碼塊折行 -->
+
+<style type="text/css">
+code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
+</style>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目錄</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 懸浮按鈕. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修復文章卡片 div 的寬度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切換TOC目錄展開收縮的相關操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='true'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='false'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+
+    
+    <div class="container row center-align" style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+
+            Copyright&nbsp;&copy;
+            <span id="year">2020</span>
+            <a href="/about" target="_blank">Allen Tai</a>
+            <br>
+
+            
+
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;總訪問量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;總訪問人數:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <br>
+            
+        </div>
+
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/allen-5183" class="tooltipped" target="_blank" data-tooltip="allen's GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:allen5183@gmail.com" class="tooltipped" target="_blank" data-tooltip="郵件聯繫我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+    <a href="https://www.facebook.com/allen5183" class="tooltipped" target="_blank" data-tooltip="關注我的 
+Facebook: https://www.facebook.com/allen5183" data-position="top" data-delay="50">
+        <i class="fab fa-facebook-f"></i>
+    </a>
+
+
+
+
+    <a href="" class="tooltipped" target="_blank"
+data-tooltip="關注我的 Twitter: https://twitter.com/allen5183" data-position="top" data-delay="50">                                                                                                               
+<i class="fab fa-twitter"></i>
+    </a>
+
+
+
+                                                                                                                                                                                   
+<a href="https://plus.google.com/allen5183" class="tooltipped" target="_blank"                                                                                                                                    
+data-tooltip="關注我的 Google: https://plus.google.com/allen5183" data-position="top" data-delay="50">                                                                                                              
+<i class="fab fa-google-plus-g"></i>                                                                                                                                                                                          
+</a>                                                                                                                                                                                                            
+   
+
+
+
+
+
+<!--
+
+    <a href="https://twitter.com/allen5183" class="tooltipped" target="_blank" data-tooltip="關注我的Twitter: https://twitter.com/allen5183" data-position="top" data-delay="50">
+        <i class="fab fa-twitter"></i>
+    </a>
+
+
+
+
+
+
+
+
+
+-->
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 訂閱" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+
+<!-- 燈籠左 -->
+<!-- <div class="deng-box"> -->
+<!--   <div class="deng"> -->
+<!--     <div class="xian"></div> -->
+<!--       <div class="deng-a"> -->
+<!--        <div class="deng-b"><div class="deng-t">雙十</div></div> -->
+<!--        </div>   -->
+<!--        <div class="shui shui-a">  -->
+<!--          <div class="shui-c"></div> -->
+<!--             <div class="shui-b"></div> -->
+<!--        </div> -->
+<!--    </div> -->
+<!-- </div> -->
+
+
+
+<!-- 燈籠右 -->
+<!-- <div class="deng-box1"> -->
+<!--    <div class="deng"> -->
+<!--        <div class="xian"></div> -->
+<!--        <div class="deng-a"> -->
+<!--            <div class="deng-b"><div class="deng-t">同慶</div></div>  -->
+<!--        </div>  -->
+<!--        <div class="shui shui-a"> -->
+<!--            <div class="shui-c"></div>  -->
+<!--            <div class="shui-b"></div>  -->
+<!--        </div> -->
+<!--    </div>  -->
+<!-- </div>  -->
+
+</footer>
+
+<div class="progress-bar"></div>
+
+<!-- 閒聊麼  -->
+<script>
+    var xlm_wid='16495';
+    var xlm_url='https://www.xianliao.me/';
+</script>
+<script type='text/javascript' charset='UTF-8' src='https://www.xianliao.me/embed.js'></script>
+
+
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="請輸入搜索的關鍵字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/search.xml", 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到頂部按鈕 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i["DaoVoiceObject"] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o), m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            a.charset = "utf-8";
+            m.parentNode.insertBefore(a, m)
+        })(window, document, "script", ('https:' == document.location.protocol ? 'https:' : 'http:') +
+            "//widget.daovoice.io/widget/6984b559.js", "daovoice")
+        daovoice('init', {
+            app_id: "22dc2875"
+        });
+        daovoice('update');
+    </script>
+    
+
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/nito.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true,"scale":0.5},"react":{"opacity":0.7},"log":false});</script><script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(n){n.imageLazyLoadSetting.processImages=o;var i=n.imageLazyLoadSetting.isSPA,r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function o(){i&&(r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")));for(var t,e,a=0;a<r.length;a++)t=r[a],e=void 0,0<=(e=t.getBoundingClientRect()).bottom&&0<=e.left&&e.top<=(n.innerHeight||document.documentElement.clientHeight)&&function(){var t,e,n,i,o=r[a];t=o,e=function(){r=r.filter(function(t){return o!==t})},n=new Image,i=t.getAttribute("data-original"),n.onload=function(){t.src=i,e&&e()},n.src=i}()}o(),n.addEventListener("scroll",function(){var t,e;t=o,e=n,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(e)},500)})}(this);</script></body>
+
+</html>

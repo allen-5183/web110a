@@ -1,0 +1,2158 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="laravel, 個人博客 呆呆 學習 Allen">
+    <meta name="description" content="網頁技術| 物聯網應用 | AI 智能">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>laravel | 呆呆-博客</title>
+    <link rel="icon" type="image/gif" href="/medias/diamond.gif">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery.min.js"></script>
+
+<style type="text/css" lang="css">
+    #loading-container{
+        position: fixed;
+        top: 0;
+        left: 0;
+        min-height: 100vh;
+        width: 100vw;
+        z-index: 9999;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background: #FFF;
+        text-align: center;
+        /* loader页面消失采用渐隐的方式*/
+        -webkit-transition: opacity 1s ease;
+        -moz-transition: opacity 1s ease;
+        -o-transition: opacity 1s ease;
+        transition: opacity 1s ease;
+    }
+    .loading-image{
+        width: 120px;
+        height: 50px;
+        transform: translate(-50%);
+    }
+
+    .loading-image div:nth-child(2) {
+        -webkit-animation: pacman-balls 1s linear 0s infinite;
+        animation: pacman-balls 1s linear 0s infinite
+    }
+
+    .loading-image div:nth-child(3) {
+        -webkit-animation: pacman-balls 1s linear .33s infinite;
+        animation: pacman-balls 1s linear .33s infinite
+    }
+
+    .loading-image div:nth-child(4) {
+        -webkit-animation: pacman-balls 1s linear .66s infinite;
+        animation: pacman-balls 1s linear .66s infinite
+    }
+
+    .loading-image div:nth-child(5) {
+        -webkit-animation: pacman-balls 1s linear .99s infinite;
+        animation: pacman-balls 1s linear .99s infinite
+    }
+
+   .loading-image div:first-of-type {
+        width: 0;
+        height: 0;
+        border: 25px solid #49b1f5;
+        border-right-color: transparent;
+        border-radius: 25px;
+        -webkit-animation: rotate_pacman_half_up .5s 0s infinite;
+        animation: rotate_pacman_half_up .5s 0s infinite;
+    }
+    .loading-image div:nth-child(2) {
+        width: 0;
+        height: 0;
+        border: 25px solid #49b1f5;
+        border-right-color: transparent;
+        border-radius: 25px;
+        -webkit-animation: rotate_pacman_half_down .5s 0s infinite;
+        animation: rotate_pacman_half_down .5s 0s infinite;
+        margin-top: -50px;
+    }
+    @-webkit-keyframes rotate_pacman_half_up {0% {transform: rotate(270deg)}50% {transform: rotate(1turn)}to {transform: 
+rotate(270deg)}}
+
+    @keyframes rotate_pacman_half_up {0% {transform: rotate(270deg)}50% {transform: rotate(1turn)}to {transform: 
+rotate(270deg)}}
+
+    @-webkit-keyframes rotate_pacman_half_down {0% {transform: rotate(90deg)}50% {transform: rotate(0deg)}to {transform: 
+rotate(90deg)}}
+
+    @keyframes rotate_pacman_half_down {0% {transform: rotate(90deg)}50% {transform: rotate(0deg)}to {transform: 
+rotate(90deg)}}
+
+    @-webkit-keyframes pacman-balls {75% {opacity: .7}to {transform: translate(-100px, -6.25px)}}
+
+    @keyframes pacman-balls {75% {opacity: .7}to {transform: translate(-100px, -6.25px)}}
+
+
+    .loading-image div:nth-child(3),
+    .loading-image div:nth-child(4),
+    .loading-image div:nth-child(5),
+    .loading-image div:nth-child(6){
+        background-color: #49b1f5;
+        width: 15px;
+        height: 15px;
+        border-radius: 100%;
+        margin: 2px;
+        width: 10px;
+        height: 10px;
+        position: absolute;
+        transform: translateY(-6.25px);
+        top: 25px;
+        left: 100px;
+    }
+    .loading-text{
+        margin-bottom: 20vh;
+        text-align: center;
+        color: #2c3e50;
+        font-size: 2rem;
+        box-sizing: border-box;
+        padding: 0 10px;
+        text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+    @media only screen and (max-width: 500px) {
+         .loading-text{
+            font-size: 1.5rem;
+         }
+    }
+    .fadeout {
+        opacity: 0;
+        filter: alpha(opacity=0);
+    }
+    /* logo出现动画 */
+    @-webkit-keyframes 
+fadeInDown{0%{opacity:0;-webkit-transform:translate3d(0,-100%,0);transform:translate3d(0,-100%,0)}100%{opacity:1;-webkit-transform:none;transform:none}}
+    @keyframes fadeInDown{0%{opacity:0;-webkit-transform:translate3d(0,-100%,0);}}
+ </style>
+ <script>
+(function () {
+    const loaded = function(){
+       setTimeout(function(){
+            const loader = document.getElementById("loading-container");
+            loader.className="fadeout" ;//使用渐隐的方法淡出loading page
+            // document.getElementById("body-wrap").style.display="flex";
+            setTimeout(function(){
+                loader.style.display="none";
+            },1000); 
+        },1000);//强制显示loading page 1s  
+    };
+    loaded();
+})()
+ </script><meta name="generator" content="Hexo 5.2.0"><link rel="alternate" href="/atom.xml" title="呆呆-博客" type="application/atom+xml">
+</head>
+
+
+<script src="/js/instant.page.js" type="module"></script>
+
+<script type="text/javascript">
+var OriginTitile=document.title,st;
+document.addEventListener("visibilitychange",function(){document.hidden?(document.title="看不見我🙈~看不見我🙈~",clearTimeout(st)):(document.title=" 被發現了～",st=setTimeout(function(){document.title=OriginTitile},3e3))})</script>
+
+<script type="text/javascript">
+  //只在桌上出版網頁啟用特效
+  var windowWidth = $(window).width();
+  if (windowWidth > 768) {
+    //雪花特效
+    document.write('<script type="text/javascript" src="/js/xuehuapiaoluo.js"><\/script>');
+    //櫻花特效
+    //document.write('<script type="text/javascript" src="/js/sakura.js"><\/script>');
+    //無效 
+    //document.write('<script type="text/javascript" src="/js/xingxing.js"><\/script>');
+    //滑鼠點擊文字特效。(❤富強❤,❤民主❤,❤文明❤,❤和諧❤,❤自由❤,❤平等❤,❤公正❤,❤法治❤,❤愛國❤,❤敬業❤,❤誠信❤,❤友善❤);)
+    //document.write('<script type="text/javascript" src="/js/wenzi.js"><\/script>');
+
+  }
+</script>
+
+
+
+ <div id="loading-container">
+     <p class="loading-text">努力加載中 . . . </p> 
+     <div class="loading-image">
+         <div></div>
+         <div></div>
+         <div></div>
+         <div></div> 
+         <div></div>
+     </div>
+ </div><body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/loading.gif" data-original="/medias/diamond.gif" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">呆呆-博客</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首頁</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>關於</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情連結</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="" class="waves-effect waves-light">
+
+      
+      <i class="fas fa-meh-rolling-eyes" style="zoom: 0.6;"></i>
+      
+      <span>收納櫃</span>
+      <i class="fas fa-chevron-down" aria-hidden="true" style="zoom: 0.6;"></i>
+    </a>
+    <ul class="sub-nav menus_item_child ">
+      
+      <li>
+        <a href="/tags">
+          
+          <i class="fas fa-tags" style="margin-top: -20px; zoom: 0.6;"></i>
+          
+          <span>標籤</span>
+        </a>
+      </li>
+      
+      <li>
+        <a href="/categories">
+          
+          <i class="fas fa-bookmark" style="margin-top: -20px; zoom: 0.6;"></i>
+          
+          <span>分類</span>
+        </a>
+      </li>
+      
+      <li>
+        <a href="/archives">
+          
+          <i class="fas fa-archive" style="margin-top: -20px; zoom: 0.6;"></i>
+          
+          <span>歸檔</span>
+        </a>
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="" class="waves-effect waves-light">
+
+      
+      <i class="fas fa-list" style="zoom: 0.6;"></i>
+      
+      <span>媒體</span>
+      <i class="fas fa-chevron-down" aria-hidden="true" style="zoom: 0.6;"></i>
+    </a>
+    <ul class="sub-nav menus_item_child ">
+      
+      <li>
+        <a href="/movie">
+          
+          <i class="fas fa-film" style="margin-top: -20px; zoom: 0.6;"></i>
+          
+          <span>電影</span>
+        </a>
+      </li>
+      
+      <li>
+        <a href="/video">
+          
+          <i class="fas fa-film" style="margin-top: -20px; zoom: 0.6;"></i>
+          
+          <span>視頻</span>
+        </a>
+      </li>
+      
+      <li>
+        <a href="/galleries">
+          
+          <i class="fas fa-image" style="margin-top: -20px; zoom: 0.6;"></i>
+          
+          <span>相冊</span>
+        </a>
+      </li>
+      
+      <li>
+        <a href="/books">
+          
+          <i class="fas fa-book" style="margin-top: -20px; zoom: 0.6;"></i>
+          
+          <span>書籍</span>
+        </a>
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/loading.gif" data-original="/medias/diamond.gif" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">呆呆-博客</div>
+        <div class="logo-desc">
+            
+            網頁技術| 物聯網應用 | AI 智能
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首頁
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			關於
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情連結
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="javascript:;">
+			
+				<i class="fa-fw fas fa-meh-rolling-eyes"></i>
+			
+			收納櫃
+			<span class="m-icon"><i class="fas fa-chevron-right"></i></span>
+		</a>
+            <ul  style="background:  ;" >
+              
+                <li>
+
+                  <a href="/tags " style="margin-left:75px">
+				  
+				   <i class="fa fas fa-tags" style="position: absolute;left:50px" ></i>
+			      
+		          <span>標籤</span>
+                  </a>
+                </li>
+              
+                <li>
+
+                  <a href="/categories " style="margin-left:75px">
+				  
+				   <i class="fa fas fa-bookmark" style="position: absolute;left:50px" ></i>
+			      
+		          <span>分類</span>
+                  </a>
+                </li>
+              
+                <li>
+
+                  <a href="/archives " style="margin-left:75px">
+				  
+				   <i class="fa fas fa-archive" style="position: absolute;left:50px" ></i>
+			      
+		          <span>歸檔</span>
+                  </a>
+                </li>
+              
+            </ul>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="javascript:;">
+			
+				<i class="fa-fw fas fa-list"></i>
+			
+			媒體
+			<span class="m-icon"><i class="fas fa-chevron-right"></i></span>
+		</a>
+            <ul  style="background:  ;" >
+              
+                <li>
+
+                  <a href="/movie " style="margin-left:75px">
+				  
+				   <i class="fa fas fa-film" style="position: absolute;left:50px" ></i>
+			      
+		          <span>電影</span>
+                  </a>
+                </li>
+              
+                <li>
+
+                  <a href="/video " style="margin-left:75px">
+				  
+				   <i class="fa fas fa-film" style="position: absolute;left:50px" ></i>
+			      
+		          <span>視頻</span>
+                  </a>
+                </li>
+              
+                <li>
+
+                  <a href="/galleries " style="margin-left:75px">
+				  
+				   <i class="fa fas fa-image" style="position: absolute;left:50px" ></i>
+			      
+		          <span>相冊</span>
+                  </a>
+                </li>
+              
+                <li>
+
+                  <a href="/books " style="margin-left:75px">
+				  
+				   <i class="fa fas fa-book" style="position: absolute;left:50px" ></i>
+			      
+		          <span>書籍</span>
+                  </a>
+                </li>
+              
+            </ul>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+<script src="/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('請輸入訪問本文章的密碼')).toString(CryptoJS.enc.Hex)) {
+                alert('密碼錯誤，將返回主頁！');
+                location.href = '/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/15.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title"></h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        height: calc(100vh - 250px);
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章內容詳情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/php/">
+                                <span class="chip bg-color">php</span>
+                            </a>
+                        
+                            <a href="/tags/laravel/">
+                                <span class="chip bg-color">laravel</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/laravel/" class="post-category">
+                                laravel
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>發佈日期:&nbsp;&nbsp;
+                    2020-12-27
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="0-資源"><a href="#0-資源" class="headerlink" title="0. 資源"></a>0. 資源</h2><ul>
+<li>教材與影片連結: <code>http://gofile.me/5QyRR/wjv5lfU4r</code></li>
+<li>帳密: <code>goblin/Gb1qaz@wsx</code></li>
+</ul>
+<h2 id="1-Laravel-開發環境建置"><a href="#1-Laravel-開發環境建置" class="headerlink" title="1. Laravel 開發環境建置"></a>1. Laravel 開發環境建置</h2><h3 id="1-1-Windows-作業系統"><a href="#1-1-Windows-作業系統" class="headerlink" title="1.1 Windows 作業系統"></a>1.1 Windows 作業系統</h3><h4 id="1-1-1-安裝-XAMPP"><a href="#1-1-1-安裝-XAMPP" class="headerlink" title="1.1.1 安裝 XAMPP"></a>1.1.1 安裝 XAMPP</h4><p><code>PHP + Apache + MariaDB</code> 懶人包</p>
+<p><a target="_blank" rel="noopener" href="https://www.apachefriends.org/zh_tw/download.html">下載網址</a></p>
+<p>請下載 <code>PHP 7.2.5</code> 以上版本，下載完後安裝，過程只需不斷按 <code>Next</code> 即可。</p>
+<h4 id="1-1-2-安裝-Visual-Studio-Code"><a href="#1-1-2-安裝-Visual-Studio-Code" class="headerlink" title="1.1.2 安裝 Visual Studio Code"></a>1.1.2 安裝 <code>Visual Studio Code</code></h4><p>由微軟提供，可免費使用的 IDE，<a target="_blank" rel="noopener" href="https://code.visualstudio.com/download">下載網址</a></p>
+<h4 id="1-1-3-安裝-Git-與-config"><a href="#1-1-3-安裝-Git-與-config" class="headerlink" title="1.1.3 安裝 Git 與 config"></a>1.1.3 安裝 Git 與 config</h4><ul>
+<li><p>git config 方式: 打開 Git bash 視窗</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">cd</span> ~/
+<span class="token function">git</span> config --global user.name <span class="token string">"名字 姓"</span>
+<span class="token function">git</span> config --global user.email xxxxxx@xxx.xxx
+<span class="token function">git</span> config --global core.editor <span class="token string">"'C:/tools/nano.exe' -multiInst -nosession"</span>
+<span class="token function">git</span> config --list<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<blockquote>
+<p>git config 執行完畢後，會產生 ~/.gitconfig 檔案。</p>
+</blockquote>
+</li>
+</ul>
+<h4 id="1-1-4-Composer"><a href="#1-1-4-Composer" class="headerlink" title="1.1.4 Composer"></a>1.1.4 <code>Composer</code></h4><h5 id="1-1-4-1-用途"><a href="#1-1-4-1-用途" class="headerlink" title="1.1.4.1 用途"></a>1.1.4.1 用途</h5><ul>
+<li><p>composer <a target="_blank" rel="noopener" href="https://code.visualstudio.com/download">下載網址</a>。</p>
+</li>
+<li><p>套件版本管理<br><code>Laravel</code>，本身也是一種套件，用它再來安裝適用於不同版本下所對應的相依套件。</p>
+<img src="/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/allen-5183/blog.allen5183.synology.me/images/20210526131815.png" width="20%" height="50%" class="nofancybox">
+</li>
+<li><p>從 [packagist] 安裝套件</p>
+<img src="/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/allen-5183/blog.allen5183.synology.me/images/20210526132552.png" width="20%" height="50%" class="nofancybox">
+</li>
+<li><p>自動加載</p>
+<img src="/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/allen-5183/blog.allen5183.synology.me/images/20210526132712.png" width="20%" height="50%" class="nofancybox">
+
+<ul>
+<li><p>如何使用它做自動加載<br><code>index.php</code></p>
+<pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token comment">/*
+ @package Laravel
+ @author  Allen    
+*/</span>
+
+<span class="token keyword">require</span> <span class="token constant">__DIR__</span> <span class="token punctuation">.</span> <span class="token single-quoted-string string">'/../vendor/autoload.php'</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+</li>
+</ul>
+</li>
+</ul>
+<h5 id="1-1-4-2-重要組成"><a href="#1-1-4-2-重要組成" class="headerlink" title="1.1.4.2 重要組成"></a>1.1.4.2 重要組成</h5><ul>
+<li>composer.json 定義專案內所有相依套件及格式設定</li>
+<li>composer.lock 記錄個套件實際安裝的版本號，用以將此專案所在某一個特定的版本</li>
+<li>vendor 存放所有載入的套件</li>
+<li>autoload.php 自動載入程式碼</li>
+<li>json 與 lock<table>
+<thead>
+<tr>
+<th align="center"></th>
+<th align="center">composer.json</th>
+<th align="center">composer.lock</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">給誰看</td>
+<td align="center">人類</td>
+<td align="center">電腦</td>
+</tr>
+<tr>
+<td align="center">版本號定義?</td>
+<td align="center">模玲兩可</td>
+<td align="center">完全精確</td>
+</tr>
+<tr>
+<td align="center">放到 VCS?</td>
+<td align="center">要</td>
+<td align="center">要</td>
+</tr>
+<tr>
+<td align="center">何時用?</td>
+<td align="center">update</td>
+<td align="center">install</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<h5 id="1-1-4-3-安裝"><a href="#1-1-4-3-安裝" class="headerlink" title="1.1.4.3 安裝"></a>1.1.4.3 安裝</h5><ul>
+<li><p>終端機下命令列安裝</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">e:
+<span class="token function">mkdir</span> e:<span class="token punctuation">\</span>composer
+<span class="token builtin class-name">cd</span> e:<span class="token punctuation">\</span>composer
+php -r <span class="token string">"copy('https://getcomposer.org/installer', 'composer-setup.php');"</span>
+php -r <span class="token string">"if (hash_file('sha384', 'composer-setup.php') === '756890a4488ce9024fc62c56153228907f1545c228516cbf63f885e036d37e9a59d27d63f46af1d4d07ee0f76181c7d3') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"</span>
+php composer-setup.php
+php -r <span class="token string">"unlink('composer-setup.php');"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<blockquote>
+<p>本例: 以磁碟代號 <code>D:</code> 安裝。</p>
+</blockquote>
+</li>
+<li><p>安裝完成，會在 <code>d:\composer</code> 目錄下，產生 <code>composer.phar</code>。</p>
+</li>
+<li><p>執行 <code>composer</code> 時, 可以使用 <code>php composer.phar</code> 執行或將它建立成 <code>composer.bat</code> 來使用，編輯 <code>composer.bat</code> 內容如下:</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">@php <span class="token string">"%~dp0composer.phar"</span> %*<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+<li><p>追加 <code>composer</code> 安裝套件全域環境變數:<br><code>PATH= ;d:\composer</code></p>
+</li>
+<li><p>追加所有專案共享的全局目錄<br><code>COMPOSER_HOME  d:\composer</code></p>
+</li>
+<li><p>把 composer 套用到 PHP 專案上</p>
+<p>初始化:</p>
+<pre class="line-numbers language-php" data-language="php"><code class="language-php">cd  <span class="token operator">/</span>路徑<span class="token operator">/</span>專案   <span class="token shell-comment comment"># 例: D:\xampp\htdocs\laravel</span>
+composer  init  <span class="token shell-comment comment"># name、description、authors、minimum-stability、license、require、require-dev</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<ul>
+<li><p>Package name(vendor/name)</p>
+<ul>
+<li>套件名稱，格式為: “vendor_name/project_name”     </li>
+<li>作為 <code>composer require 套件名稱</code> 時候所使用的套件名稱<blockquote>
+<p>例: [allen/laravel]</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>Description[]</p>
+<ul>
+<li>簡短的套件描述</li>
+<li>儘量在一行內結束</li>
+<li>一定要輸入<blockquote>
+<p>例: This is a Laravel Project</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>Authors[, n to skip]</p>
+<ul>
+<li>套件開發者資訊 </li>
+<li>格式: “name <email>“<br>例: <code>Allen Tai &lt;allen5183@gmail.com&gt;</code></email></li>
+<li>可以有多個 author (需手動加入)</li>
+<li>預設抓取 ~/.gitconfig 的設定。</li>
+</ul>
+</li>
+<li><p>minimum-stability</p>
+<ul>
+<li>套件穩定度的說明與指定</li>
+<li>只能用在 root-package</li>
+<li>可設定的值: (由最穩定到最不穩定的順序)<ul>
+<li>stable(預設)</li>
+<li>RC</li>
+<li>beta</li>
+<li>alpha</li>
+<li>dev<blockquote>
+<p>相依的套件之穩定度不可低於設定值。<br>例: dev</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Package Type</p>
+<ul>
+<li>用來標示套件性質，無實質功能</li>
+<li>一般常用 project, 也可以自己設定。</li>
+<li>其他配置名稱可為 library、metapackage、composer-plugin</li>
+</ul>
+</li>
+<li><p>license</p>
+<ul>
+<li>版權說明，若為私有專案可用 proprietary</li>
+<li>可參考 SPDX 的 identifier 來設定<ul>
+<li>Apache-2.0</li>
+<li>BSD-2-Clause</li>
+<li>MIT</li>
+<li>…<blockquote>
+<p>例: MIT</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Define your dependencies.</p>
+<ul>
+<li><p>Would you like to define your dependencies (require) interactively [yes]?<br>Search for a package: log</p>
+<blockquote>
+<p>選擇 <code>[0]psr/log</code></p>
+</blockquote>
+<p>Enter the version constraint to require (or leave blank to use the latest version): *</p>
+<ul>
+<li>require<ul>
+<li>用來標示正式環境依賴的套件以及版本號<br>格式: “vendor/package-name” :  “version”</li>
+<li>指定專案一定要安裝的套件或平台環境</li>
+<li>如果現存的套件版本不符合 version 條件的話，就不會安裝任何套件。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Would you like to define your dev dependencies (require-dev) interactively [yes]?<br>Search for a package: phpunit</p>
+<blockquote>
+<p>選擇 <code>[0]psr/log</code></p>
+</blockquote>
+<p>Enter the version constraint to require (or leave blank to use the latest version): <code>&gt;=3.7.0</code></p>
+<ul>
+<li>require-dev<ul>
+<li>用來標示開發環境依賴的套件以及版本號</li>
+<li>格式同 require</li>
+<li>主要指定開發用的套件</li>
+<li>只能用在 root-package</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>產生 `composer.json</p>
+<pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">{</span>
+  <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"allen/tai"</span><span class="token punctuation">,</span>
+  <span class="token property">"description"</span><span class="token operator">:</span> <span class="token string">"My First Application"</span><span class="token punctuation">,</span>
+    <span class="token property">"require"</span><span class="token operator">:</span><span class="token punctuation">{</span>
+    <span class="token property">"psr/log"</span><span class="token operator">:</span> <span class="token string">"*"</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token property">"require-dev"</span> <span class="token operator">:</span><span class="token punctuation">{</span>
+    <span class="token property">"phpunit/phpunit"</span><span class="token operator">:</span><span class="token string">"&gt;=3.7.0"</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token property">"license"</span> <span class="token operator">:</span> <span class="token string">"MIT"</span><span class="token punctuation">,</span>
+  <span class="token property">"authors"</span> <span class="token operator">:</span> <span class="token punctuation">[</span>
+    <span class="token punctuation">{</span>
+      <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"Allen Tai"</span><span class="token punctuation">,</span>
+      <span class="token property">"email"</span><span class="token operator">:</span> <span class="token string">"allen5183@gmail.com"</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token property">"minimum-stability"</span><span class="token operator">:</span> <span class="token string">"dev"</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<ol>
+<li>所有 <code>package</code> 都需要 <code>composer.json</code><br><code>composer.json</code> 的部份屬性只有在 <code>root-package</code> 才有作用。</li>
+<li>只有專案負責人才做第一次 <code>install</code> 及之後的 <code>update</code> (會更動 composer.lock)</li>
+<li>其他成員一律使用 <code>install</code></li>
+<li>第一次 <code>install</code> 及之後的 <code>update</code> 會將所有相依套件的資訊編寫到 <code>composer.lock</code> 上，並固定套件版本</li>
+<li>–prefer-source  從版本控制下載</li>
+<li>–prefer-dist    下載壓縮檔</li>
+</ol>
+</li>
+</ul>
+</li>
+<li><p>vendor 資料夾</p>
+<ul>
+<li>套件預設會安裝在 <code>vendor</code> 資料夾</li>
+<li>自動載入的載入器與快取檔案放在<br><code>vendor/composer</code> 下</li>
+</ul>
+</li>
+<li><p>全新安裝時之流程:</p>
+<ol>
+<li>composer.json    # 第一次全新安裝會參考 composer.json</li>
+<li>Download list    # 接下來就會去官方套件庫下載清單</li>
+<li>Download package # 找到符合版本設定的套件並下載</li>
+<li>Generate composer.lock # 產生 composer.lock 並記住每個套件在此安裝時的版本，這樣一來就不再從清單理找符合的版本</li>
+<li>Generate autoloading files # 將所有相依套件的自動載入設定加到快取檔案中</li>
+</ol>
+</li>
+<li><p>再次安裝之流程:</p>
+<ol>
+<li>composer.lock    # 直接找 composer.lock 記錄的版本</li>
+<li>Download package # 然後從快取或來源中獲得套件檔案</li>
+<li>Generate composer.lock # 將所有相依套件的自動載入設定加到快取檔案中</li>
+</ol>
+</li>
+<li><p>版本控制  </p>
+<ul>
+<li><code>root-package</code> 的 <code>composer.json</code> 及 <code>composer.lock</code> 要放到版本控制系統裡，這麼一來其他成員可以直接使用。</li>
+<li><code>library</code> 的 <code>composer.lock</code> 則不要放到版本控制系統中</li>
+<li><code>vendor</code> 資料夾不要放到版本控制系統，應該用 <code>composer install</code> 安裝。</li>
+</ul>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://packagist.org/">packagist.org</a></p>
+<ul>
+<li><p>記錄常見的 Open Source library 資訊</p>
+</li>
+<li><p>預設 composer 搜尋套件的地方</p>
+</li>
+<li><p>不須審核，人人都可以註冊自己的套件</p>
+</li>
+<li><p>不是實際存放套件內容的地方</p>
+</li>
+<li><p>運作方式</p>
+<ul>
+<li>composer 向 packagist 搜尋套件</li>
+<li>packagist 回傳套件清單給 composer</li>
+<li>composer 依照套件清單找到來源</li>
+<li>composer 從來源取回套件內容</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>自動載入</p>
+<ul>
+<li><p>當要使用到的類別，不存在時，自動載入該類別。</p>
+</li>
+<li><p>為什麼 composer 要提供自動載入<br>在 PHP 開發過程中，如果希望從外部引入一個 class，通常會使用 include 和 require 方法，去把定義這個 class 的檔案包含進來。這個在小規模開發的時候，沒什麼大問題。但在大型的開發專案中，使用這種方式會帶來一些隱含的問題：如果一個 PHP 檔案需要使用很多其它類，那麼就需要很多的 require/include 語句，這樣有可能會造成遺漏或者包含進不必要的類檔案。如果大量的檔案都需要使用其它的類，那麼要保證每個檔案都包含正確的類檔案肯定是一個噩夢， 況且 require_once 的代價很大。</p>
+<p>PHP5 為這個問題提供了一個解決方案，這就是類的自動裝載 (autoload) 機制。autoload 機制可以使得 PHP 程式有可能在使用類時才自動包含類檔案，而不是一開始就將所有的類檔案 include 進來，這種機制也稱為 lazy loading。</p>
+</li>
+<li><p>優點</p>
+<ul>
+<li>統一自動載入的方法</li>
+<li>每個 Package 的目錄結構不見得相同</li>
+<li>讓 Package 自行提供載入方式</li>
+<li>使用類之前無需 include 或者 require</li>
+<li>使用類的時候才會 require/include 檔案，實現了 lazy loading，避免了 require/include 多餘檔案。</li>
+</ul>
+</li>
+<li><p>範例: composer.json</p>
+<pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">{</span>
+  <span class="token property">"autoload"</span><span class="token operator">:</span><span class="token punctuation">{</span>
+    <span class="token property">"psr-o"</span><span class="token operator">:</span><span class="token punctuation">{</span>
+      <span class="token property">"Monolog\\"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"src/"</span><span class="token punctuation">,</span>  <span class="token string">"lib/"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token property">"Zend_"</span><span class="token operator">:</span> <span class="token string">"library/"</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token property">"classmap"</span><span class="token operator">:</span><span class="token punctuation">[</span><span class="token string">"classes/"</span><span class="token punctuation">,</span> <span class="token string">"Something.php"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token property">"files"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"src/MyLibrary/function.php"</span><span class="token punctuation">]</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<table>
+<thead>
+<tr>
+<th>psr-0</th>
+<th>符合 PSR-0 規範的類別檔案</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>classmap</td>
+<td>對應類別名稱的檔案</td>
+</tr>
+<tr>
+<td>files</td>
+<td>非類別但需要一開始就自動載入的檔案</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>小提醒:</p>
+</blockquote>
+<blockquote>
+<ol>
+<li><code>autoload</code> 採相對於 <code>composer.json</code> 的路徑</li>
+<li>每個套件只需負責自己的 autoload</li>
+<li>在 root-package 執行:<br> <code>composer dump-autoload</code><br> 就會把所有相依套件的 <code>autoload</code> 屬性<br> 編譯到 <code>vendor</code> 目錄裡的快取檔案</li>
+<li>載入 loader 之後就不用自行引用類別定義檔</li>
+<li><code>MVC Framework</code> 只要在 <code>index.php</code> 載入 <code>loader</code> 即可</li>
+</ol>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<h5 id="1-1-4-4-Windows-Install-方式安裝"><a href="#1-1-4-4-Windows-Install-方式安裝" class="headerlink" title="1.1.4.4 Windows Install 方式安裝"></a>1.1.4.4 Windows Install 方式安裝</h5><ul>
+<li><p>安裝檔，<a target="_blank" rel="noopener" href="https://getcomposer.org/download">下載網址</a></p>
+<blockquote>
+<p>PS: 如之前已安裝過，需升級成新版本，可使用以下指令</p>
+</blockquote>
+<p><code>composer self-update</code></p>
+</li>
+<li><p>常用指令</p>
+<ul>
+<li><p>升級版本<br><code>composer self-update</code></p>
+</li>
+<li><p>版本查詢<br><code>composer -V</code></p>
+</li>
+<li><p>顯示有哪些指令和選項可用<br><code>composer list</code></p>
+</li>
+<li><p>顯示指令的詳細用法<br><code>composer help</code></p>
+</li>
+<li><p>安裝相依套件<br><code>composer install</code></p>
+<ul>
+<li>使用時機: 剛clone專案之後，或需要安裝專案相依套件時。</li>
+<li>運行程序:<ol>
+<li>檢查 <code>composer.json</code> 是否存在。</li>
+<li>不存在的話，就跑 <code>update</code> 產生一個 <code>composer.json</code>。</li>
+<li>存在的話，就依照 lock 的套件版號來安裝。</li>
+<li>更新 <code>autoload.php</code> 程式。</li>
+</ol>
+</li>
+</ul>
+</li>
+<li><p>安裝需求套件<br><code>composer require 套件名稱</code></p>
+<ul>
+<li>使用時機: 載入新套件到專案內。</li>
+<li>運行程序:<ol>
+<li>寫入 <code>composer.json</code>。</li>
+<li>開始下載指定套件，並挑選最佳解的版本號。</li>
+<li>更新 <code>autoload.php</code> 程式。  </li>
+</ol>
+</li>
+</ul>
+</li>
+<li><p>更新套件<br><code>composer update</code></p>
+<ul>
+<li><p>使用時機: 修改composer.json 後，或需要更新套件版本時。</p>
+</li>
+<li><p>更新 <code>autoload.php</code><br><code>composer dump-autoload</code></p>
+</li>
+<li><p>使用時機: 當套件以位於 vendor 資料夾，但程式無法自動載入時。  </p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="1-1-5-下載-Laravel-安裝器"><a href="#1-1-5-下載-Laravel-安裝器" class="headerlink" title="1.1.5 下載 Laravel 安裝器"></a>1.1.5 下載 Laravel 安裝器</h4><ul>
+<li><p>Laravel 功能特色</p>
+<ul>
+<li>支持用戶身分驗證與授權</li>
+<li>完整的模組化套件系統</li>
+<li>龐大的社群套件資源</li>
+<li>好用的官方套件</li>
+<li>彈性的資料庫介面</li>
+<li>方便的命令列指令</li>
+</ul>
+</li>
+<li><p>官方套件列表</p>
+<table>
+<thead>
+<tr>
+<th>套件名稱</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Airlock</td>
+<td>SPA驗證</td>
+</tr>
+<tr>
+<td>Cashier(Stripe)</td>
+<td>下單服務</td>
+</tr>
+<tr>
+<td>Cashier(Mobile)</td>
+<td>下單服務</td>
+</tr>
+<tr>
+<td>Dusk</td>
+<td>測試服務</td>
+</tr>
+<tr>
+<td>Envoy</td>
+<td>遠端管理</td>
+</tr>
+<tr>
+<td>Horizon</td>
+<td>遠端管理</td>
+</tr>
+<tr>
+<td>Passport</td>
+<td>OAuth2驗證</td>
+</tr>
+<tr>
+<td>Scout</td>
+<td>全文檢索</td>
+</tr>
+<tr>
+<td>Socialite</td>
+<td>OAuth驗證</td>
+</tr>
+<tr>
+<td>Telescope</td>
+<td>除錯服務</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>語意化版本(Semantic Versioning)</p>
+<table>
+<thead>
+<tr>
+<th>Laravel 5.8.35</th>
+<th>5(Major)</th>
+<th>8(Minor)</th>
+<th>35(Patch)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>代表</td>
+<td>大版本</td>
+<td>小版本</td>
+<td>修正</td>
+</tr>
+<tr>
+<td>影響規模</td>
+<td>整個 API 有改動</td>
+<td>加新功能</td>
+<td>錯誤修正</td>
+</tr>
+<tr>
+<td>升級後影響?</td>
+<td>程式需修改，否則可能出錯</td>
+<td>沒有影響</td>
+<td>穩定度提高</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>版本限制<br>|                | 版號     |     描速             |<br>|—————-|———|———-|———-|<br>|完全吻合          | 5.8.3   | 限定為 5.8.3 版本    |<br>|通用範圍          | 5.8.*   | &gt;=5.8 &amp;&amp; &lt; 5.9 |<br>|連字範圍          | 5.0-6.0 | &gt;=5.0.0 &amp;&amp; &lt; 6.1|<br>|波浪號運算符       | ~5.8    | &gt;=5.8 &amp;&amp; &lt; 6.0  |<br>|^ 運算符          | ^5.8.9, ^0.1 | &gt;=5.8.9 &amp;&amp; &lt; 6.0 , &gt;=0.1 &amp;&amp; &lt; 0.2.0|<br>|穩定              | @dev    |dev&gt;alpha&gt;beta&gt;RC&gt;stable|</p>
+</li>
+<li><p>版本號選擇策略</p>
+<ol>
+<li>載⼊套件時，⼀般可參考套件的 <code>ReadMe</code> 說明，⽤ <code>composer require</code></li>
+<li>⼿動修改 <code>composer.json</code> 時，⽤ <code>composer validate</code> 來確認語法正確否</li>
+<li>除否有把握，避免使⽤ <code>dev-master</code> 或 <code>*</code> 的版本</li>
+<li>盡量選遵照語意化版本設計的套件，通常⽐較安全</li>
+</ol>
+</li>
+<li><p>參考<a href="laravel.tw/docs">Laravel 中文官網</a> 說明，有兩種方法:</p>
+<p>方法一: </p>
+<ol>
+<li><p>先下載 <code>Laravel</code> 安裝包，開啟 <code>Terminal</code>，輸入以下指令:</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">composer</span> global require laravel/installer<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<blockquote>
+<p>安裝後，此方法要再追加 <code>laravel</code> 指令的安裝路徑，如下。<br> <code>PATH=; %COMPOSER_HOME%\vendor\bin</code></p>
+</blockquote>
+</li>
+<li><p>然後就可以使用該 <code>laravel</code> 指令建立專案.<br><code>laravel new 專案名稱</code></p>
+</li>
+</ol>
+<p>方法二: 透過指令 <code>composer create-Project vendor-name/package-name  "版號"</code></p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#composer create-project --prefer-dist laravel/laravel 專案名稱</span>
+<span class="token comment">#不指定專案名稱，預設會是 laravel</span>
+<span class="token function">composer</span> create-project --prefer-dist laravel/laravel<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<blockquote>
+<p>推薦此方式；但 composer 若版本太舊會無法下載新版的 laravel 8.4.3。</p>
+</blockquote>
+</li>
+</ul>
+<h4 id="1-1-6-建立-Laravel-專案"><a href="#1-1-6-建立-Laravel-專案" class="headerlink" title="1.1.6 建立 Laravel 專案"></a>1.1.6 建立 Laravel 專案</h4><ol>
+<li><p>開啟 <code>Terminal</code>，切換到 <code>xampp</code> 的 <code>htdocs</code> 資料夾，輸入指令，路徑應根據您的狀況作調整:</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">mkdir</span> d:<span class="token punctuation">\</span>xampp<span class="token punctuation">\</span>htdocs
+<span class="token builtin class-name">cd</span> d:<span class="token punctuation">\</span>xampp<span class="token punctuation">\</span>htdocs<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</li>
+<li><p>如果要建立的是最新 <code>Laravel</code>版本的專案，請輸入指令</p>
+<p><code>laravel new app_name</code></p>
+<blockquote>
+<p>例: <code>laravel new ezsite</code></p>
+</blockquote>
+</li>
+<li><p>如果要建立指定 <code>Laravel</code> 版本的新專案，例如 <code>5.8</code>，需使用 <code>composer</code>，請輸入指令:</p>
+<p><code>composer create-project --prefer-dist laravel/laravel app_name "5.8.*"</code></p>
+</li>
+<li><p>開啟專案，確定是否有 <code>.env</code> 檔案，如果找不到 <code>.env</code> 檔，可將 <code>.env.example</code> 檔案改名成 <code>.env</code>。</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">cd</span> d:<span class="token punctuation">\</span>xampp<span class="token punctuation">\</span>htdocs<span class="token punctuation">\</span>ezsite
+<span class="token function">dir</span> .env<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</li>
+<li><p>檢查專案下的 <code>.env</code> 內文是否有:<br><code>APP_KEY=base64:8nRS4r2Ntkhuo+fvdov/Mxc6Je2R+84SHH0KTjSA430=</code></p>
+<p>如果沒有可以透過下列方式產生應用金鑰，開啟 <code>Terminal</code>，切換到新建立的專案資料夾，請輸入指令:</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">php artisan key:generate<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<blockquote>
+<p>artisan 是一 <code>laravel</code> 的管理工具，利用它來執行 <code>laravel</code> 的各種指令。</p>
+</blockquote>
+</li>
+<li><p>開啟專案，確定是否有 <code>.env</code> 檔案，如果找不到 <code>.env</code> 檔，可將 <code>.env.example</code> 檔案改名成 <code>.env</code></p>
+</li>
+</ol>
+<h4 id="1-1-7-確認建置是否成功"><a href="#1-1-7-確認建置是否成功" class="headerlink" title="1.1.7 確認建置是否成功"></a>1.1.7 確認建置是否成功</h4><ul>
+<li><strong>請確保 <code>Apache</code> 服務和 <code>MySQL</code> 服務都有開啟</strong></li>
+</ul>
+<ol>
+<li><p>專案下，啟動專案</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">cd</span> d:<span class="token punctuation">\</span>xampp<span class="token punctuation">\</span>htdocs<span class="token punctuation">\</span>ezsite
+php artisan serve<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</li>
+<li><p>開啟瀏覽器，比如 <code>Google Chrome</code></p>
+</li>
+<li><p>輸入網址　<code>http://localhost:8000/</code></p>
+<img src="/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/allen-5183/blog.allen5183.synology.me/images/20210526160006.png" width="50%" height="50%" class="nofancybox">
+
+</li>
+</ol>
+<h4 id="1-1-8-設定本地化網域-非必須"><a href="#1-1-8-設定本地化網域-非必須" class="headerlink" title="1.1.8 設定本地化網域(非必須)"></a>1.1.8 設定本地化網域(非必須)</h4><ol>
+<li><p>將所命名的網域指向到本機 <code>127.0.0.1</code>，作法是修改 <code>hosts</code>，這裡以 <code>ezsite.test</code> 為例</p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript">nano <span class="token constant">C</span><span class="token operator">:</span>\windows\system32\drivers\etc\hosts
+<span class="token number">127.0</span><span class="token number">.0</span><span class="token number">.1</span> ezsite<span class="token punctuation">.</span>test # Laravel 專案<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</li>
+<li><p>告訴此網域需要由哪個專案資料夾來接手，作法是修改 <code>httpd-vhost.conf</code>，路徑應根據您的狀況作調整。</p>
+<pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token comment">//XAMPP資料夾\apache\conf\extra\httpd-vhosts.conf</span>
+&lt;VirtualHost *<span class="token operator">:</span><span class="token number">6080</span>&gt;
+  DocumentRoot <span class="token string">"D:/xampp/htdocs/ezsite/public"</span>
+  ServerName ezsite.test
+&lt;/VirtualHost&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>要求 <code>Apache</code> 開啟時需讀取 <code>httpd-vhosts.conf</code>，作法是修改 <code>XAMPP</code> 資料夾\apache\conf\httpd.conf。找到 <code>Include conf/extra/httpd-vhosts.conf</code> 那一行，把前面的 <code>#</code> 註解移除。</p>
+</li>
+<li><p>重開 <code>Apache</code> 服務，訪問 <code>http://ezsite.test:6080</code>，看能否順利開啟。</p>
+<img src="/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/allen-5183/blog.allen5183.synology.me/images/20210526215506.png" width="50%" height="50%" class="nofancybox">
+
+</li>
+</ol>
+<h3 id="1-2-Mac-作業系統"><a href="#1-2-Mac-作業系統" class="headerlink" title="1.2 Mac 作業系統"></a>1.2 Mac 作業系統</h3><h4 id="1-2-1-安裝-XAMPP"><a href="#1-2-1-安裝-XAMPP" class="headerlink" title="1.2.1 安裝 XAMPP"></a>1.2.1 安裝 <code>XAMPP</code></h4><p><code>PHP + Apache + MariaDB</code> 懶人包</p>
+<p><a target="_blank" rel="noopener" href="https://www.apachefriends.org/zh_tw/download.html">下載網址</a></p>
+<p>請下載 <code>PHP 7.2.5</code> 以上版本，下載完後安裝，過程只需不斷按 <code>Next</code> 即可。</p>
+<p>選擇相同版號容量較小的非 VM 版本</p>
+<h4 id="1-2-2-安裝-Visual-Studio-Code"><a href="#1-2-2-安裝-Visual-Studio-Code" class="headerlink" title="1.2.2 安裝 Visual Studio Code"></a>1.2.2 安裝 <code>Visual Studio Code</code></h4><p>由微軟提供，可免費使用的 IDE</p>
+<p><a target="_blank" rel="noopener" href="https://code.visualstudio.com/download">下載網址</a></p>
+<h4 id="1-2-3-安裝-Composer"><a href="#1-2-3-安裝-Composer" class="headerlink" title="1.2.3 安裝 Composer"></a>1.2.3 安裝 <code>Composer</code></h4><p>用於管理所有 <code>PHP</code> 套件，包含 <code>Laravel</code></p>
+<ol>
+<li><p>進入 <code>Composer</code> 官網，複製指令<br><a target="_blank" rel="noopener" href="https://getcomposer.org/download">指令複製網址</a></p>
+</li>
+<li><p>開啟Terminal，貼入以下指令並執行</p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript">php <span class="token operator">-</span>r <span class="token string">"copy('https://getcomposer.org/installer', 'composer-setup.php');"</span>
+php <span class="token operator">-</span>r "<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">hash_file</span><span class="token punctuation">(</span><span class="token string">'sha384'</span><span class="token punctuation">,</span> <span class="token string">'composer-setup.php'</span><span class="token punctuation">)</span> <span class="token operator">===</span> <span class="token string">'e0012edf3e80b6978849f5eff0d4b4e4c79ff1609dd1e613307e16318854d24ae64f26d17af3ef0bf7cfb710ca74755a'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> echo <span class="token string">'Installer verified'</span><span class="token punctuation">;</span> <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span> echo <span class="token string">'Installer corrupt'</span><span class="token punctuation">;</span>
+<span class="token function">unlink</span><span class="token punctuation">(</span><span class="token string">'composer-setup.php'</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">}</span> echo <span class="token constant">PHP_EOL</span><span class="token punctuation">;</span>"
+php composer<span class="token operator">-</span>setup<span class="token punctuation">.</span>php
+php <span class="token operator">-</span>r <span class="token string">"unlink('composer-setup.php');"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>搬移到指定位置，指令如下：<br><code>sudo mv composer.phar /usr/local/bin/composer</code></p>
+<p>==如果 <code>/usr/local/bin</code>不存在，輸入指令來建立: <code>sudo mkdir /usr/local/bin</code>==</p>
+</li>
+<li><p>開啟 <code>.bash_profile</code> 來設定路徑，輸入指令: <code>touch ~/.bash_profile;open ~/.bash_profile</code>，加入以下程式碼:<br><code>export PATH=/usr/local/bin:$PATH</code></p>
+</li>
+<li><p>立即讀取路徑設定，輸入指令: <code>source ~/.bash_profile</code></p>
+</li>
+</ol>
+<h4 id="1-2-4-安裝-Homebrew-以下載缺少套件-非必須"><a href="#1-2-4-安裝-Homebrew-以下載缺少套件-非必須" class="headerlink" title="1.2.4 安裝 Homebrew 以下載缺少套件(非必須)"></a>1.2.4 安裝 <code>Homebrew</code> 以下載缺少套件(非必須)</h4><p>==可先跳到Step 5，如果安裝失敗再回來==</p>
+<p>用於 <code>Mac</code> 環境安裝工具或套件，當執行 <code>composer</code> 時找不到必須套件，就需要使用 <code>Homebrew</code> 來下載</p>
+<ol>
+<li><p>開啟安裝 <code>Homebrew</code> 網站去複製指令，網址為 <code>https://brew.sh</code></p>
+</li>
+<li><p>開啟 <code>Terminal</code>，貼入以下指令並執行<br><code>/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"</code></p>
+</li>
+<li><p>開啟 <code>Terminal</code>，輸入指令:</p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript">brew install php@<span class="token number">7.4</span> 
+brew link php@<span class="token number">7.4</span> <span class="token operator">--</span>force<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>==PS: <code>7.4</code> 版本應替換為你所安裝 <code>XAMPP</code> 所採用的 <code>PHP</code> 版本==</p>
+</li>
+</ol>
+<h4 id="1-2-5-下載-Laravel-安裝器"><a href="#1-2-5-下載-Laravel-安裝器" class="headerlink" title="1.2.5 下載 Laravel 安裝器"></a>1.2.5 下載 <code>Laravel</code> 安裝器</h4><p>==如果進行這個階段遇到錯誤，請先退回到 <code>Step4</code> 安裝完再回來。如果跳出需要命令列開發者工具，點安裝來安裝工具==</p>
+<ol>
+<li><p>開啟 <code>Terminal</code>，輸入以下指令<br> <code>composer global require "laravel/installer"</code></p>
+</li>
+<li><p>開啟 <code>.bash_profile</code> 以設定路徑，輸入指令:<code>touch ~/.bash_profile;open ~/.bash_profile;</code>，修改完整程式碼如下:</p>
+<p><code>export PATH=$HOME/.composer/vendor/bin:/Applications/XAMPP/xamppfiles/bin:/usr/local/bin:$PATH</code></p>
+</li>
+<li><p>立即讀取路徑設定，指令為 <code>source ~/.bash_profile</code></p>
+</li>
+</ol>
+<h4 id="1-2-6-建立-Laravel-專案"><a href="#1-2-6-建立-Laravel-專案" class="headerlink" title="1.2.6 建立 Laravel 專案"></a>1.2.6 建立 <code>Laravel</code> 專案</h4><ol>
+<li><p>開啟 <code>Terminal</code>，切換到 <code>xampp</code> 的 <code>htdocs</code> 資料夾，輸入指令，路徑應根據您的狀況作調整</p>
+<p> <code>cd /Applications/XAMPP/htdocs</code></p>
+</li>
+<li><p>如果要建立指定 <code>Laravel</code> 版本的新專案，例如 <code>5.8</code>，需使用 <code>composer</code>，請輸入指令:</p>
+<p><code>composer create-project --prefer-dist laravel/laravel app_name "5.8.*"</code></p>
+<p>2.1(可選) 如果要建立的是最新 <code>Laravel</code> 版本的專案，請輸入指令</p>
+<p><code>laravel new app_name</code></p>
+<blockquote>
+<p>例: <code>laravel new ezsite</code></p>
+</blockquote>
+</li>
+<li><p>生成應用金鑰，開啟 <code>Terminal</code>，切換到新建立的專案資料夾，輸入指令</p>
+<p><code>php artisan key:generate</code></p>
+</li>
+<li><p>將 <code>storage</code> 資料夾權限全開，同樣在 <code>Terminal</code>，路徑在專案資料夾，輸入指令</p>
+<p><code>sudo chmod -R 777 storage</code></p>
+</li>
+<li><p>開啟專案，確定是否有 <code>.env</code> 檔案，如果找不到 <code>.env</code> 檔，可將 <code>.env.example</code> 檔案改名成 <code>.env</code></p>
+</li>
+</ol>
+<h4 id="1-2-7-確認建置是否成功"><a href="#1-2-7-確認建置是否成功" class="headerlink" title="1.2.7 確認建置是否成功"></a>1.2.7 確認建置是否成功</h4><p>==請確保 <code>Apache</code> 服務和 <code>MySQL</code> 服務都有開啟==</p>
+<ul>
+<li><p>執行如下:</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">cd</span> /Applications/XAMPP/htdocs/ezsite
+php artisan serve<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</li>
+<li><p>開啟瀏覽器，比如 <code>Google Chrome</code></p>
+</li>
+<li><p>輸入網址　<code>http://localhost:8000/</code></p>
+</li>
+</ul>
+<h4 id="1-2-8-設定本地化網域-非必須"><a href="#1-2-8-設定本地化網域-非必須" class="headerlink" title="1.2.8 設定本地化網域(非必須)"></a>1.2.8 設定本地化網域(非必須)</h4><ol>
+<li><p>將所命名的網域指向到本機 <code>127.0.0.1</code>，作法是修改 <code>hosts</code>，這裡以 <code>ezsite.test</code> 為例</p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">//etc\hosts</span>
+<span class="token number">127.0</span><span class="token number">.0</span><span class="token number">.1</span> ezsite<span class="token punctuation">.</span>test #Laravel 專案<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</li>
+<li><p>告訴此網域需要由哪個專案資料夾來接手，作法是修改 <code>httpd-vhost.conf</code>，加入以下設定，路徑應根據您的狀況作調整</p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">//XAMPP資料夾\etc\extra\httpd-vhosts.conf</span>
+<span class="token operator">&lt;</span>VirtualHost <span class="token operator">*</span><span class="token operator">:</span><span class="token number">6080</span><span class="token operator">&gt;</span>
+   DocumentRoot <span class="token string">"/Applications/XAMPP/htdocs/ezsite"</span>  
+   ServerName ezsite<span class="token punctuation">.</span>test
+<span class="token operator">&lt;</span><span class="token operator">/</span>VirtualHost<span class="token operator">&gt;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>要求 <code>Apache</code> 開啟時需讀取 <code>httpd-vhosts.conf</code>，作法是修改 <code>XAMPP</code> 資料夾 <code>\etc\httpd.conf</code>。找到 <code>httpd-vhosts.conf</code> 那一行，把前面的 <code>#</code> 註解移除。</p>
+</li>
+<li><p>重開 <code>Apache</code> 服務</p>
+</li>
+<li><p>開啟瀏覽器，訪問 <code>http://ezsite.test:6080</code>，看能否順利開啟</p>
+</li>
+</ol>
+<h3 id="1-3-Linux-作業系統"><a href="#1-3-Linux-作業系統" class="headerlink" title="1.3 Linux 作業系統"></a>1.3 Linux 作業系統</h3><h4 id="1-3-1-安裝-Composer"><a href="#1-3-1-安裝-Composer" class="headerlink" title="1.3.1 安裝 Composer"></a>1.3.1 安裝 Composer</h4><ul>
+<li><p>開啟終端機</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">curl</span> -sS https://getcomposer.org/installer  <span class="token operator">|</span> php
+php composer.phar <span class="token operator">&lt;</span>command<span class="token operator">&gt;</span>
+<span class="token function">sudo</span> <span class="token function">mv</span> composer.phar  /user/local/bin/composer<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<blockquote>
+<p>如果希望讓所有人都可以使用，就將 <code>composer.phar</code> 搬到共用執行目錄，例如 <code>/usr/local/bin</code><br>這樣就可以直接執行 <code>composer</code>，若不能執行，則要以 <code>chmod</code> 加入可執行權限。</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="2-專案介紹、設定、MVC-概念"><a href="#2-專案介紹、設定、MVC-概念" class="headerlink" title="2. 專案介紹、設定、MVC 概念"></a>2. 專案介紹、設定、MVC 概念</h2><h3 id="主設定檔修改"><a href="#主設定檔修改" class="headerlink" title="主設定檔修改"></a>主設定檔修改</h3><ul>
+<li><p>修改 <code>config/app.php</code>，設定 <code>timezone</code> 時區與 <code>locale</code> 語系</p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">//config/app.php</span>
+
+<span class="token string">'locale'</span> <span class="token operator">=&gt;</span> <span class="token string">'zh_TW'</span><span class="token punctuation">,</span>           # <span class="token string">'en'</span>
+<span class="token string">'timezone'</span> <span class="token operator">=&gt;</span> <span class="token string">'Asia/Taipei'</span><span class="token punctuation">,</span>   # <span class="token string">'UTC'</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+</li>
+</ul>
+<h3 id="隱私設定檔設定"><a href="#隱私設定檔設定" class="headerlink" title="隱私設定檔設定"></a>隱私設定檔設定</h3><ul>
+<li><p>修改 <code>.env</code> 檔案，所設的值不可以有空格</p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">//.env</span>
+
+<span class="token constant">APP_NAME</span><span class="token operator">=</span>ezsite <span class="token comment">//專案名稱</span>
+<span class="token constant">APP_ENV</span><span class="token operator">=</span>local      <span class="token comment">//專案所在環境，local為本地端開發，production為正式上線環境</span>
+<span class="token constant">APP_KEY</span> <span class="token comment">//應用金鑰，不得為空，可透過 php artisan key:generate來生成</span>
+<span class="token constant">APP_DEBUG</span><span class="token operator">=</span><span class="token boolean">true</span>     <span class="token comment">//是否開啟除錯模式，正式上線環境建議關掉</span>
+<span class="token constant">APP_URL</span><span class="token operator">=</span> http<span class="token operator">:</span><span class="token operator">/</span><span class="token operator">/</span>ezsite<span class="token punctuation">.</span>test<span class="token operator">:</span><span class="token number">6080</span> <span class="token comment">//這裡需須設定到專案下的 public 資料夾</span>
+
+<span class="token constant">DB_CONNECTION</span><span class="token operator">=</span>mysql    <span class="token comment">//所要連接的資料庫</span>
+<span class="token constant">DB_HOST</span><span class="token operator">=</span><span class="token number">127.0</span><span class="token number">.0</span><span class="token number">.1</span>      <span class="token comment">//資料庫 Ip Address</span>
+<span class="token constant">DB_PORT</span><span class="token operator">=</span><span class="token number">3306</span>           <span class="token comment">//資料庫 port號</span>
+<span class="token constant">DB_DATABASE</span><span class="token operator">=</span> ezsite    <span class="token comment">//資料庫名稱</span>
+<span class="token constant">DB_USERNAME</span><span class="token operator">=</span> root      <span class="token comment">//資料庫帳號</span>
+<span class="token constant">DB_PASSWORD</span><span class="token operator">=</span> <span class="token number">1</span>qaz@wsx  <span class="token comment">//資料庫密碼</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+</li>
+</ul>
+<h3 id="MVC-概念"><a href="#MVC-概念" class="headerlink" title="MVC 概念"></a>MVC 概念</h3><ul>
+<li><p>Image</p>
+<img src="/medias/loading.gif" data-original="http://blog-images.allen5183.synology.me/laravel/mvc.jpg" width="50%" height="50%" class="nofancybox">  
+
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token operator">-</span>app
+<span class="token operator">|</span><span class="token operator">--</span>Console       指令，相關檔案
+<span class="token operator">|</span><span class="token operator">--</span>Exception     除錯相關檔案
+<span class="token operator">|</span><span class="token operator">--</span>Http
+<span class="token operator">|</span>   <span class="token operator">|</span><span class="token operator">--</span> Controllers
+<span class="token operator">|</span><span class="token operator">--</span>Models        資料模組
+<span class="token operator">|</span>   <span class="token operator">|</span><span class="token operator">--</span> User<span class="token punctuation">.</span>php 預設模組
+<span class="token operator">|</span><span class="token operator">--</span>Providers     邏輯、套件使用方式
+<span class="token operator">-</span>config          <span class="token function">設定一些參數</span><span class="token punctuation">(</span>連到哪<span class="token constant">DB</span><span class="token punctuation">,</span>送信到哪<span class="token punctuation">.</span><span class="token punctuation">.</span>等<span class="token punctuation">)</span>
+<span class="token operator">-</span>database        <span class="token function">資料庫相關</span><span class="token punctuation">(</span>產生假資料<span class="token punctuation">.</span><span class="token punctuation">.</span>等<span class="token punctuation">)</span>
+<span class="token operator">-</span><span class="token keyword">public</span>          <span class="token function">靜態檔案</span><span class="token punctuation">(</span>圖片、供人下載檔案<span class="token punctuation">)</span>
+<span class="token operator">-</span>resource        view 檔案，<span class="token constant">CSS</span>、<span class="token constant">JS</span> 檔案
+<span class="token operator">-</span>routes          定義 <span class="token constant">URL</span> 連結到哪一個 Controler 類別與使用方法
+<span class="token operator">-</span>storage         暫存檔案或讓使用者上傳檔案位置
+<span class="token operator">-</span>tests           測試程式
+<span class="token operator">-</span>vendor          laravel 專案會使用到的套件<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+</li>
+</ul>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">allen</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章連結:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="http://blog.allen5183.synology.me/laravel/20201228-laravel/">http://blog.allen5183.synology.me/laravel/20201228-laravel/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版權聲明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別聲明外，均採用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    授權合約。轉載請注明來源
+                    <a href="/about" target="_blank">allen</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>複製成功，請遵循本文的轉載規則</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/php/">
+                                    <span class="chip bg-color">php</span>
+                                </a>
+                            
+                                <a href="/tags/laravel/">
+                                    <span class="chip bg-color">laravel</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,wechat,linkedin" data-wechat-qrcode-helper="<p>微信掃一掃即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+        <link rel="stylesheet" href="/libs/gitalk/gitalk.css">
+<link rel="stylesheet" href="/css/my-gitalk.css">
+
+<div class="card gitalk-card" data-aos="fade-up">
+    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
+        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+        <span>評論</span>
+    </div>
+    <div id="gitalk-container" class="card-content"></div>
+</div>
+
+<script src="/libs/gitalk/gitalk.min.js"></script>
+<script>
+    let gitalk = new Gitalk({
+        clientID: 'e484b237dd5bd59118c0',
+        clientSecret: '7071e58c699bdbdce68a1d36b72b4184f24e98b1',
+        repo: 'hexo-matery',
+        owner: 'allen-5183',
+        admin: ["allen-5183"],
+        id: '2020-12-27T16-33-23',
+        distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+
+    gitalk.render('gitalk-container');
+</script>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+        
+
+     <article id="prenext-posts" class="prev-next articles">
+         <div class="row article-row">
+             
+             <div class="article col s12 m6" data-aos="fade-up">
+                 <div class="article-badge left-badge text-color">
+                     <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                 <div class="card">
+                     <a href="/virtualbox/20201228-virtualbox/">
+                         <div class="card-image">
+                             
+                             
+                             <img src="/medias/loading.gif" data-original="/medias/featureimages/0.jpg" class="responsive-img" alt="virtualbox">
+                             
+                             <span class="card-title">virtualbox</span>
+                         </div>
+                     </a>
+                     <div class="card-content article-content">
+                         <div class="summary block-with-text">
+                             
+                                 1. 安裝版本首先我們要先下載 VirtualBox，請到官網按下大大的 Download 按鈕吧；接著選擇 Windows hosts 版本進行下載，然後就執行安裝檔下一步按到底。
+2. 攜帶版本
+至官網 Protable-Virtual
+                             
+                         </div>
+                         <div class="publish-info">
+                             <span class="publish-date">
+                                 <i class="far fa-clock fa-fw icon-date"></i>2020-12-27
+                             </span>
+                             <span class="publish-author">
+                                 
+                                 <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                 
+                                 <a href="/categories/virtualbox/" class="post-category">
+                                         virtualbox
+                                     </a>
+                                 
+                                 
+                             </span>
+                         </div>
+                     </div>
+                     
+                     <div class="card-action article-tags">
+                         
+                         <a href="/tags/virtualbox/">
+                             <span class="chip bg-color">virtualbox</span>
+                         </a>
+                        
+                     </div>
+                     
+                 </div>
+             </div>
+             
+             
+             <div class="article col s12 m6" data-aos="fade-up">
+                 <div class="article-badge right-badge text-color">
+                     下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+                 </div>
+                 <div class="card">
+                     <a href="/php/20201130-php-mvc/">
+                         <div class="card-image">
+                             
+                             
+                        <img src="/medias/loading.gif" data-original="/medias/featureimages/2.jpg" class="responsive-img" alt="php mvc 框架">
+                        
+                        <span class="card-title">php mvc 框架</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            php MVC
+1. 簡介   MVC 模式（Model-View-Controller）是軟體工程中的一種軟體架構模式。
+
+MVC 把軟體系統分為三個基本部分： 模型（Model）、視圖（View）和控制器（Controller）。
+
+P
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-11-29
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/php/" class="post-category">
+                                    php
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/php/">
+                        <span class="chip bg-color">php</span>
+                    </a>
+                    
+                    <a href="/tags/mvc/">
+                        <span class="chip bg-color">mvc</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+      </div>
+    </article>
+
+</div>
+
+
+
+<!-- 代碼塊功能依賴 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代碼語言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代碼塊複製 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代碼塊收縮 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+<!-- 代碼塊折行 -->
+
+<style type="text/css">
+code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
+</style>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目錄</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 懸浮按鈕. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修復文章卡片 div 的寬度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切換TOC目錄展開收縮的相關操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='true'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='false'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+
+    
+    <div class="container row center-align" style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+
+            Copyright&nbsp;&copy;
+            <span id="year">2020</span>
+            <a href="/about" target="_blank">Allen Tai</a>
+            <br>
+
+            
+
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;總訪問量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;總訪問人數:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <br>
+            
+        </div>
+
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/allen-5183" class="tooltipped" target="_blank" data-tooltip="allen's GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:allen5183@gmail.com" class="tooltipped" target="_blank" data-tooltip="郵件聯繫我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+    <a href="https://www.facebook.com/allen5183" class="tooltipped" target="_blank" data-tooltip="關注我的 
+Facebook: https://www.facebook.com/allen5183" data-position="top" data-delay="50">
+        <i class="fab fa-facebook-f"></i>
+    </a>
+
+
+
+
+    <a href="" class="tooltipped" target="_blank"
+data-tooltip="關注我的 Twitter: https://twitter.com/allen5183" data-position="top" data-delay="50">                                                                                                               
+<i class="fab fa-twitter"></i>
+    </a>
+
+
+
+                                                                                                                                                                                   
+<a href="https://plus.google.com/allen5183" class="tooltipped" target="_blank"                                                                                                                                    
+data-tooltip="關注我的 Google: https://plus.google.com/allen5183" data-position="top" data-delay="50">                                                                                                              
+<i class="fab fa-google-plus-g"></i>                                                                                                                                                                                          
+</a>                                                                                                                                                                                                            
+   
+
+
+
+
+
+<!--
+
+    <a href="https://twitter.com/allen5183" class="tooltipped" target="_blank" data-tooltip="關注我的Twitter: https://twitter.com/allen5183" data-position="top" data-delay="50">
+        <i class="fab fa-twitter"></i>
+    </a>
+
+
+
+
+
+
+
+
+
+-->
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 訂閱" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+
+<!-- 燈籠左 -->
+<!-- <div class="deng-box"> -->
+<!--   <div class="deng"> -->
+<!--     <div class="xian"></div> -->
+<!--       <div class="deng-a"> -->
+<!--        <div class="deng-b"><div class="deng-t">雙十</div></div> -->
+<!--        </div>   -->
+<!--        <div class="shui shui-a">  -->
+<!--          <div class="shui-c"></div> -->
+<!--             <div class="shui-b"></div> -->
+<!--        </div> -->
+<!--    </div> -->
+<!-- </div> -->
+
+
+
+<!-- 燈籠右 -->
+<!-- <div class="deng-box1"> -->
+<!--    <div class="deng"> -->
+<!--        <div class="xian"></div> -->
+<!--        <div class="deng-a"> -->
+<!--            <div class="deng-b"><div class="deng-t">同慶</div></div>  -->
+<!--        </div>  -->
+<!--        <div class="shui shui-a"> -->
+<!--            <div class="shui-c"></div>  -->
+<!--            <div class="shui-b"></div>  -->
+<!--        </div> -->
+<!--    </div>  -->
+<!-- </div>  -->
+
+</footer>
+
+<div class="progress-bar"></div>
+
+<!-- 閒聊麼  -->
+<script>
+    var xlm_wid='16495';
+    var xlm_url='https://www.xianliao.me/';
+</script>
+<script type='text/javascript' charset='UTF-8' src='https://www.xianliao.me/embed.js'></script>
+
+
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="請輸入搜索的關鍵字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/search.xml", 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到頂部按鈕 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i["DaoVoiceObject"] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o), m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            a.charset = "utf-8";
+            m.parentNode.insertBefore(a, m)
+        })(window, document, "script", ('https:' == document.location.protocol ? 'https:' : 'http:') +
+            "//widget.daovoice.io/widget/6984b559.js", "daovoice")
+        daovoice('init', {
+            app_id: "22dc2875"
+        });
+        daovoice('update');
+    </script>
+    
+
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/nito.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true,"scale":0.5},"react":{"opacity":0.7},"log":false});</script><script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(n){n.imageLazyLoadSetting.processImages=o;var i=n.imageLazyLoadSetting.isSPA,r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function o(){i&&(r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")));for(var t,e,a=0;a<r.length;a++)t=r[a],e=void 0,0<=(e=t.getBoundingClientRect()).bottom&&0<=e.left&&e.top<=(n.innerHeight||document.documentElement.clientHeight)&&function(){var t,e,n,i,o=r[a];t=o,e=function(){r=r.filter(function(t){return o!==t})},n=new Image,i=t.getAttribute("data-original"),n.onload=function(){t.src=i,e&&e()},n.src=i}()}o(),n.addEventListener("scroll",function(){var t,e;t=o,e=n,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(e)},500)})}(this);</script></body>
+
+</html>

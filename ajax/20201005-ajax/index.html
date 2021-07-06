@@ -1,0 +1,1886 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="原生 Ajax 對象, 個人博客 呆呆 學習 Allen">
+    <meta name="description" content="網頁技術| 物聯網應用 | AI 智能">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>原生 Ajax 對象 | 呆呆-博客</title>
+    <link rel="icon" type="image/gif" href="/medias/diamond.gif">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery.min.js"></script>
+
+<style type="text/css" lang="css">
+    #loading-container{
+        position: fixed;
+        top: 0;
+        left: 0;
+        min-height: 100vh;
+        width: 100vw;
+        z-index: 9999;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background: #FFF;
+        text-align: center;
+        /* loader页面消失采用渐隐的方式*/
+        -webkit-transition: opacity 1s ease;
+        -moz-transition: opacity 1s ease;
+        -o-transition: opacity 1s ease;
+        transition: opacity 1s ease;
+    }
+    .loading-image{
+        width: 120px;
+        height: 50px;
+        transform: translate(-50%);
+    }
+
+    .loading-image div:nth-child(2) {
+        -webkit-animation: pacman-balls 1s linear 0s infinite;
+        animation: pacman-balls 1s linear 0s infinite
+    }
+
+    .loading-image div:nth-child(3) {
+        -webkit-animation: pacman-balls 1s linear .33s infinite;
+        animation: pacman-balls 1s linear .33s infinite
+    }
+
+    .loading-image div:nth-child(4) {
+        -webkit-animation: pacman-balls 1s linear .66s infinite;
+        animation: pacman-balls 1s linear .66s infinite
+    }
+
+    .loading-image div:nth-child(5) {
+        -webkit-animation: pacman-balls 1s linear .99s infinite;
+        animation: pacman-balls 1s linear .99s infinite
+    }
+
+   .loading-image div:first-of-type {
+        width: 0;
+        height: 0;
+        border: 25px solid #49b1f5;
+        border-right-color: transparent;
+        border-radius: 25px;
+        -webkit-animation: rotate_pacman_half_up .5s 0s infinite;
+        animation: rotate_pacman_half_up .5s 0s infinite;
+    }
+    .loading-image div:nth-child(2) {
+        width: 0;
+        height: 0;
+        border: 25px solid #49b1f5;
+        border-right-color: transparent;
+        border-radius: 25px;
+        -webkit-animation: rotate_pacman_half_down .5s 0s infinite;
+        animation: rotate_pacman_half_down .5s 0s infinite;
+        margin-top: -50px;
+    }
+    @-webkit-keyframes rotate_pacman_half_up {0% {transform: rotate(270deg)}50% {transform: rotate(1turn)}to {transform: 
+rotate(270deg)}}
+
+    @keyframes rotate_pacman_half_up {0% {transform: rotate(270deg)}50% {transform: rotate(1turn)}to {transform: 
+rotate(270deg)}}
+
+    @-webkit-keyframes rotate_pacman_half_down {0% {transform: rotate(90deg)}50% {transform: rotate(0deg)}to {transform: 
+rotate(90deg)}}
+
+    @keyframes rotate_pacman_half_down {0% {transform: rotate(90deg)}50% {transform: rotate(0deg)}to {transform: 
+rotate(90deg)}}
+
+    @-webkit-keyframes pacman-balls {75% {opacity: .7}to {transform: translate(-100px, -6.25px)}}
+
+    @keyframes pacman-balls {75% {opacity: .7}to {transform: translate(-100px, -6.25px)}}
+
+
+    .loading-image div:nth-child(3),
+    .loading-image div:nth-child(4),
+    .loading-image div:nth-child(5),
+    .loading-image div:nth-child(6){
+        background-color: #49b1f5;
+        width: 15px;
+        height: 15px;
+        border-radius: 100%;
+        margin: 2px;
+        width: 10px;
+        height: 10px;
+        position: absolute;
+        transform: translateY(-6.25px);
+        top: 25px;
+        left: 100px;
+    }
+    .loading-text{
+        margin-bottom: 20vh;
+        text-align: center;
+        color: #2c3e50;
+        font-size: 2rem;
+        box-sizing: border-box;
+        padding: 0 10px;
+        text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+    @media only screen and (max-width: 500px) {
+         .loading-text{
+            font-size: 1.5rem;
+         }
+    }
+    .fadeout {
+        opacity: 0;
+        filter: alpha(opacity=0);
+    }
+    /* logo出现动画 */
+    @-webkit-keyframes 
+fadeInDown{0%{opacity:0;-webkit-transform:translate3d(0,-100%,0);transform:translate3d(0,-100%,0)}100%{opacity:1;-webkit-transform:none;transform:none}}
+    @keyframes fadeInDown{0%{opacity:0;-webkit-transform:translate3d(0,-100%,0);}}
+ </style>
+ <script>
+(function () {
+    const loaded = function(){
+       setTimeout(function(){
+            const loader = document.getElementById("loading-container");
+            loader.className="fadeout" ;//使用渐隐的方法淡出loading page
+            // document.getElementById("body-wrap").style.display="flex";
+            setTimeout(function(){
+                loader.style.display="none";
+            },1000); 
+        },1000);//强制显示loading page 1s  
+    };
+    loaded();
+})()
+ </script><meta name="generator" content="Hexo 5.2.0"><link rel="alternate" href="/atom.xml" title="呆呆-博客" type="application/atom+xml">
+</head>
+
+
+<script src="/js/instant.page.js" type="module"></script>
+
+<script type="text/javascript">
+var OriginTitile=document.title,st;
+document.addEventListener("visibilitychange",function(){document.hidden?(document.title="看不見我🙈~看不見我🙈~",clearTimeout(st)):(document.title=" 被發現了～",st=setTimeout(function(){document.title=OriginTitile},3e3))})</script>
+
+<script type="text/javascript">
+  //只在桌上出版網頁啟用特效
+  var windowWidth = $(window).width();
+  if (windowWidth > 768) {
+    //雪花特效
+    document.write('<script type="text/javascript" src="/js/xuehuapiaoluo.js"><\/script>');
+    //櫻花特效
+    //document.write('<script type="text/javascript" src="/js/sakura.js"><\/script>');
+    //無效 
+    //document.write('<script type="text/javascript" src="/js/xingxing.js"><\/script>');
+    //滑鼠點擊文字特效。(❤富強❤,❤民主❤,❤文明❤,❤和諧❤,❤自由❤,❤平等❤,❤公正❤,❤法治❤,❤愛國❤,❤敬業❤,❤誠信❤,❤友善❤);)
+    //document.write('<script type="text/javascript" src="/js/wenzi.js"><\/script>');
+
+  }
+</script>
+
+
+
+ <div id="loading-container">
+     <p class="loading-text">努力加載中 . . . </p> 
+     <div class="loading-image">
+         <div></div>
+         <div></div>
+         <div></div>
+         <div></div> 
+         <div></div>
+     </div>
+ </div><body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/loading.gif" data-original="/medias/diamond.gif" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">呆呆-博客</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首頁</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>關於</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情連結</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="" class="waves-effect waves-light">
+
+      
+      <i class="fas fa-meh-rolling-eyes" style="zoom: 0.6;"></i>
+      
+      <span>收納櫃</span>
+      <i class="fas fa-chevron-down" aria-hidden="true" style="zoom: 0.6;"></i>
+    </a>
+    <ul class="sub-nav menus_item_child ">
+      
+      <li>
+        <a href="/tags">
+          
+          <i class="fas fa-tags" style="margin-top: -20px; zoom: 0.6;"></i>
+          
+          <span>標籤</span>
+        </a>
+      </li>
+      
+      <li>
+        <a href="/categories">
+          
+          <i class="fas fa-bookmark" style="margin-top: -20px; zoom: 0.6;"></i>
+          
+          <span>分類</span>
+        </a>
+      </li>
+      
+      <li>
+        <a href="/archives">
+          
+          <i class="fas fa-archive" style="margin-top: -20px; zoom: 0.6;"></i>
+          
+          <span>歸檔</span>
+        </a>
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="" class="waves-effect waves-light">
+
+      
+      <i class="fas fa-list" style="zoom: 0.6;"></i>
+      
+      <span>媒體</span>
+      <i class="fas fa-chevron-down" aria-hidden="true" style="zoom: 0.6;"></i>
+    </a>
+    <ul class="sub-nav menus_item_child ">
+      
+      <li>
+        <a href="/movie">
+          
+          <i class="fas fa-film" style="margin-top: -20px; zoom: 0.6;"></i>
+          
+          <span>電影</span>
+        </a>
+      </li>
+      
+      <li>
+        <a href="/video">
+          
+          <i class="fas fa-film" style="margin-top: -20px; zoom: 0.6;"></i>
+          
+          <span>視頻</span>
+        </a>
+      </li>
+      
+      <li>
+        <a href="/galleries">
+          
+          <i class="fas fa-image" style="margin-top: -20px; zoom: 0.6;"></i>
+          
+          <span>相冊</span>
+        </a>
+      </li>
+      
+      <li>
+        <a href="/books">
+          
+          <i class="fas fa-book" style="margin-top: -20px; zoom: 0.6;"></i>
+          
+          <span>書籍</span>
+        </a>
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/loading.gif" data-original="/medias/diamond.gif" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">呆呆-博客</div>
+        <div class="logo-desc">
+            
+            網頁技術| 物聯網應用 | AI 智能
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首頁
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			關於
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情連結
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="javascript:;">
+			
+				<i class="fa-fw fas fa-meh-rolling-eyes"></i>
+			
+			收納櫃
+			<span class="m-icon"><i class="fas fa-chevron-right"></i></span>
+		</a>
+            <ul  style="background:  ;" >
+              
+                <li>
+
+                  <a href="/tags " style="margin-left:75px">
+				  
+				   <i class="fa fas fa-tags" style="position: absolute;left:50px" ></i>
+			      
+		          <span>標籤</span>
+                  </a>
+                </li>
+              
+                <li>
+
+                  <a href="/categories " style="margin-left:75px">
+				  
+				   <i class="fa fas fa-bookmark" style="position: absolute;left:50px" ></i>
+			      
+		          <span>分類</span>
+                  </a>
+                </li>
+              
+                <li>
+
+                  <a href="/archives " style="margin-left:75px">
+				  
+				   <i class="fa fas fa-archive" style="position: absolute;left:50px" ></i>
+			      
+		          <span>歸檔</span>
+                  </a>
+                </li>
+              
+            </ul>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="javascript:;">
+			
+				<i class="fa-fw fas fa-list"></i>
+			
+			媒體
+			<span class="m-icon"><i class="fas fa-chevron-right"></i></span>
+		</a>
+            <ul  style="background:  ;" >
+              
+                <li>
+
+                  <a href="/movie " style="margin-left:75px">
+				  
+				   <i class="fa fas fa-film" style="position: absolute;left:50px" ></i>
+			      
+		          <span>電影</span>
+                  </a>
+                </li>
+              
+                <li>
+
+                  <a href="/video " style="margin-left:75px">
+				  
+				   <i class="fa fas fa-film" style="position: absolute;left:50px" ></i>
+			      
+		          <span>視頻</span>
+                  </a>
+                </li>
+              
+                <li>
+
+                  <a href="/galleries " style="margin-left:75px">
+				  
+				   <i class="fa fas fa-image" style="position: absolute;left:50px" ></i>
+			      
+		          <span>相冊</span>
+                  </a>
+                </li>
+              
+                <li>
+
+                  <a href="/books " style="margin-left:75px">
+				  
+				   <i class="fa fas fa-book" style="position: absolute;left:50px" ></i>
+			      
+		          <span>書籍</span>
+                  </a>
+                </li>
+              
+            </ul>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+<script src="/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '62bda85617a55878023eeed685dee9d8f605ab313b3cdbc647fe73073aab0d49';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('請輸入訪問本文章的密碼')).toString(CryptoJS.enc.Hex)) {
+                alert('密碼錯誤，將返回主頁！');
+                location.href = '/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/4.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title"></h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        height: calc(100vh - 250px);
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章內容詳情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/ajax/">
+                                <span class="chip bg-color">ajax</span>
+                            </a>
+                        
+                            <a href="/tags/http/">
+                                <span class="chip bg-color">http</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/ajax/" class="post-category">
+                                ajax
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>發佈日期:&nbsp;&nbsp;
+                    2020-10-05
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="Ajax-與-Http-協議"><a href="#Ajax-與-Http-協議" class="headerlink" title="Ajax 與 Http 協議"></a>Ajax 與 Http 協議</h2><h3 id="Ajax-與-Http-協議詳解"><a href="#Ajax-與-Http-協議詳解" class="headerlink" title="Ajax 與 Http 協議詳解"></a>Ajax 與 Http 協議詳解</h3><p>  在 <strong>jQuery</strong> 中 已經提到了 <strong>Ajax</strong>，並且通過 <strong><code>$.ajax()</code></strong> 方法實現了和前後臺完成的簡單交互。但事實上在工作當中 <strong>jQuery</strong> 所提供的功能卻是遠遠不夠的，絕大部分的公司實際上並不希望他們的開發者使用現有的 <strong>Ajax</strong> 框架，而是選擇自行封裝一個功能相似但針對性卻更強的內容。因此我們必須知道在 <strong>js</strong> 內部，<strong>Ajax</strong> 到底是怎樣工作的。</p>
+<p>而在此之前，讓我們先對 <strong>Ajax</strong> 本身做一些詳細的說明。</p>
+<ul>
+<li><p>描述 <strong>Ajax</strong> 全名為 <code>Asynchronous javascript and xml</code>。<br>   <font color="red">是指圍繞【由 js 向伺服器發起 <code>http</code> 請求】這個功能而開發的一整套完整的做法。</font></p>
+</li>
+<li><p>由來</p>
+<ul>
+<li>99 年 Microsoft 公司第一次在 <code>IE5.0</code> 中引入此功能</li>
+<li>04 年 Gmail 發佈、05 年 Google Map 發佈時此功能才被重視 </li>
+<li>05 年 2 月 Ajax 正式提出</li>
+<li>06 年 W3C 發佈其對應的國際化標準</li>
+</ul>
+</li>
+<li><p>概述 Ajax模組在處理網路請求的時候包括以下五個步驟</p>
+<ol>
+<li>創建 <code>Xhr</code> 對象</li>
+<li>構建 <code>Xhr</code> 對象的屬性和方法</li>
+<li>由 <code>Xhr</code> 對象發出 <code>HTTP</code> 請求</li>
+<li>通過 <code>Xhr</code> 對象的方法，接收伺服器回傳的資料</li>
+<li>更新網頁數據</li>
+</ol>
+</li>
+</ul>
+<p>這幾個步驟都離不開 <code>Xhr</code> 對象，可見其重要性，如同操作 DOM 時所需要的對象 <code>document</code>。</p>
+<ul>
+<li><p>補充</p>
+<ul>
+<li><p>Ajax可以發出同步請求，也可以發出非同步請求。<br> &nbsp;但大多數情況下指的是非同步請求，因為同步的Ajax請求對流覽器會產生”阻塞效應”</p>
+</li>
+<li><p>HTTP(超文本傳輸協議)<br>可以透過此協議來進行文本或超文本(視頻、圖片、二進制等)文件的發送，簡單說，把所有數據打包成二進制採用 <code>JSON</code> 格式來發送。</p>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>JSON 文件</p>
+</blockquote>
+<p>  JSON 是字符串形式，本身是一種字符串的轉碼格式，表現為 JavaScript 的對象結構，但本質是由單引號所定義的字串，為何需要字符串，因為物聯網中要傳送數據，必須使用字符串，這是由硬體所決定，所有數據傳輸都必須採用字符串，由硬體決定，計算機中處裡數據只能0(沒過電)或1(過電)，這裡使用 1 個 bit 來控制，而在數據上基本單位 byte = 8bit， 定義了一字符串 ‘A’ 代表了要產生 65 (100000001)，發送到電腦中即處理 100000001(高低低低低低低高) 電位。</p>
+<ul>
+<li><p>範例:</p>
+<pre class="line-numbers language-js" data-language="js"><code class="language-js">$<span class="token punctuation">.</span><span class="token function">ajax</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    type<span class="token operator">:</span>   <span class="token punctuation">,</span>
+    url<span class="token operator">:</span>    <span class="token punctuation">,</span>
+    dataType<span class="token operator">:</span>
+    <span class="token function-variable function">success</span><span class="token operator">:</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token function-variable function">error</span><span class="token operator">:</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token punctuation">}</span> 
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token keyword">var</span> xhr <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">XMLHttpRequest</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+xhr<span class="token punctuation">.</span>onreadystatechange <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+  <span class="token keyword">if</span><span class="token punctuation">(</span>xhr<span class="token punctuation">.</span>readyState <span class="token operator">===</span> <span class="token number">4</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span>xhr<span class="token punctuation">.</span>status <span class="token operator">==</span> <span class="token number">200</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+      console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token constant">JSON</span><span class="token punctuation">.</span><span class="token function">parse</span><span class="token punctuation">(</span>xhr<span class="token punctuation">.</span>responseText<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token keyword">else</span><span class="token punctuation">{</span>
+      console<span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span>xhr<span class="token punctuation">.</span>statusText<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+xhr<span class="token punctuation">.</span>onerror <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span>e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  console<span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span>xhr<span class="token punctuation">.</span>statusText<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+xhr<span class="token punctuation">.</span><span class="token function">open</span><span class="token punctuation">(</span><span class="token single-quoted-string string">'GET'</span><span class="token punctuation">,</span><span class="token single-quoted-string string">'ajax.php'</span><span class="token punctuation">,</span><span class="token boolean constant">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+xhr<span class="token punctuation">.</span>timeout <span class="token operator">=</span> <span class="token number">5000</span><span class="token punctuation">;</span>
+xhr<span class="token punctuation">.</span><span class="token function">send</span><span class="token punctuation">(</span><span class="token constant">null</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+</li>
+</ul>
+<h3 id="xhr-對象"><a href="#xhr-對象" class="headerlink" title="xhr 對象"></a>xhr 對象</h3><h4 id="1-xhr-物件發送請求整體感知"><a href="#1-xhr-物件發送請求整體感知" class="headerlink" title="1. xhr 物件發送請求整體感知"></a>1. xhr 物件發送請求整體感知</h4><p>【Ajax 發送請求】這件事情並不是一句話帶過就可以的，在 <code>Ajax</code> 中對整個請求從創建到發送都有著一套嚴格的標準流程。就好像車間生產產品，流水線上每一個步 驟的操作完畢之後才能打包出售。</p>
+<p>在 <code>Ajax</code> 規則中，”請求” <font color="red">從創建到被發送</font>需要至少經歷如下幾個步驟：</p>
+<p>通過 <code>XMLHttpRequest</code> 類別創建 <code>xhr</code> 對象<br>為 <code>xhr</code> 物件添加屬性與回調方法<br>令 <code>xhr</code> 物件執行 <code>open()</code> 方法，指明請求被發往某處<br>令 <code>xhr</code> 物件執行 <code>send()</code> 方法，發出請求。</p>
+<ul>
+<li>說明：<code>XMLHttpRequest</code> 物件用來在【流覽器】與【伺服器】之間傳送資料。<pre><code> &lt;font color='red'&gt;通俗上來說將此物件稱為 `request` 請求物件、請求物件或請求。&lt;/font&gt;</code></pre>
+</li>
+</ul>
+<h4 id="2-xhr-物件的常用屬性與方法"><a href="#2-xhr-物件的常用屬性與方法" class="headerlink" title="2. xhr 物件的常用屬性與方法"></a>2. xhr 物件的常用屬性與方法</h4><p>在整體感知中我們看到的例子中的屬性和方法，基本都是要掌握的內容。或許有一些內容<br>並沒有體現在上面，但相信我他們都會是你今後離不開的東西。</p>
+<h5 id="2-1-onreadystate-屬性"><a href="#2-1-onreadystate-屬性" class="headerlink" title="2.1 onreadystate 屬性"></a>2.1 onreadystate 屬性</h5><ul>
+<li><p>描述 <code>onreadystatechange</code> 屬性指向一個回呼函數。<br>   當頁面的載入狀態發生改變的時候 <code>readyState</code> 屬性就會跟隨發生變化，而這時 <code>readystatechange</code> 屬性所對應的回呼函數就會自動被調用。</p>
+</li>
+<li><p>語法 <font color="red">xhr.onreadystatechange = function(){};</font></p>
+<br>
+&gt;DOM 中 `readystatechange` 事件的每個對象都有一個 readyState 屬性，其中有五個可能值，如下表所示:
+
+<table>
+<thead>
+<tr>
+<th align="left">屬性值</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">uninitialized（未初始化）</td>
+<td>對象存在但尚未初始化。</td>
+</tr>
+<tr>
+<td align="left">loading（正在載入）</td>
+<td>物件正在載入資料。</td>
+</tr>
+<tr>
+<td align="left">loaded（載入完畢）</td>
+<td>物件載入資料完成。</td>
+</tr>
+<tr>
+<td align="left">interactive（交互）</td>
+<td>可以操作物件了，但還沒有完全載入(外部資源)。</td>
+</tr>
+<tr>
+<td align="left">complete（完成）</td>
+<td>物件已經載入完畢。</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>範例</p>
+<p><code>xhr_org.html</code></p>
+<pre class="line-numbers language-html" data-language="html"><code class="language-html"><span class="token doctype"><span class="token punctuation">&lt;!</span><span class="token doctype-tag">DOCTYPE</span> <span class="token name">html</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span> <span class="token attr-name">lang</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>en<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">charset</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">'</span>utf-8<span class="token punctuation">'</span></span><span class="token punctuation">/&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>title</span><span class="token punctuation">&gt;</span></span>xhr 對像<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>title</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span><span class="token punctuation">&gt;</span></span>發送請求<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">&gt;</span></span><span class="token script"><span class="token language-javascript">
+  <span class="token keyword">var</span> btn <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">querySelector</span><span class="token punctuation">(</span><span class="token string">'button'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  btn<span class="token punctuation">.</span><span class="token function-variable function">onclick</span> <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+
+  <span class="token punctuation">}</span><span class="token punctuation">;</span>
+</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">&gt;</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><code>xhr.php</code></p>
+<pre class="line-numbers language-php" data-language="php"><code class="language-php">
+<span class="token php language-php"><span class="token delimiter important">&lt;?php</span>
+  <span class="token variable">$success</span> <span class="token operator">=</span> <span class="token keyword">array</span><span class="token punctuation">(</span><span class="token single-quoted-string string">'msg'</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token single-quoted-string string">'OK'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">echo</span> <span class="token function">json_encode</span><span class="token punctuation">(</span><span class="token variable">$success</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token delimiter important">?&gt;</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+</li>
+</ul>
+<h5 id="2-2-readyState-屬性"><a href="#2-2-readyState-屬性" class="headerlink" title="2.2 readyState 屬性"></a>2.2 readyState 屬性</h5><ul>
+<li><p>描述 是一個唯讀屬性，用一個整數和對應的常量來表示XMLHttpRequest請求當前所處的狀態一般會在onreadystatechange事件的回呼函數中，通過判斷readyState屬性的值，進而執行不同狀態對應的函數。</p>
+</li>
+<li><p>語法</p>
+<pre class="line-numbers language-php" data-language="php"><code class="language-php">xhr<span class="token punctuation">.</span>onreadystatechange <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+ <span class="token keyword">if</span><span class="token punctuation">(</span>xhr<span class="token punctuation">.</span>readyState <span class="token operator">==</span> n<span class="token punctuation">)</span><span class="token punctuation">{</span>
+   <span class="token comment">// 執行對應的函數</span>
+ <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>說明</p>
+<ol>
+<li><p>值為 0,對應常數 <code>UNSENT</code><br>表示 <code>XMLHttpRequest</code> 實例已經生成，但是 <code>open()方法</code>還沒有被調用，尚未提出請求。</p>
+</li>
+<li><p>值為 1,對應常數 <code>OPENED</code></p>
+<pre><code>表示 `send()` 方法還沒有被調用，仍然可以使用 `setRequestHeader()` 設定 `HTTP` 請求頭</code></pre>
+</li>
+<li><p>值為 2,對應常數 <code>HEADERS_RECEIVED</code><br>表示 <code>send()</code> 方法已經執行，並且頭資訊和狀態碼已經收到，伺服器尚未收到。</p>
+</li>
+<li><p>值為 3,對應常數 <code>LOADING</code><br>表示正在接收伺服器傳來的 <code>body</code> 部分的資料，如果 <code>responseType</code> 屬性是 <code>text</code> 或者空字串，<code>responseText</code> 就會包含已經收到的部分資訊，伺服器正在接收。</p>
+</li>
+<li><p>值為 4,對應常數 <code>DONE</code>，表示伺服器資料已經完全接收，或者本次接收已經失敗了。</p>
+</li>
+</ol>
+</li>
+</ul>
+<h5 id="2-3-status-屬性"><a href="#2-3-status-屬性" class="headerlink" title="2.3 status 屬性"></a>2.3 status 屬性</h5><ul>
+<li><p>描述 表示本次請求所得到的 HTTP 狀態碼，它是一個整數。</p>
+</li>
+<li><p>語法</p>
+<pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token keyword">if</span><span class="token punctuation">(</span>xhr<span class="token punctuation">.</span>readyState <span class="token operator">==</span> n<span class="token punctuation">)</span><span class="token punctuation">{</span>
+  <span class="token keyword">if</span><span class="token punctuation">(</span>xhr<span class="token punctuation">.</span>status <span class="token operator">==</span> <span class="token number">200</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+   <span class="token comment">//通信成功</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>說明<br>a.本屬性是唯讀屬性。<br>b.本屬性有以下可能值：</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="left">代碼</th>
+<th align="left">狀態資訊</th>
+<th align="left">說明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">200</td>
+<td align="left">OK</td>
+<td align="left">訪問正常</td>
+</tr>
+<tr>
+<td align="left">301</td>
+<td align="left">Moved Permanently</td>
+<td align="left">永久移動</td>
+</tr>
+<tr>
+<td align="left">302</td>
+<td align="left">Move temporarily</td>
+<td align="left">暫時移動</td>
+</tr>
+<tr>
+<td align="left">304</td>
+<td align="left">Not Modified</td>
+<td align="left">未修改</td>
+</tr>
+<tr>
+<td align="left">307</td>
+<td align="left">Temporary Redirect</td>
+<td align="left">暫時重定向</td>
+</tr>
+<tr>
+<td align="left">401</td>
+<td align="left">Unauthorized</td>
+<td align="left">未授權</td>
+</tr>
+<tr>
+<td align="left">403</td>
+<td align="left">Forbidden</td>
+<td align="left">禁止訪問</td>
+</tr>
+<tr>
+<td align="left">404</td>
+<td align="left">Not Found</td>
+<td align="left">未發現指定網址</td>
+</tr>
+<tr>
+<td align="left">500</td>
+<td align="left">Internal Server Error</td>
+<td align="left">伺服器發生錯誤</td>
+</tr>
+</tbody></table>
+<ul>
+<li>補充 一般來說認為 <code>200</code> 就是通信成功的標誌。</li>
+</ul>
+<h5 id="2-4-statusText-屬性"><a href="#2-4-statusText-屬性" class="headerlink" title="2.4 statusText 屬性"></a>2.4 statusText 屬性</h5><ul>
+<li>描述 表示伺服器發送的狀態提示，是一個唯讀字串。</li>
+<li>語法 <font color="red">xhr.statusText</font></li>
+<li>說明 不同於 <code>status</code> 屬性，該屬性返回狀態碼所對應的狀態資訊。比如 <code>OK</code>。</li>
+</ul>
+<h5 id="2-5-responseText-屬性"><a href="#2-5-responseText-屬性" class="headerlink" title="2.5 responseText 屬性"></a>2.5 responseText 屬性</h5><ul>
+<li><p>描述 返回從伺服器接收到的字串內容，該屬性為唯讀。</p>
+<pre><code> 如果本次請求沒有成功或者資料不完整，該屬性就會等於 `null`。
+ 如果伺服器返回的資料格式是 `JSON`，就可以使用 `responseText` 屬性來進行資料解析。</code></pre>
+</li>
+<li><p>語法 <font color="red">xhr.responseText</font></p>
+</li>
+</ul>
+<h5 id="2-6-open-方法"><a href="#2-6-open-方法" class="headerlink" title="2.6 open()方法"></a>2.6 open()方法</h5><ul>
+<li><p>描述 表示要將請求發往某處，只是設置而不是真的發送。</p>
+</li>
+<li><p>語法 <font color="red">xhr.open(‘請求類型’，’url地址’，是否非同步);</font></p>
+</li>
+<li><p>說明<br>第一個參數用來設置 <code>get/post</code> 請求<br>第二個參數用來設置請求發送到的 <code>url</code> 地址<br>第三個參數是布林值用來設置是否非同步發送，預設 <code>false</code> 表示同步。</p>
+</li>
+<li><p>補充<br>目前因為我們的頁面都採用 <code>localhost</code> 方式在本地主機直接訪問，因此 <code>url</code> 直接寫出 <code>php</code> 檔的相對路徑即可。</p>
+<p>而如果通過其他方式打開可能會引起 <code>js</code> 的跨域問題，就會報錯。</p>
+</li>
+</ul>
+<h5 id="2-7-setRequestHeader-方法"><a href="#2-7-setRequestHeader-方法" class="headerlink" title="2.7 setRequestHeader()方法"></a>2.7 setRequestHeader()方法</h5><ul>
+<li><p>描述 用於設置HTTP頭信息。</p>
+</li>
+<li><p>語法 xhr.setRequestHeader(‘key’，’value’);</p>
+</li>
+<li><p>說明</p>
+<pre><code>本方法必須在 `open()` 之後、`send()` 之前被調用
+本方法用來設置在請求發送時，一併被發送出的一些補充資訊</code></pre>
+</li>
+<li><p>例子</p>
+<pre class="line-numbers language-php" data-language="php"><code class="language-php">xhr<span class="token punctuation">.</span><span class="token function">setRequestHeader</span><span class="token punctuation">(</span><span class="token single-quoted-string string">'Content-Type'</span><span class="token punctuation">,</span> <span class="token single-quoted-string string">'application/json'</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+xhr<span class="token punctuation">.</span><span class="token function">setRequestHeader</span><span class="token punctuation">(</span><span class="token single-quoted-string string">'Content-Length'</span><span class="token punctuation">,</span> <span class="token constant">JSON</span><span class="token punctuation">.</span><span class="token function">stringify</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span><span class="token punctuation">.</span>length<span class="token punctuation">)</span><span class="token punctuation">;</span>
+xhr<span class="token punctuation">.</span><span class="token function">send</span><span class="token punctuation">(</span><span class="token constant">JSON</span><span class="token punctuation">.</span><span class="token function">stringify</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+</li>
+</ul>
+<h5 id="2-8-send-方法"><a href="#2-8-send-方法" class="headerlink" title="2.8 send()方法"></a>2.8 send()方法</h5><ul>
+<li>描述 用於實際發出 <code>HTTP</code> 請求。</li>
+<li>語法 <code>xhr.send(formData);</code></li>
+<li>說明 <code>send()</code>方法的參數是表單數據，為 `post 請求準備。<pre><code> 如果是 `get` 請求則參數直接寫 `null` 即可。</code></pre>
+</li>
+</ul>
+<h3 id="xhr對象發送-post-請求"><a href="#xhr對象發送-post-請求" class="headerlink" title="xhr對象發送 post 請求"></a>xhr對象發送 post 請求</h3><ul>
+<li><p>描述 <code>post</code> 請求和 <code>get</code> 請求的差異就在於多了一個表單數據，在 <code>xhr</code> 物件中可以通過 <code>FormData</code> 進行構建。</p>
+</li>
+<li><p>語法</p>
+<pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token keyword">var</span> formData <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">FormData</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+formData<span class="token punctuation">.</span><span class="token function">append</span><span class="token punctuation">(</span><span class="token single-quoted-string string">'key'</span><span class="token punctuation">,</span>value<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// value 如果是字串類型要加引號。</span>
+xhr<span class="token punctuation">.</span><span class="token function">send</span><span class="token punctuation">(</span>formData<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></li>
+<li><p>說明</p>
+<pre><code>至於 `formData` 的創建時機和位置，只要你能夠在請求發送出去之前。
+也就是 `xhr.send()` 語句被寫出之前添加給 `xhr` 對象
+那麼你願意把 `formData 放在哪就放在哪。</code></pre>
+</li>
+<li><p>範例<br>前台:<br><code>post&amp;compatible_org.html</code></p>
+<pre class="line-numbers language-html" data-language="html"><code class="language-html"><span class="token doctype"><span class="token punctuation">&lt;!</span><span class="token doctype-tag">DOCTYPE</span> <span class="token name">html</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span> <span class="token attr-name">lang</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>en<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">charset</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">'</span>utf-8<span class="token punctuation">'</span></span><span class="token punctuation">/&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>title</span><span class="token punctuation">&gt;</span></span> xhr對像 post請求與兼容性問題<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>title</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">&gt;</span></span>
+
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span><span class="token punctuation">&gt;</span></span>發送請求<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">&gt;</span></span><span class="token script"><span class="token language-javascript">
+    <span class="token keyword">var</span> btn <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">querySelector</span><span class="token punctuation">(</span><span class="token string">'button'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    btn<span class="token punctuation">.</span><span class="token function-variable function">onclick</span> <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+
+    <span class="token punctuation">}</span><span class="token punctuation">;</span>
+  </span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">&gt;</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>後台: 收到的數據，直接返回<br><code>post&amp;compatible_org.php</code></p>
+<pre class="line-numbers language-php" data-language="php"><code class="language-php">
+<span class="token php language-php"><span class="token delimiter important">&lt;?php</span>
+  <span class="token variable">$success</span> <span class="token operator">=</span> <span class="token keyword">array</span><span class="token punctuation">(</span><span class="token single-quoted-string string">'msg'</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token single-quoted-string string">'OK'</span><span class="token punctuation">,</span> <span class="token single-quoted-string string">'info'</span><span class="token operator">=</span><span class="token operator">&gt;</span><span class="token variable">$_POST</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">echo</span> <span class="token function">json_encode</span><span class="token punctuation">(</span><span class="token variable">$success</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token delimiter important">?&gt;</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>測試執行結果。</p>
+<blockquote>
+<p>get 請求若有參數要傳遞，可以透過 url，如下方法。</p>
+</blockquote>
+ <pre class="line-numbers language-html" data-language="html"><code class="language-html">xhr.open('get', 'xhr.php?uname=allen&amp;upass=1234', true); <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+</li>
+</ul>
+<h3 id="xhr-物件的相容性問題"><a href="#xhr-物件的相容性問題" class="headerlink" title="xhr 物件的相容性問題"></a>xhr 物件的相容性問題</h3><ul>
+<li><p>描述 <code>xhr</code> 物件的獲取方式在 <code>IE</code> 和非IE下是需要使用不同方法。</p>
+</li>
+<li><p>語法</p>
+<pre><code>標準流覽器支援的方法為: `XMLHttpRequest()`
+IE流覽器支援的方法為:  `ActiveXObject()`</code></pre>
+</li>
+<li><p>例子：</p>
+<pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token keyword">if</span><span class="token punctuation">(</span>window<span class="token punctuation">.</span>XMLHttpRequest<span class="token punctuation">)</span><span class="token punctuation">{</span>
+  xhr <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">XMLHttpRequest</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token keyword">else</span> <span class="token keyword">if</span><span class="token punctuation">(</span>window<span class="token punctuation">.</span>ActiveXObject<span class="token punctuation">)</span><span class="token punctuation">{</span>
+  xhr <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ActiveXObject</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<blockquote>
+<p>說明：可以直接使用三目運算子解決</p>
+</blockquote>
+<pre class="line-numbers language-php" data-language="php"><code class="language-php">xhr <span class="token operator">=</span> window<span class="token punctuation">.</span>XMLHttpRequest<span class="token operator">?</span><span class="token keyword">new</span> <span class="token class-name">XMLHttpRequest</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span><span class="token keyword">new</span> <span class="token class-name">ActiveXObject</span><span class="token punctuation">(</span><span class="token double-quoted-string string">""</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+</li>
+</ul>
+<h4 id="登錄-post-請求實例"><a href="#登錄-post-請求實例" class="headerlink" title="登錄 post 請求實例"></a>登錄 post 請求實例</h4><ul>
+<li><p>要求</p>
+<ol>
+<li>在 html 頁面中獲取用戶訊息，並在點擊的時候將訊息 POST 到後台</li>
+<li>在 php 文件中通過 $_POST 對象獲取 html 文件發來的訊息，並根據輸入內容進行響應。</li>
+</ol>
+</li>
+<li><p>擴展</p>
+<ol start="3">
+<li>如果前兩句能夠自行實現並且沒問題，則使用 sql 語句來檢查輸入的用戶密碼是否是DB 的項目，並根據DB 的檢索結果反饋給用戶。</li>
+</ol>
+</li>
+<li><p>前台 <code>post&amp;compatible.php</code><br>修改:</p>
+<ul>
+<li>原式: <code>&lt;button&gt;發送請求&lt;/button&gt;</code></li>
+<li>成為: <code>&lt;button&gt;登陸&lt;/button&gt;</code>  </li>
+</ul>
+</li>
+<li><p>後台<br>修改 <code>post&amp;compatible_org.php</code> 成為 <code>post&amp;compatible.php</code> 如下:</p>
+<pre class="line-numbers language-php" data-language="php"><code class="language-php"> <span class="token php language-php"><span class="token delimiter important">&lt;?php</span>
+<span class="token variable">$username</span> <span class="token operator">=</span> <span class="token variable">$_POST</span><span class="token punctuation">[</span><span class="token single-quoted-string string">'uname'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token variable">$password</span> <span class="token operator">=</span> <span class="token variable">$_POST</span><span class="token punctuation">[</span><span class="token single-quoted-string string">'upass'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token variable">$success</span> <span class="token operator">=</span> <span class="token keyword">array</span><span class="token punctuation">(</span><span class="token single-quoted-string string">'msg'</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token single-quoted-string string">'OK'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token variable">$con</span> <span class="token operator">=</span> <span class="token function">mysqli_connect</span><span class="token punctuation">(</span><span class="token single-quoted-string string">'localhost'</span><span class="token punctuation">,</span><span class="token single-quoted-string string">'root'</span><span class="token punctuation">,</span><span class="token single-quoted-string string">'1qaz@wsx'</span><span class="token punctuation">,</span><span class="token single-quoted-string string">'class'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">if</span><span class="token punctuation">(</span><span class="token variable">$con</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+	<span class="token function">mysqli_query</span><span class="token punctuation">(</span><span class="token variable">$con</span><span class="token punctuation">,</span> <span class="token single-quoted-string string">'set names utf8'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token function">mysqli_query</span><span class="token punctuation">(</span><span class="token variable">$con</span><span class="token punctuation">,</span> <span class="token single-quoted-string string">'set character_set_client=utf8'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token function">mysqli_query</span><span class="token punctuation">(</span><span class="token variable">$con</span><span class="token punctuation">,</span> <span class="token single-quoted-string string">'set character_set_results=utf8'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token comment">//</span>
+	<span class="token variable">$sql</span> <span class="token operator">=</span> <span class="token double-quoted-string string">"select * from userinfolist where 1"</span><span class="token punctuation">;</span>
+	<span class="token variable">$result</span> <span class="token operator">=</span> <span class="token variable">$con</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">query</span><span class="token punctuation">(</span><span class="token variable">$sql</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token comment">//獲取數據庫數據</span>
+	<span class="token keyword">if</span><span class="token punctuation">(</span><span class="token variable">$result</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token property">num_rows</span><span class="token operator">&gt;</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+		<span class="token variable">$info</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+		<span class="token keyword">for</span><span class="token punctuation">(</span><span class="token variable">$i</span><span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span> <span class="token variable">$row</span><span class="token operator">=</span><span class="token variable">$result</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">fetch_assoc</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token variable">$i</span><span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+			<span class="token variable">$info</span><span class="token punctuation">[</span><span class="token variable">$i</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token variable">$row</span><span class="token punctuation">;</span>
+		<span class="token punctuation">}</span>
+	<span class="token punctuation">}</span>
+	<span class="token comment">//判斷是否登錄成功</span>
+	<span class="token variable">$flag</span> <span class="token operator">=</span> <span class="token boolean constant">false</span><span class="token punctuation">;</span><span class="token comment">//默認false表示登錄失敗，如果能登錄成功，則變為true</span>
+	<span class="token keyword">for</span><span class="token punctuation">(</span><span class="token variable">$j</span><span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span> <span class="token variable">$j</span><span class="token operator">&lt;</span><span class="token function">count</span><span class="token punctuation">(</span><span class="token variable">$info</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token variable">$j</span><span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+		<span class="token keyword">if</span><span class="token punctuation">(</span><span class="token variable">$info</span><span class="token punctuation">[</span><span class="token variable">$j</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token single-quoted-string string">'userName'</span><span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token variable">$username</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+			<span class="token keyword">if</span><span class="token punctuation">(</span><span class="token variable">$info</span><span class="token punctuation">[</span><span class="token variable">$j</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token single-quoted-string string">'password'</span><span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token variable">$password</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+				<span class="token variable">$success</span><span class="token punctuation">[</span><span class="token single-quoted-string string">'infoCode'</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+				<span class="token variable">$flag</span> <span class="token operator">=</span> <span class="token boolean constant">true</span><span class="token punctuation">;</span>
+				<span class="token keyword">break</span><span class="token punctuation">;</span>
+			<span class="token punctuation">}</span>
+		<span class="token punctuation">}</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">if</span><span class="token punctuation">(</span><span class="token variable">$flag</span> <span class="token operator">==</span> <span class="token boolean constant">false</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+		<span class="token variable">$success</span><span class="token punctuation">[</span><span class="token single-quoted-string string">'infoCode'</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token keyword">else</span><span class="token punctuation">{</span>
+	<span class="token variable">$success</span><span class="token punctuation">[</span><span class="token single-quoted-string string">'infoCode'</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span><span class="token comment">//0代表成功，1代表失敗，2代表數據庫連接失敗</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">echo</span> <span class="token function">json_encode</span><span class="token punctuation">(</span><span class="token variable">$success</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token delimiter important">?&gt;</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+</li>
+</ul>
+<h3 id="請求超時-timeout-與超時監聽-ontimeout"><a href="#請求超時-timeout-與超時監聽-ontimeout" class="headerlink" title="請求超時 timeout 與超時監聽 ontimeout"></a>請求超時 timeout 與超時監聽 ontimeout</h3><ul>
+<li><p>需求<br>正常使用 <code>Ajax 功能</code>，乃透過 send() 提出請求後，等到伺服器回應得到 200 前端才繼續處理,在本地端操作沒有問題，不會有延遲，但是若與遠端伺服器交互，可能會有延遲問題發生，有可能前端頁一直在等伺服器的回應。</p>
+</li>
+<li><p>描述</p>
+<pre><code>`timeout` 屬性等於一個整數，用來設置當請求發出後等待接收回應的時間。
+`ontimeout()`方法則是當等待超時後，自動執行的回調方法。</code></pre>
+</li>
+<li><p>語法：</p>
+<pre class="line-numbers language-php" data-language="php"><code class="language-php">xhr<span class="token punctuation">.</span>timeout <span class="token operator">=</span> xxx<span class="token punctuation">;</span>
+xhr<span class="token punctuation">.</span>ontimeout<span class="token operator">=</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+  console<span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span><span class="token double-quoted-string string">"The request for"</span><span class="token operator">+</span>url地址<span class="token operator">+</span><span class="token double-quoted-string string">"timed out"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>說明</p>
+<pre><code>`timeout` 屬性單位是毫秒，表示當請求發出後等待回應的時間。
+          如果在設置的時間內沒能收到後臺回應的內容，則認為請求超時(執行 `ontimeout`)。</code></pre>
+</li>
+<li><p>補充：如果該屬性等於 0，就表示沒有時間限制。</p>
+</li>
+<li><p>例子：</p>
+<pre class="line-numbers language-php" data-language="php"><code class="language-php">xhr<span class="token punctuation">.</span>timeout <span class="token operator">=</span> <span class="token number">5000</span><span class="token punctuation">;</span> <span class="token comment">//5秒後超時</span>
+xhr<span class="token punctuation">.</span>ontimeout <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+  console<span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span><span class="token double-quoted-string string">"The request for "</span><span class="token operator">+</span>ajax<span class="token punctuation">.</span>php<span class="token operator">+</span><span class="token double-quoted-string string">"timed out."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>範例:<br>後台: <code>time_out.php</code></p>
+<pre class="line-numbers language-php" data-language="php"><code class="language-php"> <span class="token php language-php"><span class="token delimiter important">&lt;?php</span>
+
+<span class="token function">sleep</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token variable">$success</span> <span class="token operator">=</span> <span class="token keyword">array</span><span class="token punctuation">(</span><span class="token single-quoted-string string">'msg'</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token single-quoted-string string">'OK'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">echo</span> <span class="token function">json_encode</span><span class="token punctuation">(</span><span class="token variable">$success</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+ <span class="token delimiter important">?&gt;</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>前台: <code>time_out.html</code></p>
+<pre class="line-numbers language-html" data-language="html"><code class="language-html"> <span class="token doctype"><span class="token punctuation">&lt;!</span><span class="token doctype-tag">DOCTYPE</span> <span class="token name">html</span><span class="token punctuation">&gt;</span></span>
+ <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span><span class="token punctuation">&gt;</span></span>
+ <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span> <span class="token attr-name">lang</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>en<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">charset</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">'</span>utf-8<span class="token punctuation">'</span></span><span class="token punctuation">/&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>title</span><span class="token punctuation">&gt;</span></span>請求超時設置<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>title</span><span class="token punctuation">&gt;</span></span>
+ <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">&gt;</span></span>
+ <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">&gt;</span></span>
+ <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span><span class="token punctuation">&gt;</span></span>發送請求<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">&gt;</span></span>
+ <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">&gt;</span></span><span class="token script"><span class="token language-javascript">
+document<span class="token punctuation">.</span><span class="token function">querySelector</span><span class="token punctuation">(</span><span class="token string">'button'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function-variable function">onclick</span> <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+	<span class="token keyword">var</span> xhr <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">XMLHttpRequest</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	xhr<span class="token punctuation">.</span><span class="token function-variable function">onreadystatechange</span> <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+		<span class="token keyword">if</span><span class="token punctuation">(</span>xhr<span class="token punctuation">.</span>readyState <span class="token operator">==</span> <span class="token number">4</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+			<span class="token keyword">if</span><span class="token punctuation">(</span>xhr<span class="token punctuation">.</span>status <span class="token operator">==</span> <span class="token number">200</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+				console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>xhr<span class="token punctuation">.</span>responseText<span class="token punctuation">)</span><span class="token punctuation">;</span>
+			<span class="token punctuation">}</span>
+		<span class="token punctuation">}</span>
+	<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+	xhr<span class="token punctuation">.</span>timeout <span class="token operator">=</span> <span class="token number">5000</span><span class="token punctuation">;</span>
+	xhr<span class="token punctuation">.</span><span class="token function-variable function">ontimeout</span> <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+		console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'連接超時，頁面加載失敗，請刷新重試'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+	xhr<span class="token punctuation">.</span><span class="token function">open</span><span class="token punctuation">(</span><span class="token string">'get'</span><span class="token punctuation">,</span> <span class="token string">'timeout.php'</span><span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	xhr<span class="token punctuation">.</span><span class="token function">send</span><span class="token punctuation">(</span><span class="token keyword">null</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+ </span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">&gt;</span></span>
+ <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">&gt;</span></span>
+ <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">&gt;</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+</li>
+</ul>
+<h4 id="範例-發送檔進度條實例-擴展"><a href="#範例-發送檔進度條實例-擴展" class="headerlink" title="範例: 發送檔進度條實例(擴展)"></a>範例: 發送檔進度條實例(擴展)</h4><script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">Allen Tai</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章連結:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="http://blog.allen5183.synology.me/ajax/20201005-ajax/">http://blog.allen5183.synology.me/ajax/20201005-ajax/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版權聲明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別聲明外，均採用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    授權合約。轉載請注明來源
+                    <a href="/about" target="_blank">Allen Tai</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>複製成功，請遵循本文的轉載規則</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/ajax/">
+                                    <span class="chip bg-color">ajax</span>
+                                </a>
+                            
+                                <a href="/tags/http/">
+                                    <span class="chip bg-color">http</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,wechat,linkedin" data-wechat-qrcode-helper="<p>微信掃一掃即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+        <link rel="stylesheet" href="/libs/gitalk/gitalk.css">
+<link rel="stylesheet" href="/css/my-gitalk.css">
+
+<div class="card gitalk-card" data-aos="fade-up">
+    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
+        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+        <span>評論</span>
+    </div>
+    <div id="gitalk-container" class="card-content"></div>
+</div>
+
+<script src="/libs/gitalk/gitalk.min.js"></script>
+<script>
+    let gitalk = new Gitalk({
+        clientID: 'e484b237dd5bd59118c0',
+        clientSecret: '7071e58c699bdbdce68a1d36b72b4184f24e98b1',
+        repo: 'hexo-matery',
+        owner: 'allen-5183',
+        admin: ["allen-5183"],
+        id: '2020-10-05T11-12-09',
+        distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+
+    gitalk.render('gitalk-container');
+</script>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+        
+
+     <article id="prenext-posts" class="prev-next articles">
+         <div class="row article-row">
+             
+             <div class="article col s12 m6" data-aos="fade-up">
+                 <div class="article-badge left-badge text-color">
+                     <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                 <div class="card">
+                     <a href="/mysql/20201006-mysql/">
+                         <div class="card-image">
+                             
+                             
+                             <img src="/medias/loading.gif" data-original="/medias/featureimages/13.jpg" class="responsive-img" alt="mysql 資料庫">
+                             
+                             <span class="card-title">mysql 資料庫</span>
+                         </div>
+                     </a>
+                     <div class="card-content article-content">
+                         <div class="summary block-with-text">
+                             
+                                 1. MySQL資料庫使用與管理1.1 關於資料庫  要使一個網站達到互動的效果，不是讓網頁充滿了動畫、音樂，而是當瀏覽者對網頁提出要求時能出現回應的結果。而這樣的效果，大多必須搭配資料庫的使用，讓網頁讀出儲存在資料庫中的資料，顯示在網頁上
+                             
+                         </div>
+                         <div class="publish-info">
+                             <span class="publish-date">
+                                 <i class="far fa-clock fa-fw icon-date"></i>2020-10-05
+                             </span>
+                             <span class="publish-author">
+                                 
+                                 <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                 
+                                 <a href="/categories/mysql/" class="post-category">
+                                         mysql
+                                     </a>
+                                 
+                                 
+                             </span>
+                         </div>
+                     </div>
+                     
+                     <div class="card-action article-tags">
+                         
+                         <a href="/tags/mysql/">
+                             <span class="chip bg-color">mysql</span>
+                         </a>
+                        
+                         <a href="/tags/MariaDB/">
+                             <span class="chip bg-color">MariaDB</span>
+                         </a>
+                        
+                     </div>
+                     
+                 </div>
+             </div>
+             
+             
+             <div class="article col s12 m6" data-aos="fade-up">
+                 <div class="article-badge right-badge text-color">
+                     下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+                 </div>
+                 <div class="card">
+                     <a href="/php-mysql/20200930-mysql-pdo/">
+                         <div class="card-image">
+                             
+                             
+                        <img src="/medias/loading.gif" data-original="/medias/featureimages/16.jpg" class="responsive-img" alt="mysql pdo 物件">
+                        
+                        <span class="card-title">mysql pdo 物件</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            1. singleton  singleton 中文名稱為 單例模式，是一種建構類別的設計模式(一套編寫類別的規範、技巧，將它作成公版來給大家使用；設計模式有許多種，例如:工廠模式、簡單工廠模式、抽象工廠模式、複雜模式、單例模式、高抽象模式
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-09-29
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/php-mysql/" class="post-category">
+                                    php&mysql
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/php/">
+                        <span class="chip bg-color">php</span>
+                    </a>
+                    
+                    <a href="/tags/mysql/">
+                        <span class="chip bg-color">mysql</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+      </div>
+    </article>
+
+</div>
+
+
+
+<!-- 代碼塊功能依賴 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代碼語言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代碼塊複製 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代碼塊收縮 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+<!-- 代碼塊折行 -->
+
+<style type="text/css">
+code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
+</style>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目錄</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 懸浮按鈕. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修復文章卡片 div 的寬度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切換TOC目錄展開收縮的相關操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='true'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='false'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+
+    
+    <div class="container row center-align" style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+
+            Copyright&nbsp;&copy;
+            <span id="year">2020</span>
+            <a href="/about" target="_blank">Allen Tai</a>
+            <br>
+
+            
+
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;總訪問量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;總訪問人數:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <br>
+            
+        </div>
+
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/allen-5183" class="tooltipped" target="_blank" data-tooltip="allen's GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:allen5183@gmail.com" class="tooltipped" target="_blank" data-tooltip="郵件聯繫我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+    <a href="https://www.facebook.com/allen5183" class="tooltipped" target="_blank" data-tooltip="關注我的 
+Facebook: https://www.facebook.com/allen5183" data-position="top" data-delay="50">
+        <i class="fab fa-facebook-f"></i>
+    </a>
+
+
+
+
+    <a href="" class="tooltipped" target="_blank"
+data-tooltip="關注我的 Twitter: https://twitter.com/allen5183" data-position="top" data-delay="50">                                                                                                               
+<i class="fab fa-twitter"></i>
+    </a>
+
+
+
+                                                                                                                                                                                   
+<a href="https://plus.google.com/allen5183" class="tooltipped" target="_blank"                                                                                                                                    
+data-tooltip="關注我的 Google: https://plus.google.com/allen5183" data-position="top" data-delay="50">                                                                                                              
+<i class="fab fa-google-plus-g"></i>                                                                                                                                                                                          
+</a>                                                                                                                                                                                                            
+   
+
+
+
+
+
+<!--
+
+    <a href="https://twitter.com/allen5183" class="tooltipped" target="_blank" data-tooltip="關注我的Twitter: https://twitter.com/allen5183" data-position="top" data-delay="50">
+        <i class="fab fa-twitter"></i>
+    </a>
+
+
+
+
+
+
+
+
+
+-->
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 訂閱" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+
+<!-- 燈籠左 -->
+<!-- <div class="deng-box"> -->
+<!--   <div class="deng"> -->
+<!--     <div class="xian"></div> -->
+<!--       <div class="deng-a"> -->
+<!--        <div class="deng-b"><div class="deng-t">雙十</div></div> -->
+<!--        </div>   -->
+<!--        <div class="shui shui-a">  -->
+<!--          <div class="shui-c"></div> -->
+<!--             <div class="shui-b"></div> -->
+<!--        </div> -->
+<!--    </div> -->
+<!-- </div> -->
+
+
+
+<!-- 燈籠右 -->
+<!-- <div class="deng-box1"> -->
+<!--    <div class="deng"> -->
+<!--        <div class="xian"></div> -->
+<!--        <div class="deng-a"> -->
+<!--            <div class="deng-b"><div class="deng-t">同慶</div></div>  -->
+<!--        </div>  -->
+<!--        <div class="shui shui-a"> -->
+<!--            <div class="shui-c"></div>  -->
+<!--            <div class="shui-b"></div>  -->
+<!--        </div> -->
+<!--    </div>  -->
+<!-- </div>  -->
+
+</footer>
+
+<div class="progress-bar"></div>
+
+<!-- 閒聊麼  -->
+<script>
+    var xlm_wid='16495';
+    var xlm_url='https://www.xianliao.me/';
+</script>
+<script type='text/javascript' charset='UTF-8' src='https://www.xianliao.me/embed.js'></script>
+
+
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="請輸入搜索的關鍵字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/search.xml", 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到頂部按鈕 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i["DaoVoiceObject"] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o), m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            a.charset = "utf-8";
+            m.parentNode.insertBefore(a, m)
+        })(window, document, "script", ('https:' == document.location.protocol ? 'https:' : 'http:') +
+            "//widget.daovoice.io/widget/6984b559.js", "daovoice")
+        daovoice('init', {
+            app_id: "22dc2875"
+        });
+        daovoice('update');
+    </script>
+    
+
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/nito.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true,"scale":0.5},"react":{"opacity":0.7},"log":false});</script><script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(n){n.imageLazyLoadSetting.processImages=o;var i=n.imageLazyLoadSetting.isSPA,r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function o(){i&&(r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")));for(var t,e,a=0;a<r.length;a++)t=r[a],e=void 0,0<=(e=t.getBoundingClientRect()).bottom&&0<=e.left&&e.top<=(n.innerHeight||document.documentElement.clientHeight)&&function(){var t,e,n,i,o=r[a];t=o,e=function(){r=r.filter(function(t){return o!==t})},n=new Image,i=t.getAttribute("data-original"),n.onload=function(){t.src=i,e&&e()},n.src=i}()}o(),n.addEventListener("scroll",function(){var t,e;t=o,e=n,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(e)},500)})}(this);</script></body>
+
+</html>

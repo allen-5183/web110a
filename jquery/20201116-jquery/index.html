@@ -1,0 +1,2433 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="jquery, 個人博客 呆呆 學習 Allen">
+    <meta name="description" content="網頁技術| 物聯網應用 | AI 智能">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>jquery | 呆呆-博客</title>
+    <link rel="icon" type="image/gif" href="/medias/diamond.gif">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery.min.js"></script>
+
+<style type="text/css" lang="css">
+    #loading-container{
+        position: fixed;
+        top: 0;
+        left: 0;
+        min-height: 100vh;
+        width: 100vw;
+        z-index: 9999;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background: #FFF;
+        text-align: center;
+        /* loader页面消失采用渐隐的方式*/
+        -webkit-transition: opacity 1s ease;
+        -moz-transition: opacity 1s ease;
+        -o-transition: opacity 1s ease;
+        transition: opacity 1s ease;
+    }
+    .loading-image{
+        width: 120px;
+        height: 50px;
+        transform: translate(-50%);
+    }
+
+    .loading-image div:nth-child(2) {
+        -webkit-animation: pacman-balls 1s linear 0s infinite;
+        animation: pacman-balls 1s linear 0s infinite
+    }
+
+    .loading-image div:nth-child(3) {
+        -webkit-animation: pacman-balls 1s linear .33s infinite;
+        animation: pacman-balls 1s linear .33s infinite
+    }
+
+    .loading-image div:nth-child(4) {
+        -webkit-animation: pacman-balls 1s linear .66s infinite;
+        animation: pacman-balls 1s linear .66s infinite
+    }
+
+    .loading-image div:nth-child(5) {
+        -webkit-animation: pacman-balls 1s linear .99s infinite;
+        animation: pacman-balls 1s linear .99s infinite
+    }
+
+   .loading-image div:first-of-type {
+        width: 0;
+        height: 0;
+        border: 25px solid #49b1f5;
+        border-right-color: transparent;
+        border-radius: 25px;
+        -webkit-animation: rotate_pacman_half_up .5s 0s infinite;
+        animation: rotate_pacman_half_up .5s 0s infinite;
+    }
+    .loading-image div:nth-child(2) {
+        width: 0;
+        height: 0;
+        border: 25px solid #49b1f5;
+        border-right-color: transparent;
+        border-radius: 25px;
+        -webkit-animation: rotate_pacman_half_down .5s 0s infinite;
+        animation: rotate_pacman_half_down .5s 0s infinite;
+        margin-top: -50px;
+    }
+    @-webkit-keyframes rotate_pacman_half_up {0% {transform: rotate(270deg)}50% {transform: rotate(1turn)}to {transform: 
+rotate(270deg)}}
+
+    @keyframes rotate_pacman_half_up {0% {transform: rotate(270deg)}50% {transform: rotate(1turn)}to {transform: 
+rotate(270deg)}}
+
+    @-webkit-keyframes rotate_pacman_half_down {0% {transform: rotate(90deg)}50% {transform: rotate(0deg)}to {transform: 
+rotate(90deg)}}
+
+    @keyframes rotate_pacman_half_down {0% {transform: rotate(90deg)}50% {transform: rotate(0deg)}to {transform: 
+rotate(90deg)}}
+
+    @-webkit-keyframes pacman-balls {75% {opacity: .7}to {transform: translate(-100px, -6.25px)}}
+
+    @keyframes pacman-balls {75% {opacity: .7}to {transform: translate(-100px, -6.25px)}}
+
+
+    .loading-image div:nth-child(3),
+    .loading-image div:nth-child(4),
+    .loading-image div:nth-child(5),
+    .loading-image div:nth-child(6){
+        background-color: #49b1f5;
+        width: 15px;
+        height: 15px;
+        border-radius: 100%;
+        margin: 2px;
+        width: 10px;
+        height: 10px;
+        position: absolute;
+        transform: translateY(-6.25px);
+        top: 25px;
+        left: 100px;
+    }
+    .loading-text{
+        margin-bottom: 20vh;
+        text-align: center;
+        color: #2c3e50;
+        font-size: 2rem;
+        box-sizing: border-box;
+        padding: 0 10px;
+        text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+    @media only screen and (max-width: 500px) {
+         .loading-text{
+            font-size: 1.5rem;
+         }
+    }
+    .fadeout {
+        opacity: 0;
+        filter: alpha(opacity=0);
+    }
+    /* logo出现动画 */
+    @-webkit-keyframes 
+fadeInDown{0%{opacity:0;-webkit-transform:translate3d(0,-100%,0);transform:translate3d(0,-100%,0)}100%{opacity:1;-webkit-transform:none;transform:none}}
+    @keyframes fadeInDown{0%{opacity:0;-webkit-transform:translate3d(0,-100%,0);}}
+ </style>
+ <script>
+(function () {
+    const loaded = function(){
+       setTimeout(function(){
+            const loader = document.getElementById("loading-container");
+            loader.className="fadeout" ;//使用渐隐的方法淡出loading page
+            // document.getElementById("body-wrap").style.display="flex";
+            setTimeout(function(){
+                loader.style.display="none";
+            },1000); 
+        },1000);//强制显示loading page 1s  
+    };
+    loaded();
+})()
+ </script><meta name="generator" content="Hexo 5.2.0"><link rel="alternate" href="/atom.xml" title="呆呆-博客" type="application/atom+xml">
+</head>
+
+
+<script src="/js/instant.page.js" type="module"></script>
+
+<script type="text/javascript">
+var OriginTitile=document.title,st;
+document.addEventListener("visibilitychange",function(){document.hidden?(document.title="看不見我🙈~看不見我🙈~",clearTimeout(st)):(document.title=" 被發現了～",st=setTimeout(function(){document.title=OriginTitile},3e3))})</script>
+
+<script type="text/javascript">
+  //只在桌上出版網頁啟用特效
+  var windowWidth = $(window).width();
+  if (windowWidth > 768) {
+    //雪花特效
+    document.write('<script type="text/javascript" src="/js/xuehuapiaoluo.js"><\/script>');
+    //櫻花特效
+    //document.write('<script type="text/javascript" src="/js/sakura.js"><\/script>');
+    //無效 
+    //document.write('<script type="text/javascript" src="/js/xingxing.js"><\/script>');
+    //滑鼠點擊文字特效。(❤富強❤,❤民主❤,❤文明❤,❤和諧❤,❤自由❤,❤平等❤,❤公正❤,❤法治❤,❤愛國❤,❤敬業❤,❤誠信❤,❤友善❤);)
+    //document.write('<script type="text/javascript" src="/js/wenzi.js"><\/script>');
+
+  }
+</script>
+
+
+
+ <div id="loading-container">
+     <p class="loading-text">努力加載中 . . . </p> 
+     <div class="loading-image">
+         <div></div>
+         <div></div>
+         <div></div>
+         <div></div> 
+         <div></div>
+     </div>
+ </div><body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/loading.gif" data-original="/medias/diamond.gif" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">呆呆-博客</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首頁</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>關於</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情連結</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="" class="waves-effect waves-light">
+
+      
+      <i class="fas fa-meh-rolling-eyes" style="zoom: 0.6;"></i>
+      
+      <span>收納櫃</span>
+      <i class="fas fa-chevron-down" aria-hidden="true" style="zoom: 0.6;"></i>
+    </a>
+    <ul class="sub-nav menus_item_child ">
+      
+      <li>
+        <a href="/tags">
+          
+          <i class="fas fa-tags" style="margin-top: -20px; zoom: 0.6;"></i>
+          
+          <span>標籤</span>
+        </a>
+      </li>
+      
+      <li>
+        <a href="/categories">
+          
+          <i class="fas fa-bookmark" style="margin-top: -20px; zoom: 0.6;"></i>
+          
+          <span>分類</span>
+        </a>
+      </li>
+      
+      <li>
+        <a href="/archives">
+          
+          <i class="fas fa-archive" style="margin-top: -20px; zoom: 0.6;"></i>
+          
+          <span>歸檔</span>
+        </a>
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="" class="waves-effect waves-light">
+
+      
+      <i class="fas fa-list" style="zoom: 0.6;"></i>
+      
+      <span>媒體</span>
+      <i class="fas fa-chevron-down" aria-hidden="true" style="zoom: 0.6;"></i>
+    </a>
+    <ul class="sub-nav menus_item_child ">
+      
+      <li>
+        <a href="/movie">
+          
+          <i class="fas fa-film" style="margin-top: -20px; zoom: 0.6;"></i>
+          
+          <span>電影</span>
+        </a>
+      </li>
+      
+      <li>
+        <a href="/video">
+          
+          <i class="fas fa-film" style="margin-top: -20px; zoom: 0.6;"></i>
+          
+          <span>視頻</span>
+        </a>
+      </li>
+      
+      <li>
+        <a href="/galleries">
+          
+          <i class="fas fa-image" style="margin-top: -20px; zoom: 0.6;"></i>
+          
+          <span>相冊</span>
+        </a>
+      </li>
+      
+      <li>
+        <a href="/books">
+          
+          <i class="fas fa-book" style="margin-top: -20px; zoom: 0.6;"></i>
+          
+          <span>書籍</span>
+        </a>
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/loading.gif" data-original="/medias/diamond.gif" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">呆呆-博客</div>
+        <div class="logo-desc">
+            
+            網頁技術| 物聯網應用 | AI 智能
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首頁
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			關於
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情連結
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="javascript:;">
+			
+				<i class="fa-fw fas fa-meh-rolling-eyes"></i>
+			
+			收納櫃
+			<span class="m-icon"><i class="fas fa-chevron-right"></i></span>
+		</a>
+            <ul  style="background:  ;" >
+              
+                <li>
+
+                  <a href="/tags " style="margin-left:75px">
+				  
+				   <i class="fa fas fa-tags" style="position: absolute;left:50px" ></i>
+			      
+		          <span>標籤</span>
+                  </a>
+                </li>
+              
+                <li>
+
+                  <a href="/categories " style="margin-left:75px">
+				  
+				   <i class="fa fas fa-bookmark" style="position: absolute;left:50px" ></i>
+			      
+		          <span>分類</span>
+                  </a>
+                </li>
+              
+                <li>
+
+                  <a href="/archives " style="margin-left:75px">
+				  
+				   <i class="fa fas fa-archive" style="position: absolute;left:50px" ></i>
+			      
+		          <span>歸檔</span>
+                  </a>
+                </li>
+              
+            </ul>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="javascript:;">
+			
+				<i class="fa-fw fas fa-list"></i>
+			
+			媒體
+			<span class="m-icon"><i class="fas fa-chevron-right"></i></span>
+		</a>
+            <ul  style="background:  ;" >
+              
+                <li>
+
+                  <a href="/movie " style="margin-left:75px">
+				  
+				   <i class="fa fas fa-film" style="position: absolute;left:50px" ></i>
+			      
+		          <span>電影</span>
+                  </a>
+                </li>
+              
+                <li>
+
+                  <a href="/video " style="margin-left:75px">
+				  
+				   <i class="fa fas fa-film" style="position: absolute;left:50px" ></i>
+			      
+		          <span>視頻</span>
+                  </a>
+                </li>
+              
+                <li>
+
+                  <a href="/galleries " style="margin-left:75px">
+				  
+				   <i class="fa fas fa-image" style="position: absolute;left:50px" ></i>
+			      
+		          <span>相冊</span>
+                  </a>
+                </li>
+              
+                <li>
+
+                  <a href="/books " style="margin-left:75px">
+				  
+				   <i class="fa fas fa-book" style="position: absolute;left:50px" ></i>
+			      
+		          <span>書籍</span>
+                  </a>
+                </li>
+              
+            </ul>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+<script src="/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '5616b70ad3dda5e6509877de73ccd63eddb79073a6749dcbd1ec23f1bbb0856a';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('請輸入訪問本文章的密碼')).toString(CryptoJS.enc.Hex)) {
+                alert('密碼錯誤，將返回主頁！');
+                location.href = '/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/10.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title"></h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        height: calc(100vh - 250px);
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章內容詳情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/jquery/">
+                                <span class="chip bg-color">jquery</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/jquery/" class="post-category">
+                                jquery
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>發佈日期:&nbsp;&nbsp;
+                    2020-11-16
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="1-jQuery-基本概念"><a href="#1-jQuery-基本概念" class="headerlink" title="1. jQuery 基本概念"></a>1. jQuery 基本概念</h2><blockquote>
+<p>學習目標：學會如何使用 jQuery，掌握 jQuery 的常用 api，能夠使用 jQuery 實現常見的效果。</p>
+</blockquote>
+<h3 id="1-1-為什麼要學習-jQuery"><a href="#1-1-為什麼要學習-jQuery" class="headerlink" title="1.1 為什麼要學習 jQuery?"></a>1.1 為什麼要學習 jQuery?</h3><ul>
+<li><p>【01-讓div 顯示與設置內容(JS).html】</p>
+</li>
+<li><p>使用 javascript 開發過程中，有許多的缺點：</p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token number">1.</span> 查找元素的方法太少，麻煩。
+<span class="token number">2.</span> 遍歷偽陣列很麻煩，通常要嵌套一大堆的<span class="token keyword">for</span>迴圈。
+<span class="token number">3.</span> 有相容性問題。
+<span class="token number">4.</span> 想要實現簡單的動畫效果，也很麻煩
+<span class="token number">5.</span> 代碼冗餘。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+</li>
+</ul>
+<h3 id="1-2-jQuery-初體驗"><a href="#1-2-jQuery-初體驗" class="headerlink" title="1.2 jQuery 初體驗"></a>1.2 jQuery 初體驗</h3><ul>
+<li><p>【02-讓div顯示與設置內容(jQuery).html】</p>
+</li>
+<li><p>範例</p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token function">$</span><span class="token punctuation">(</span>document<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">ready</span><span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token function">$</span><span class="token punctuation">(</span><span class="token string">"#btn1"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">click</span><span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token comment">//隱式反覆運算：偷偷的遍歷，在jQuery中，不需要手動寫for迴圈了，會自動進行遍歷。</span>
+      <span class="token function">$</span><span class="token punctuation">(</span><span class="token string">"div"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">show</span><span class="token punctuation">(</span><span class="token number">200</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token function">$</span><span class="token punctuation">(</span><span class="token string">"#btn2"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">click</span><span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token function">$</span><span class="token punctuation">(</span><span class="token string">"div"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">text</span><span class="token punctuation">(</span><span class="token string">"我是內容"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>優點總結：</p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token number">1.</span> 查找元素的方法多種多樣，非常靈活
+<span class="token number">2.</span> 擁有隱式反覆運算特性，因此不再需要手寫<span class="token keyword">for</span>迴圈了。
+<span class="token number">3.</span> 完全沒有相容性問題。
+<span class="token number">4.</span> 實現動畫非常簡單，而且功能更加的強大。
+<span class="token number">5.</span> 代碼簡單、粗暴。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+</li>
+</ul>
+<blockquote>
+<p>沒有對比，就沒有傷害，有了對比，處處戳中要害。</p>
+</blockquote>
+<h3 id="1-3-什麼是-jQuery"><a href="#1-3-什麼是-jQuery" class="headerlink" title="1.3 什麼是 jQuery?"></a>1.3 什麼是 jQuery?</h3><ul>
+<li><blockquote>
+<p>jQuery的官網 <a target="_blank" rel="noopener" href="http://jquery.com/">http://jquery.com/</a></p>
+</blockquote>
+</li>
+<li><blockquote>
+<p>jQuery就是一個js庫，使用jQuery的話，會比使用JavaScript更簡單。</p>
+</blockquote>
+</li>
+<li><p><code>js</code> 庫：把一些常用到的方法寫到一個單獨的 <code>js</code> 檔，使用的時候直接去引用這 <code>js</code> 檔就可以了。（animate.js、common.js）</p>
+</li>
+</ul>
+<p>  我們知道了，<code>jQuery</code> 其實就是一個 <code>js</code> 檔，裡面封裝了一大堆的方法方便我們的開發，其實就是一個加強版的 <code>common.js</code>，因此我們學習 <code>jQuery</code>，其實就是學習 <code>jQuery</code> 這個 <code>js</code> 檔中封裝的一大堆方法。</p>
+<h3 id="1-4-jQuery-的版本"><a href="#1-4-jQuery-的版本" class="headerlink" title="1.4 jQuery 的版本"></a>1.4 jQuery 的版本</h3><ul>
+<li><blockquote>
+<p>官網下載地址：<a target="_blank" rel="noopener" href="http://jquery.com/download/">http://jquery.com/download/</a></p>
+</blockquote>
+</li>
+<li><blockquote>
+<p><code>jQuery</code> 版本有很多，分為 1.x 2.x 3.x</p>
+</blockquote>
+</li>
+<li><p>大版本分類：</p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token number">1.</span>x 版本：能夠相容<span class="token constant">IE678</span>流覽器
+<span class="token number">2.</span>x 版本：不相容<span class="token constant">IE678</span>流覽器
+<span class="token number">1.</span>x 和 <span class="token number">2.</span>x 版本 <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">jquery</span><span class="token template-punctuation string">`</span></span> 都不再更新版本了，現在只更新 <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">3.x</span><span class="token template-punctuation string">`</span></span> 版本。
+
+<span class="token number">3.</span>x 版本：不相容 <span class="token constant">IE678</span>，更加的精簡（在國內不流行，因為國內使用 jQuery 的主要目的就是相容<span class="token constant">IE678</span>）<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>關於壓縮版和未壓縮版</p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript">jquery<span class="token operator">-</span><span class="token number">1.12</span><span class="token number">.4</span><span class="token punctuation">.</span>min<span class="token punctuation">.</span>js<span class="token operator">:</span>壓縮版本，適用於生產環境，因為檔比較小，去除了注釋、換行、空格等東西，但是基本沒有顆閱讀性。
+jquery<span class="token operator">-</span><span class="token number">1.12</span><span class="token number">.4</span><span class="token punctuation">.</span>js<span class="token operator">:</span>未壓縮版本，適用于學習與開發環境，源碼清晰，易閱讀。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+</li>
+</ul>
+<h3 id="1-5-jQuery-的入口函數"><a href="#1-5-jQuery-的入口函數" class="headerlink" title="1.5 jQuery 的入口函數"></a>1.5 <code>jQuery</code> 的入口函數</h3><ul>
+<li><p>使用 <code>jQuery</code> 的三個步驟：</p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token number">1.</span> 引入 <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">jQuery</span><span class="token template-punctuation string">`</span></span> 文件
+<span class="token number">2.</span> 入口函數
+<span class="token number">3.</span> 功能實現<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>關於jQuery的入口函數：</p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">//第一種寫法</span>
+<span class="token function">$</span><span class="token punctuation">(</span>document<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">ready</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">//第二種寫法</span>
+<span class="token function">$</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p><code>jQuery</code> 入口函數與 <code>js</code> 入口函數的對比</p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token number">1.</span> JavaScript的入口函數要等到頁面中所有資源（包括圖片、檔案）載入完成才開始執行。
+<span class="token number">2.</span> jQuery的入口函數只會等待文檔樹載入完成就開始執行，並不會等待圖片、檔的載入。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+</li>
+</ul>
+<h3 id="1-6-jQuery-物件與-DOM-物件的區別（重點）"><a href="#1-6-jQuery-物件與-DOM-物件的區別（重點）" class="headerlink" title="1.6 jQuery 物件與 DOM 物件的區別（重點）"></a>1.6 <code>jQuery</code> 物件與 <code>DOM</code> 物件的區別（重點）</h3><ul>
+<li><p>歸納</p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token number">1.</span> <span class="token constant">DOM</span> 對象：使用 JavaScript 中的方法獲取頁面中的元素返回的物件就是 <span class="token constant">DOM</span> 物件。
+<span class="token number">2.</span> jQuery 對象：jquery 物件就是使用 jquery 的方法獲取頁面中的元素返回的物件就是 <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">jQuery</span><span class="token template-punctuation string">`</span></span> 物件。
+<span class="token number">3.</span> jQuery 物件其實就是 <span class="token constant">DOM</span> 物件的包裝集（包裝了 <span class="token constant">DOM</span> 物件的集合（偽陣列））
+<span class="token number">4.</span> <span class="token constant">DOM</span> 物件與 jQuery 物件的方法不能混用。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p><code>DOM</code> 物件轉換成 <code>jQuery</code> 物件：</p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">var</span> $obj <span class="token operator">=</span> <span class="token function">$</span><span class="token punctuation">(</span>domObj<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// $(document).ready(function(){});就是典型的DOM物件轉jQuery物件</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</li>
+<li><p><code>jQuery</code> 物件轉換成 <code>DOM</code> 物件：</p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">var</span> $li <span class="token operator">=</span> <span class="token function">$</span><span class="token punctuation">(</span><span class="token string">"li"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">//第一種方法（推薦使用）</span>
+$li<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
+<span class="token comment">//第二種方法</span>
+$li<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>【練習：隔行變色案例.html】</p>
+</li>
+</ul>
+<h3 id="1-7-符號的實質"><a href="#1-7-符號的實質" class="headerlink" title="1.7 $ 符號的實質"></a>1.7 <code>$</code> 符號的實質</h3><ul>
+<li><p><code>$</code> 符號代表是什麼 ?</p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token function">$</span><span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token keyword">typeof</span> $<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<ul>
+<li>結果<br>function</li>
+</ul>
+</li>
+<li><p><code>$</code> 其實就是一個函數，以後用$的時候，記得跟小括弧 $();<br>這函式能作什麼，依參數不同，功能就不同，有 3 種功能。</p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript">  <span class="token number">1.</span> 入口函式。
+  <span class="token number">2.</span> 把 dom 物件轉換成 jquery 物件。
+  <span class="token number">3.</span> 用來找物件。
+  
+<span class="token operator">-</span> 參數不同，功能就不同，<span class="token number">3</span> 種用法
+
+ <span class="token number">1.</span> 參數是一個 <span class="token keyword">function</span><span class="token punctuation">,</span> 入口函數
+
+    <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token template-punctuation string">`</span></span>`javascript
+    <span class="token function">$</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<ol start="2">
+<li><p>參數可以是一個 <code>DOM</code> 對象, 把 <code>DOM</code> 物件轉換成 <code>jquery</code> 物件</p>
+<pre class="line-numbers language-jajascript" data-language="jajascript"><code class="language-jajascript">$(document).ready(function () {
+  
+});<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<blockquote>
+<p>$(document) 把 <code>DOM</code> 的 <code>document</code> 物件轉換成 <code>jQ</code> 對象, 所以就可用 <code>jQ</code> 的 <code>ready()</code> 方法。</p>
+</blockquote>
+</li>
+<li><p>參數是一個字串(有一定格式),用來找物件。</p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token function">$</span><span class="token punctuation">(</span><span class="token string">"div"</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token function">$</span><span class="token punctuation">(</span><span class="token string">"div ul"</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token function">$</span><span class="token punctuation">(</span><span class="token string">".current"</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+</li>
+</ol>
+</li>
+</ul>
+<h3 id="1-8-選擇器"><a href="#1-8-選擇器" class="headerlink" title="1.8 選擇器"></a>1.8 選擇器</h3><h4 id="1-8-1-什麼是-jQuery-選擇器"><a href="#1-8-1-什麼是-jQuery-選擇器" class="headerlink" title="1.8.1 什麼是 jQuery 選擇器"></a>1.8.1 什麼是 <code>jQuery</code> 選擇器</h4><ul>
+<li><p><code>jQuery</code> 選擇器是 <code>jQuery</code> 為我們提供的一組方法，讓我們更加方便的獲取到頁面中的元素。注意：- <code>jQuery</code> 選擇器返回的是 <code>jQuery</code> 物件。</p>
+</li>
+<li><p><code>jQuery</code> 選擇器有很多，基本相容了 <code>CSS1</code> 到<code>CSS3</code> 所有的選擇器，並且 <code>jQuery</code> 還添加了很多更加複雜的選擇器。【查看 <code>jQuery</code> 文檔】</p>
+</li>
+<li><p><code>jQuery</code> 選擇器雖然很多，但是選擇器之間可以相互替代，就是說獲取一個元素，你會有很多種方法獲取到。所以我們平時真正能用到的只是少數的最常用的選擇器。</p>
+</li>
+</ul>
+<blockquote>
+<p>找 jQuery 對象與有許多方法。</p>
+</blockquote>
+<h4 id="1-8-2-基本選擇器"><a href="#1-8-2-基本選擇器" class="headerlink" title="1.8.2 基本選擇器"></a>1.8.2 基本選擇器</h4><ul>
+<li>基本選擇器<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>用法</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ID選擇器</td>
+<td>$(“#id”);</td>
+<td align="left">獲取指定ID的元素</td>
+</tr>
+<tr>
+<td>類別選取器</td>
+<td>$(“.class”);</td>
+<td align="left">獲取同一類class的元素</td>
+</tr>
+<tr>
+<td>標籤選擇器</td>
+<td>$(“div”);</td>
+<td align="left">獲取同一類標籤的所有元素</td>
+</tr>
+<tr>
+<td>聯集選擇器</td>
+<td>$(“div,p,li”);</td>
+<td align="left">使用逗號分隔，只要符合條件之一就可。</td>
+</tr>
+<tr>
+<td>交集選擇器</td>
+<td>$(“div.redClass”);</td>
+<td align="left">獲取 class 為 redClass 的div元素</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<blockquote>
+<p>總結：跟 <code>css</code> 的選擇器用法一模一樣。</p>
+</blockquote>
+<h3 id="1-9-層級選擇器"><a href="#1-9-層級選擇器" class="headerlink" title="1.9 層級選擇器"></a>1.9 層級選擇器</h3><ul>
+<li>層級選擇器<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>用法</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>子代選擇器</td>
+<td>$(“ul&gt;li”);</td>
+<td align="left">使用 &gt; 號，獲取兒子層級的元素，注意，並不會獲取孫子層級的元素</td>
+</tr>
+<tr>
+<td>後代選擇器</td>
+<td>$(“ul li”);</td>
+<td align="left">使用空格， 代表後代選擇器，獲取 ul 下的所有 li 元素，包括孫子等</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<blockquote>
+<p>跟 CSS 的選擇器一模一樣。</p>
+</blockquote>
+<ul>
+<li><p>表單選擇器<br>例一 <code>.disabled</code> 查找所有不可用 <code>input</code> 元素。</p>
+<pre class="line-numbers language-html" data-language="html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>form</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>email<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>email<span class="token punctuation">"</span></span> <span class="token attr-name">disabled</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>disabled<span class="token punctuation">"</span></span>  <span class="token punctuation">/&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>text<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>id<span class="token punctuation">"</span></span> <span class="token punctuation">/&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>form</span><span class="token punctuation">&gt;</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-jquery" data-language="jquery"><code class="language-jquery">$("input:disabled")<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<ul>
+<li>結果<br><code>[ &lt;input type="email" name="email" disabled="disabled" /&gt;]</code><br>
+例二 `.enabled` 查找所有可用 `input` 元素。
+
+</li>
+</ul>
+<pre class="line-numbers language-html" data-language="html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>form</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>email<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>email<span class="token punctuation">"</span></span> <span class="token attr-name">disabled</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>disabled<span class="token punctuation">"</span></span> <span class="token punctuation">/&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>text<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>id<span class="token punctuation">"</span></span> <span class="token punctuation">/&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>form</span><span class="token punctuation">&gt;</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-jquery" data-language="jquery"><code class="language-jquery">$("input:enabled")<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<ul>
+<li>結果<br><code>[&lt;input type="text" name="id" /&gt;]</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="1-10-過濾選擇器"><a href="#1-10-過濾選擇器" class="headerlink" title="1.10 過濾選擇器"></a>1.10 過濾選擇器</h3><ul>
+<li><p>這類別選取器都帶冒號:</p>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>用法</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>:eq（index）</td>
+<td>$(“li:eq(2)”).css(“color”, “red”);</td>
+<td align="left">獲取到的li元素中，選擇索引號為2的元素，索引號index從0開始。</td>
+</tr>
+<tr>
+<td>:odd</td>
+<td>$(“li:odd”).css(“color”, “red”);</td>
+<td align="left">獲取到的li元素中，選擇索引號為奇數的元素</td>
+</tr>
+<tr>
+<td>:even</td>
+<td>$(“li:even”).css(“color”, “red”);</td>
+<td align="left">獲取到的li元素中，選擇索引號為偶數的元素</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<p>【案例：隔行變色】</p>
+<h3 id="1-11-篩選選擇器-方法"><a href="#1-11-篩選選擇器-方法" class="headerlink" title="1.11 篩選選擇器(方法)"></a>1.11 篩選選擇器(方法)</h3><ul>
+<li><p>篩選選擇器(方法)</p>
+<blockquote>
+<p>篩選選擇器的功能與過濾選擇器(對象都是用字串包起來)有點類似，但是用法不一樣，篩選選擇器主要是方法。</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="left">名稱</th>
+<th align="left">用法</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">children(selector)</td>
+<td align="left">$(“ul”).children(“li”)</td>
+<td align="left">相當於$(“ul&gt;li”)，子類別選取器</td>
+</tr>
+<tr>
+<td align="left">find(selector)</td>
+<td align="left">$(“ul”).find(“li”);</td>
+<td align="left">相當於$(“ul li”),後代選擇器</td>
+</tr>
+<tr>
+<td align="left">siblings(selector)</td>
+<td align="left">$(“#first”).siblings(“li”);</td>
+<td align="left">查找兄弟節點，不包括自己本身。</td>
+</tr>
+<tr>
+<td align="left">parent()</td>
+<td align="left">$(“#first”).parent();</td>
+<td align="left">查找父親</td>
+</tr>
+<tr>
+<td align="left">eq(index)</td>
+<td align="left">$(“li”).eq(2);</td>
+<td align="left">相當於$(“li:eq(2)”),index從0開始</td>
+</tr>
+<tr>
+<td align="left">next()</td>
+<td align="left">$(“li”).next()</td>
+<td align="left">找下一個兄弟</td>
+</tr>
+<tr>
+<td align="left">prev()</td>
+<td align="left">$(“li”).prev()</td>
+<td align="left">找上一次兄弟</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<h3 id="1-12-下拉式選單案例"><a href="#1-12-下拉式選單案例" class="headerlink" title="1.12 下拉式選單案例"></a>1.12 下拉式選單案例</h3><ul>
+<li><strong><code>mouseenter</code> 與 <code>mouseover</code> 的區別</strong></li>
+</ul>
+<h3 id="1-13-突出展示案例"><a href="#1-13-突出展示案例" class="headerlink" title="1.13 突出展示案例"></a>1.13 突出展示案例</h3><h3 id="1-14-視窗褶合展示"><a href="#1-14-視窗褶合展示" class="headerlink" title="1.14 視窗褶合展示"></a>1.14 視窗褶合展示</h3><h3 id="1-15-精品展示案例"><a href="#1-15-精品展示案例" class="headerlink" title="1.15 精品展示案例"></a>1.15 精品展示案例</h3><h3 id="1-16-index-方法詳述"><a href="#1-16-index-方法詳述" class="headerlink" title="1.16 index()方法詳述"></a>1.16 index()方法詳述</h3><h3 id="1-17-複習"><a href="#1-17-複習" class="headerlink" title="1.17 複習"></a>1.17 複習</h3><h3 id="1-18-jQuery-的除錯"><a href="#1-18-jQuery-的除錯" class="headerlink" title="1.18 jQuery 的除錯"></a>1.18 <code>jQuery</code> 的除錯</h3><ul>
+<li><p><code>jQuery</code> 執行不會報任何錯誤，因為 <code>JS</code> 中程式碼任一行有錯誤就會停止後面的指令繼續執行。</p>
+</li>
+<li><p>會什麼在 <code>JS</code> 中，執行有錯誤會報錯而 <code>jQuery</code> 不會呢?<br><code>JS</code> 找不到對象時會返回 NONE，針對這 NONE 對象是不能做任何事情的且會報錯，但是 <code>JQ</code> 即使找不到對象也是返回一個 jQuery 對象，只是裡面沒有內容值(屬性或方法..et)，即 <code>.length=0</code>。例如: <code>jQuery.fn.init[0]</code>。</p>
+</li>
+<li><p><code>jQuery</code> 會出現問題只有找不到對象，那如何除錯呢?</p>
+<ol>
+<li>使用 <code>console.log()</code> 或 alert()。</li>
+<li>使用瀏覽器除錯模式中的斷點功能，檢查所有選取對象是否有找到對象的<strong>內容</strong>。</li>
+</ol>
+</li>
+</ul>
+<h3 id="1-19-總結"><a href="#1-19-總結" class="headerlink" title="1.19 總結"></a>1.19 總結</h3><ul>
+<li><p><code>jquery</code>: 簡單、粗暴</p>
+<p><code>jq</code> 和 <code>js</code> 的關係<br><code>js</code> 是什麼？ <code>js</code> 是一門程式設計語言<br><code>jq</code> 僅僅是基於 <code>js</code> 的一個庫，<code>jq</code> 可理解為就是開發 <code>js</code> 的一個工具。</p>
+</li>
+<li><p>概念</p>
+<ol>
+<li>為什麼要學 <code>jquery</code> ？ 簡單，粗暴 沒有相容性問題</li>
+<li>什麼是 <code>jquery</code>？ <code>js</code> 庫，說白了就是 <code>js</code> 檔，裡面有一大堆的方法</li>
+<li>使用 <code>jquery</code> 的步驟：  1. 引入 <code>jquery</code> 文件 2. 入口函數 功能實現</li>
+<li>版本：1.x 2.x 3.x   1.x   壓縮版和未壓縮版</li>
+<li>入口函數：  <code>$(document).ready(function)</code>，  <code>$(function(){})</code></li>
+<li><code>jQuery</code> 物件與 <code>DOM</code> 物件<br>區別：方法不能混用<br>聯繫： <code>DOM --&gt; jq</code>   花錢，  jq–&gt; dom  [0]， get(0)</li>
+</ol>
+</li>
+<li><p><code>$</code> 的實質：<code>function</code></p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript">console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>$ <span class="token operator">===</span> jQuery<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">$</span><span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>選擇器</p>
+<ol>
+<li><p>基本選擇器:  標籤、類別、id選擇器、交集、並集。</p>
+</li>
+<li><p>層級選擇器： 子代、後代  </p>
+</li>
+<li><p>過濾選擇器：<br>:odd:奇數  even:偶數  :eq：指定下標<br>:first  :last  :gt  :lt</p>
+</li>
+<li><p>篩選選擇器<br>children(): 找兒子<br>find():     找後代(兒子、孫子)<br>parent():   找爹<br>siblings(): 找兄弟，不包括自己<br>next:       下一個兄弟<br>prev:       上一次兄弟<br>eq:         指定下標</p>
+</li>
+</ol>
+</li>
+<li><p><code>index()</code>：返回的當前元素在所有兄弟裡面的索引。</p>
+</li>
+</ul>
+<hr>
+<h2 id="2-jQuery-操作-樣式、屬性、動畫、節點"><a href="#2-jQuery-操作-樣式、屬性、動畫、節點" class="headerlink" title="2. jQuery 操作(樣式、屬性、動畫、節點)"></a>2. <code>jQuery</code> 操作(樣式、屬性、動畫、節點)</h2><h3 id="2-1-jQuery-的操作樣式"><a href="#2-1-jQuery-的操作樣式" class="headerlink" title="2.1 jQuery 的操作樣式"></a>2.1 <code>jQuery</code> 的操作樣式</h3><h4 id="2-1-1-css-操作"><a href="#2-1-1-css-操作" class="headerlink" title="2.1.1 css 操作"></a>2.1.1 <code>css</code> 操作</h4><p>   功能: 設置或者修改樣式，操作的是 <code>style</code> 屬性</p>
+<ul>
+<li><p>操作單個樣式</p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">//name: 需要設置樣式名稱</span>
+<span class="token comment">//value: 對應的樣式值</span>
+<span class="token function">css</span><span class="token punctuation">(</span>name<span class="token punctuation">,</span> value<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">//案例</span>
+<span class="token function">$</span><span class="token punctuation">(</span><span class="token string">'#one'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">css</span><span class="token punctuation">(</span><span class="token string">"background"</span><span class="token punctuation">,</span> <span class="token string">"gray"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">//背景樣式修改為灰色</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>設置多個樣式</p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">//參數是一個對象，對象中包含了需要設置的樣式名稱和樣式值</span>
+<span class="token function">css</span><span class="token punctuation">(</span>obj<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">//案例</span>
+<span class="token function">$</span><span class="token punctuation">(</span><span class="token string">'#one'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">css</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  <span class="token string">"background"</span><span class="token punctuation">,</span> <span class="token string">"gray"</span><span class="token punctuation">,</span>
+  <span class="token string">"width"</span><span class="token punctuation">,</span><span class="token string">"400px"</span><span class="token punctuation">,</span>
+  <span class="token string">"height"</span><span class="token punctuation">,</span> <span class="token string">"200px"</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>獲取樣式</p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">//name: 需要獲取樣式的名稱</span>
+<span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">css(name)</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">;</span>
+<span class="token comment">//案例</span>
+<span class="token function">$</span><span class="token punctuation">(</span><span class="token string">"div"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">css</span><span class="token punctuation">(</span><span class="token string">"background-color"</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<blockquote>
+<p>注意: 獲取樣式操作只會返回第一個元素對應的樣式值。</p>
+</blockquote>
+</li>
+<li><p>隱式迭代:</p>
+<ol>
+<li>設置操作的時候，如果是多個元素，那麼給所有的元素設置相同的值。</li>
+<li>獲取操作的時候，如果是多個元素，那麼只會返回第一個元素的值。</li>
+</ol>
+</li>
+</ul>
+<h4 id="2-1-2-class-操作"><a href="#2-1-2-class-操作" class="headerlink" title="2.1.2. class 操作"></a>2.1.2. <code>class</code> 操作</h4><p>   改樣式可用 <code>css();</code> 或 <code>class()</code> 來修改，但 <code>class()</code> 適用於有多個樣式時用(直接定義一個類別)。</p>
+<ul>
+<li><p><code>案例: 2.1.2 class 操作.html</code></p>
+</li>
+<li><p>添加樣式類別</p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">//name:需要填加的樣式類名，注意參數不要帶點 .</span>
+<span class="token function">addClass</span><span class="token punctuation">(</span><span class="token string">"name"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">//案例，給所有的div 添加 one 的樣式</span>
+<span class="token function">$</span><span class="token punctuation">(</span><span class="token string">"div"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">addClass</span><span class="token punctuation">(</span><span class="token string">"one"</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>移除樣式類別</p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">//name:需要移除的樣式類別名稱</span>
+<span class="token function">removeClass</span><span class="token punctuation">(</span><span class="token string">"name"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">//案例，移除 div 中 one 的樣式類別名稱</span>
+<span class="token function">$</span><span class="token punctuation">(</span><span class="token string">"div"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">removeClass</span><span class="token punctuation">(</span><span class="token string">"one"</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>判斷是否有某個樣式類別</p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">//name:用於判斷的樣式類別名稱，返回值為 true false</span>
+<span class="token function">hasClass</span><span class="token punctuation">(</span><span class="token string">"name"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">//案例，判斷第一個 div 是否有 one 的樣式類別</span>
+<span class="token function">$</span><span class="token punctuation">(</span><span class="token string">"div"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">hasClass</span><span class="token punctuation">(</span><span class="token string">"one"</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>切換樣式類別</p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">//name:需要切換的樣式類別，如果有，移除該樣式，如果沒有，添加該樣式</span>
+<span class="token function">toggleClass</span><span class="token punctuation">(</span><span class="token string">"name"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">//案例，判斷第一個 div 是否有 one 的樣式類別</span>
+<span class="token function">$</span><span class="token punctuation">(</span><span class="token string">"div"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toggleClass</span><span class="token punctuation">(</span><span class="token string">"one"</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>【案例: tab 檔切換案例】  </p>
+</li>
+</ul>
+<h3 id="2-2-jQuery-操作屬性"><a href="#2-2-jQuery-操作屬性" class="headerlink" title="2.2. jQuery 操作屬性"></a>2.2. jQuery 操作屬性</h3><h4 id="2-2-1-attr-操作"><a href="#2-2-1-attr-操作" class="headerlink" title="2.2.1. attr 操作"></a>2.2.1. attr 操作</h4><ul>
+<li><p>設置單個屬性</p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">//第一個參數: 需要設置的屬性名稱</span>
+<span class="token comment">//第二個參數: 對應的屬性值</span>
+<span class="token function">attr</span><span class="token punctuation">(</span><span class="token string">"屬姓名稱"</span><span class="token punctuation">,</span> <span class="token string">"屬性值"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">//案例</span>
+<span class="token function">$</span><span class="token punctuation">(</span><span class="token string">"img"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">attr</span><span class="token punctuation">(</span><span class="token string">"title"</span><span class="token punctuation">,</span> <span class="token string">"Hello"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">$</span><span class="token punctuation">(</span><span class="token string">"img"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">attr</span><span class="token punctuation">(</span><span class="token string">"alt"</span><span class="token punctuation">,</span>   <span class="token string">"World"</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>設置多個屬性</p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">//參數是一個對象，包含了需要設置的屬性名稱和屬性值。</span>
+<span class="token function">attr</span><span class="token punctuation">(</span><span class="token string">"屬姓名"</span><span class="token punctuation">,</span> <span class="token string">"屬性值"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">//案例</span>
+<span class="token function">$</span><span class="token punctuation">(</span><span class="token string">"img"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">attr</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  <span class="token string">"alt"</span><span class="token operator">:</span> <span class="token string">"World"</span><span class="token punctuation">,</span>
+  <span class="token string">"title"</span><span class="token operator">:</span> <span class="token string">"Hello"</span><span class="token punctuation">,</span>
+  <span class="token string">"style"</span><span class="token operator">:</span> <span class="token string">"opacity: .5"</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>獲取屬性</p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript">傳需要獲取的屬性名稱，返回對應的屬性值。<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+<li><p>【案例: 美女相冊案例】</p>
+</li>
+</ul>
+<h4 id="2-2-2-prop-操作"><a href="#2-2-2-prop-操作" class="headerlink" title="2.2.2. prop 操作"></a>2.2.2. prop 操作</h4><ul>
+<li>【案例: 表格全選案例】</li>
+</ul>
+<h3 id="2-3-jQuery-動畫"><a href="#2-3-jQuery-動畫" class="headerlink" title="2.3 jQuery 動畫"></a>2.3 jQuery 動畫</h3><p><code>jQuery</code> 提供了三組動畫，這些動畫都是標準的、有規律的效果，jQuyery 孩提供了自定義動畫的功能。</p>
+<ul>
+<li>【案例: 演示 jQuery 動畫】</li>
+</ul>
+<h4 id="2-3-1-三組基本動畫"><a href="#2-3-1-三組基本動畫" class="headerlink" title="2.3.1 三組基本動畫"></a>2.3.1 三組基本動畫</h4><h5 id="2-3-1-1-顯示-show-與隱藏-hide-是一組動畫"><a href="#2-3-1-1-顯示-show-與隱藏-hide-是一組動畫" class="headerlink" title="2.3.1.1 顯示(show)與隱藏(hide)是一組動畫"></a>2.3.1.1 顯示(show)與隱藏(hide)是一組動畫</h5><h5 id="2-3-1-2-滑入-slideUp-與滑出-slideDown-，效果與捲窗門類似"><a href="#2-3-1-2-滑入-slideUp-與滑出-slideDown-，效果與捲窗門類似" class="headerlink" title="2.3.1.2 滑入(slideUp)與滑出(slideDown)，效果與捲窗門類似"></a>2.3.1.2 滑入(slideUp)與滑出(slideDown)，效果與捲窗門類似</h5><h5 id="2-3-1-3-淡入-fadeIn-與淡出-fadeOut-與切換-slideToggle"><a href="#2-3-1-3-淡入-fadeIn-與淡出-fadeOut-與切換-slideToggle" class="headerlink" title="2.3.1.3 淡入(fadeIn)與淡出(fadeOut)與切換 (slideToggle)"></a>2.3.1.3 淡入(fadeIn)與淡出(fadeOut)與切換 (slideToggle)</h5><ul>
+<li><p>語法</p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token function">show</span><span class="token punctuation">(</span><span class="token punctuation">[</span>speed<span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span>callback<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">//speed(可選):動畫的執行時間</span>
+<span class="token comment">// 1. 如果不傳，就沒有動畫效果。如果是 slide 和 fade 系列，預設是 normal。</span>
+<span class="token comment">// 2. 毫秒值(比如 1000), 動畫在 1000 毫秒執行完成(建議)</span>
+<span class="token comment">// 3. 固定字串，slow(600)，normal(400)，fast(200), 如果傳其他字串，則預設為 normal</span>
+<span class="token comment">// callback(可選): 執行完成動畫後執行的回調函數。</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>【案例:下拉菜單動畫版】</strong><br><strong>【案例:幻燈片案例】</strong></p>
+</li>
+</ul>
+<h4 id="2-3-2-自定義動畫"><a href="#2-3-2-自定義動畫" class="headerlink" title="2.3.2 自定義動畫"></a>2.3.2 自定義動畫</h4><ul>
+<li><p><code>animate</code> 自定義動畫</p>
+</li>
+<li><p>語法</p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token function">$</span><span class="token punctuation">(</span>selector<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">animate</span><span class="token punctuation">(</span><span class="token punctuation">{</span>params<span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">[</span>speed<span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token punctuation">[</span>easing<span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span>callback<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// {params}: 要執行動畫的  CSS 屬性，帶數字(必填)</span>
+<span class="token comment">// speed: 執行動畫時長(可選)</span>
+<span class="token comment">// easing: 執行效果，預設為swing(緩動) 可以是 linear(均速)</span>
+<span class="token comment">// callback: 動畫執行完後立即執行回調函數(可選)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+</li>
+</ul>
+<h4 id="2-3-3-動畫佇列與停止動畫"><a href="#2-3-3-動畫佇列與停止動畫" class="headerlink" title="2.3.3 動畫佇列與停止動畫"></a>2.3.3 動畫佇列與停止動畫</h4><ul>
+<li><strong>【案例:手風琴特效】</strong></li>
+</ul>
+<h5 id="2-3-3-1-動畫佇列"><a href="#2-3-3-1-動畫佇列" class="headerlink" title="2.3.3.1 動畫佇列"></a>2.3.3.1 動畫佇列</h5><h5 id="2-3-3-2-stop-使用"><a href="#2-3-3-2-stop-使用" class="headerlink" title="2.3.3.2 stop() 使用"></a>2.3.3.2 stop() 使用</h5><ul>
+<li><p>在同一個元素上執行多個動畫，那麼對於這個動畫來說，後面的動畫會被放到動畫佇列中，等前面的動畫執行完成了才會執行。</p>
+</li>
+<li><p>語法</p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">//stop 方法: 停止當前正在執行動畫</span>
+<span class="token function">stop</span><span class="token punctuation">(</span>clearQueue<span class="token punctuation">,</span>  jumpToEnd<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">//第一個參數: 是否清除佇列</span>
+<span class="token comment">//第二個參數: 是否跳轉到最終效果</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+</li>
+</ul>
+<h5 id="2-3-3-3-停止動畫"><a href="#2-3-3-3-停止動畫" class="headerlink" title="2.3.3.3 停止動畫"></a>2.3.3.3 停止動畫</h5><ul>
+<li><strong>【案例:音樂導航】</strong></li>
+</ul>
+<h3 id="2-4-jQuery-節點操作"><a href="#2-4-jQuery-節點操作" class="headerlink" title="2.4 jQuery 節點操作"></a>2.4 jQuery 節點操作</h3><h4 id="2-4-0-動態創建節點"><a href="#2-4-0-動態創建節點" class="headerlink" title="2.4.0 動態創建節點"></a>2.4.0 動態創建節點</h4><h4 id="2-4-1-jquery-創建與添加節點"><a href="#2-4-1-jquery-創建與添加節點" class="headerlink" title="2.4.1 jquery 創建與添加節點"></a>2.4.1 <code>jquery</code> 創建與添加節點</h4><ul>
+<li><p>創建節點</p>
+</li>
+<li><p>說明</p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">//$(htmlstr)</span>
+<span class="token comment">//htmlstr: html 格式的字符串</span>
+<span class="token function">$</span><span class="token punctuation">(</span><span class="token string">"&lt;span&gt;這是一個span元素&lt;/span&gt;"</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>添加節點</p>
+</li>
+<li><p>說明</p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">//append appendTo</span>
+<span class="token comment">//append prepentto</span>
+<span class="token comment">//before</span>
+<span class="token comment">//after</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>【城市選擇案例】</strong></p>
+</li>
+</ul>
+<h4 id="2-4-2-清空節點與刪除節點"><a href="#2-4-2-清空節點與刪除節點" class="headerlink" title="2.4.2 清空節點與刪除節點"></a>2.4.2 清空節點與刪除節點</h4><ul>
+<li><p>說明</p>
+<p>empty: 清空指定節點的所有元素，自身保留(清理門戶)。</p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token function">$</span><span class="token punctuation">(</span><span class="token string">"div"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">empty</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">// 清空 div 的所有內容(建議使用，會清除子元素上綁定的內容)</span>
+<span class="token function">$</span><span class="token punctuation">(</span><span class="token string">"div"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">html</span><span class="token punctuation">(</span><span class="token string">""</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 使用 html 方法來清除元素，不建議使用，會造成記憶體 leak,綁定的事件不會被清除。</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<blockquote>
+<p>remove: 相對於 empty, 自身也刪除(自殺)</p>
+</blockquote>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token function">$</span><span class="token punctuation">(</span><span class="token string">"div"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">remove</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+</li>
+</ul>
+<h4 id="2-4-3-克隆節點"><a href="#2-4-3-克隆節點" class="headerlink" title="2.4.3 克隆節點"></a>2.4.3 克隆節點</h4><ul>
+<li><p>作用: 複製匹配的元素</p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">//複製$(selector)所匹配到的元素(深度複製)</span>
+<span class="token comment">//cloneNode(true)</span>
+<span class="token comment">//返回值為複製的新元素，和原來的元素沒有任何關係了。即修改新元素，不會影響到原來的元素。</span>
+<span class="token function">$</span><span class="token punctuation">(</span>selector<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">clone</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>【微博發佈案例】</strong><br><strong>【彈幕效果案例】</strong></p>
+</li>
+</ul>
+<hr>
+<h2 id="3-jQuery-特殊屬性操作、jQuery-事件機制、jQuery-補充知識點"><a href="#3-jQuery-特殊屬性操作、jQuery-事件機制、jQuery-補充知識點" class="headerlink" title="3. jQuery 特殊屬性操作、jQuery 事件機制、jQuery 補充知識點"></a>3. <code>jQuery</code> 特殊屬性操作、<code>jQuery</code> 事件機制、<code>jQuery</code> 補充知識點</h2><h3 id="3-1-jQuery-特殊屬性操作"><a href="#3-1-jQuery-特殊屬性操作" class="headerlink" title="3.1 jQuery 特殊屬性操作"></a>3.1 <code>jQuery</code> 特殊屬性操作</h3><h4 id="3-1-1-複習"><a href="#3-1-1-複習" class="headerlink" title="3.1.1 複習"></a>3.1.1 複習</h4><h4 id="3-1-2-val-方法"><a href="#3-1-2-val-方法" class="headerlink" title="3.1.2 val 方法"></a>3.1.2 <code>val</code> 方法</h4><ul>
+<li><p><code>val</code> 方法用於設置和獲取表單元素的值，例如 <code>input</code>、<code>textarea</code> 的值。</p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">//設置值</span>
+<span class="token function">$</span><span class="token punctuation">(</span><span class="token string">"#name"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">val</span><span class="token punctuation">(</span><span class="token string">"張三"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">//獲取值</span>
+<span class="token function">$</span><span class="token punctuation">(</span><span class="token string">"#name"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">val</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>【示範案例：京東搜索】</p>
+</li>
+</ul>
+<h4 id="3-1-3-html-方法與-text-方法"><a href="#3-1-3-html-方法與-text-方法" class="headerlink" title="3.1.3 html 方法與 text 方法"></a>3.1.3 <code>html</code> 方法與 <code>text</code> 方法</h4><ul>
+<li><p><code>html</code> 方法相當於 <code>innerHTML</code>，  <code>text</code> 方法相當於 <code>innerText</code></p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">//設置內容</span>
+<span class="token function">$</span><span class="token punctuation">(</span><span class="token string">"div”).html("</span><span class="token operator">&lt;</span>span<span class="token operator">&gt;</span>這是一段內容<span class="token operator">&lt;</span><span class="token operator">/</span>span<span class="token operator">&gt;</span>”<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">//獲取內容</span>
+<span class="token function">$</span><span class="token punctuation">(</span>"div”<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">html</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+<span class="token comment">//設置內容</span>
+<span class="token function">$</span><span class="token punctuation">(</span><span class="token string">"div”).text("</span><span class="token operator">&lt;</span>span<span class="token operator">&gt;</span>這是一段內容<span class="token operator">&lt;</span><span class="token operator">/</span>span<span class="token operator">&gt;</span>”<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">//獲取內容</span>
+<span class="token function">$</span><span class="token punctuation">(</span>"div”<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">text</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<blockquote>
+<p>區別：<code>html</code> 方法會識別 <code>html</code> 標籤，<code>text</code> 方法會那內容直接當成字串，並不會識別 <code>html</code> 標籤。</p>
+</blockquote>
+</li>
+</ul>
+<h4 id="3-1-4-width-方法與-height-方法"><a href="#3-1-4-width-方法與-height-方法" class="headerlink" title="3.1.4 width 方法與 height 方法"></a>3.1.4 <code>width</code> 方法與 <code>height</code> 方法</h4><ul>
+<li><p>設置或者獲取高度</p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">//帶參數表示設置高度</span>
+<span class="token function">$</span><span class="token punctuation">(</span><span class="token string">"img"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">height</span><span class="token punctuation">(</span><span class="token number">200</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">//不帶參數獲取高度</span>
+<span class="token function">$</span><span class="token punctuation">(</span><span class="token string">"img"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">height</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>獲取網頁的可視區寬高</p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">//獲取可視區寬度</span>
+<span class="token function">$</span><span class="token punctuation">(</span>window<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">width</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">//獲取可視區高度</span>
+<span class="token function">$</span><span class="token punctuation">(</span>window<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">height</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+</li>
+</ul>
+<h4 id="3-1-5-scrollTop-與-scollLeft-方法"><a href="#3-1-5-scrollTop-與-scollLeft-方法" class="headerlink" title="3.1.5 scrollTop 與 scollLeft 方法"></a>3.1.5 <code>scrollTop</code> 與 <code>scollLeft</code> 方法</h4><ul>
+<li><p>設置或者獲取垂直捲動條的位置</p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">//獲取頁面被捲曲的高度</span>
+<span class="token function">$</span><span class="token punctuation">(</span>window<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">scrollTop</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">//獲取頁面被捲曲的寬度</span>
+<span class="token function">$</span><span class="token punctuation">(</span>window<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">scrollLeft</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>【案例：3.1.8 仿騰訊固定功能表列案例】<br>【案例：3.1.7 小火箭返航案例】</p>
+</li>
+</ul>
+<h4 id="3-1-6-offset-方法與-position"><a href="#3-1-6-offset-方法與-position" class="headerlink" title="3.1.6 offset 方法與 position"></a>3.1.6 <code>offset</code> 方法與 <code>position</code></h4><ul>
+<li><p><code>offset</code> 方法獲取元素距離 <code>document</code> 的位置，<code>position</code> 方法獲取的是元素距離有定位的父元素的位置。</p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">//獲取元素距離document的位置,返回值為物件：{left:100, top:100}</span>
+<span class="token function">$</span><span class="token punctuation">(</span>selector<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">offset</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">//獲取相對於其最近的有定位的父元素的位置。</span>
+<span class="token function">$</span><span class="token punctuation">(</span>selector<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">position</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<img src="/medias/loading.gif" data-original="https://cdn.jsdelivr.net/gh/allen-5183/blog.allen5183.synology.me/images/offset_position.jpg" width="80%" height="40%" class="nofancybox img-center">
+
+</li>
+</ul>
+<h4 id="3-1-7-小火箭返回頂部案例"><a href="#3-1-7-小火箭返回頂部案例" class="headerlink" title="3.1.7 小火箭返回頂部案例"></a>3.1.7 小火箭返回頂部案例</h4><h4 id="3-1-8-固定導航案例"><a href="#3-1-8-固定導航案例" class="headerlink" title="3.1.8 固定導航案例"></a>3.1.8 固定導航案例</h4><h3 id="3-2-jQuery-事件機制"><a href="#3-2-jQuery-事件機制" class="headerlink" title="3.2 jQuery 事件機制"></a>3.2 <code>jQuery</code> 事件機制</h3><p>  <code>JavaScript</code> 中已經學習過了事件，但是 <code>jQuery</code> 對 <code>JavaScript</code> 事件進行了封裝，增加並擴展了事件處理機制。<code>jQuery</code> 不僅提供了更加優雅的事件處理語法，而且極大的增強了事件的處理能力。</p>
+<h4 id="3-2-1-jquery-事件機制的發展歷程"><a href="#3-2-1-jquery-事件機制的發展歷程" class="headerlink" title="3.2.1 jquery 事件機制的發展歷程"></a>3.2.1 <code>jquery</code> 事件機制的發展歷程</h4><ul>
+<li><p>歷程　簡單事件綁定 -&gt; <code>bind</code> 事件綁定  -&gt;  <code>delegate</code> 事件綁定 -&gt; <code>on</code> 事件綁定(推薦)</p>
+</li>
+<li><p><code>簡單事件</code>註冊</p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token function">　click</span><span class="token punctuation">(</span>handler<span class="token punctuation">)</span>        按一下事件
+<span class="token function">　mouseenter</span><span class="token punctuation">(</span>handler<span class="token punctuation">)</span>   滑鼠進入事件
+<span class="token function">　mouseleave</span><span class="token punctuation">(</span>handler<span class="token punctuation">)</span>   滑鼠離開事件<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+</li>
+</ul>
+<p>　缺點：不能同時註冊多個事件</p>
+<ul>
+<li><p><code>bind</code> 方式註冊事件</p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">//第一個參數：事件類型</span>
+<span class="token comment">//第二個參數：事件處理常式</span>
+<span class="token function">$</span><span class="token punctuation">(</span><span class="token string">"p"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span><span class="token string">"click mouseenter"</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+   <span class="token comment">//事件回應方法</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>缺點：不支援動態事件綁定</p>
+</li>
+<li><p><code>delegate</code> 註冊委託事件</p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// 第一個參數：selector，要綁定事件的元素</span>
+<span class="token comment">// 第二個參數：事件類型</span>
+<span class="token comment">// 第三個參數：事件處理函數</span>
+<span class="token function">$</span><span class="token punctuation">(</span><span class="token string">".parentBox"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">delegate</span><span class="token punctuation">(</span><span class="token string">"p"</span><span class="token punctuation">,</span> <span class="token string">"click"</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+  <span class="token comment">//為 .parentBox下面的所有的p標籤綁定事件</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>缺點：只能註冊委託事件，因此註冊時間需要記得方法太多了</p>
+</li>
+</ul>
+<h4 id="3-2-2-on-註冊事件的兩種方式"><a href="#3-2-2-on-註冊事件的兩種方式" class="headerlink" title="3.2.2 on 註冊事件的兩種方式"></a>3.2.2 <code>on</code> 註冊事件的兩種方式</h4><p>  可以執行簡單自己註冊事件與委託代理事件。</p>
+<ul>
+<li><p><code>on</code> 註冊事件(重點)</p>
+<blockquote>
+<p><code>jQuery1.7</code> 之後，<code>jQuery</code> 用 <code>on</code> 統一了所有事件的處理方法。<br>最現代的方式，相容 <code>zepto</code>(移動端類似 <code>jQuery</code> 的一個庫)，強烈建議使用。</p>
+</blockquote>
+<ul>
+<li><p>`on 註冊簡單事件</p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// 表示給 $(selector) 綁定事件，並且由自己觸發，不支持動態繫結。</span>
+<span class="token function">$</span><span class="token punctuation">(</span>selector<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">"click"</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</li>
+<li><p><code>on</code> 註冊委託事件</p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// 表示給 $(selector) 綁定代理事件，當必須是它的內部元素 `span` 才能觸發這個事件，支持動態繫結</span>
+<span class="token function">$</span><span class="token punctuation">(</span>selector<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">"click"</span><span class="token punctuation">,</span> <span class="token string">"span"</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</li>
+<li><p><code>on</code> 註冊事件的語法：</p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript">第一個參數：<span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">events</span><span class="token template-punctuation string">`</span></span>，綁定事件的名稱可以是由空格分隔的多個事件（標準事件或者自訂事件）
+第二個參數：<span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">selector</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span> 執行事件的後代元素（可選），如果沒有後代元素，那麼事件將有自己執行。
+第三個參數：<span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">data</span><span class="token template-punctuation string">`</span></span>，傳遞給處理函數的資料，事件觸發的時候通過 <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">event.data</span><span class="token template-punctuation string">`</span></span> 來使用（不常使用）
+第四個參數：<span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">handler</span><span class="token template-punctuation string">`</span></span>，事件處理函數。
+
+<span class="token function">$</span><span class="token punctuation">(</span>selector<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span>events<span class="token punctuation">[</span><span class="token punctuation">,</span>selector<span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">,</span>data<span class="token punctuation">]</span><span class="token punctuation">,</span>handler<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="3-2-3-事件的執行順序"><a href="#3-2-3-事件的執行順序" class="headerlink" title="3.2.3 事件的執行順序"></a>3.2.3 事件的執行順序</h4><h4 id="3-2-4-表格刪除功能"><a href="#3-2-4-表格刪除功能" class="headerlink" title="3.2.4 表格刪除功能"></a>3.2.4 表格刪除功能</h4><h4 id="3-2-5-移除事件綁定"><a href="#3-2-5-移除事件綁定" class="headerlink" title="3.2.5 移除事件綁定"></a>3.2.5 移除事件綁定</h4><ul>
+<li><p>unbind方式（不用）</p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token function">$</span><span class="token punctuation">(</span>selector<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">unbind</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//解綁所有的事件</span>
+<span class="token function">$</span><span class="token punctuation">(</span>selector<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">unbind</span><span class="token punctuation">(</span><span class="token string">"click"</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//解綁指定的事件</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</li>
+<li><p>undelegate方式（不用）</p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token function">$</span><span class="token punctuation">(</span>selector<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">undelegate</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>         <span class="token comment">//解綁所有的 delegate 事件</span>
+<span class="token function">$</span><span class="token punctuation">(</span>selector<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">undelegate</span><span class="token punctuation">(</span><span class="token string">"click"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">//解綁所有的 click 事件</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</li>
+<li><p>off方式（推薦）</p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">//解綁匹配元素的所有事件</span>
+<span class="token function">$</span><span class="token punctuation">(</span>selector<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">off</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">//解綁匹配元素的所有click事件</span>
+<span class="token function">$</span><span class="token punctuation">(</span>selector<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">off</span><span class="token punctuation">(</span><span class="token string">"click"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>_<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+</li>
+</ul>
+<h4 id="3-2-6-事件對象"><a href="#3-2-6-事件對象" class="headerlink" title="3.2.6 事件對象"></a>3.2.6 事件對象</h4><ul>
+<li><p><code>jQuery</code> 事件物件其實就是js事件物件的一個封裝，處理了相容性。</p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">//screenX和screenY        對應螢幕最左上角的值</span>
+<span class="token comment">//clientX和clientY        距離頁面左上角的位置（忽視捲軸）</span>
+<span class="token comment">//pageX和pageY            距離頁面最頂部的左上角的位置（會計算捲軸的距離）</span>
+
+<span class="token comment">//event.keyCode           按下的鍵盤代碼</span>
+<span class="token comment">//event.data              存儲綁定事件時傳遞的附加資料</span>
+
+<span class="token comment">//event.stopPropagation() 阻止事件冒泡行為</span>
+<span class="token comment">//event.preventDefault()  阻止流覽器默認行為</span>
+<span class="token comment">//return false:           既能阻止事件冒泡，又能阻止流覽器預設行為。</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+</li>
+</ul>
+<h4 id="3-2-7-阻止冒泡和阻止瀏覽器的預設行為"><a href="#3-2-7-阻止冒泡和阻止瀏覽器的預設行為" class="headerlink" title="3.2.7 阻止冒泡和阻止瀏覽器的預設行為"></a>3.2.7 阻止冒泡和阻止瀏覽器的預設行為</h4><h4 id="3-2-8-delay-的用法"><a href="#3-2-8-delay-的用法" class="headerlink" title="3.2.8 delay 的用法"></a>3.2.8 <code>delay</code> 的用法</h4><h3 id="3-3-jQuery-補充知識點"><a href="#3-3-jQuery-補充知識點" class="headerlink" title="3.3 jQuery 補充知識點"></a>3.3 <code>jQuery</code> 補充知識點</h3><h4 id="3-3-1-鏈式編程"><a href="#3-3-1-鏈式編程" class="headerlink" title="3.3.1 鏈式編程"></a>3.3.1 鏈式編程</h4><ul>
+<li><p>通常情況下，只有設置操作才能把鏈式程式設計延續下去。因為獲取操作的時候，會返回獲取到的相應的值，無法返回 <code>jQuery</code> 物件。</p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token function">end</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 篩選選擇器會改變 jQuery 物件的DOM物件，想要回復到上一次的狀態，並且返回匹配元素之前的狀態。</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>【案例：五角星評分案例】</p>
+</li>
+</ul>
+<h4 id="3-3-2-五星評分案例"><a href="#3-3-2-五星評分案例" class="headerlink" title="3.3.2 五星評分案例"></a>3.3.2 五星評分案例</h4><h4 id="3-3-3-each-方法"><a href="#3-3-3-each-方法" class="headerlink" title="3.3.3 each 方法"></a>3.3.3 <code>each</code> 方法</h4><ul>
+<li><p><code>jQuery</code> 的隱式反覆運算會對所有的 <code>DOM</code> 物件設置相同的值，但是如果我們需要給每一個物件設置不同的值的時候，就需要自己進行反覆運算了。</p>
+<p>作用：遍歷 <code>jQuery</code> 物件集合，為每個匹配的元素執行一個函數</p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// 參數一表示當前元素在所有匹配元素中的索引號</span>
+<span class="token comment">// 參數二表示當前元素（DOM物件）</span>
+<span class="token function">$</span><span class="token punctuation">(</span>selector<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">each</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">index<span class="token punctuation">,</span>element</span><span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>【案例：不同的透明度】</p>
+</li>
+</ul>
+<h4 id="3-3-4-衝突"><a href="#3-3-4-衝突" class="headerlink" title="3.3.4 $ 衝突"></a>3.3.4 <code>$</code> 衝突</h4><ul>
+<li><p><code>jQuery</code> 使用 <code>$</code> 作為標示符，但是如果與其他框架中的$衝突時，<code>jQuery</code> 可以釋放 <code>$</code> 符的控制權.</p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">var</span> c <span class="token operator">=</span> $<span class="token punctuation">.</span><span class="token function">noConflict</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//釋放$的控制權,並且把$的能力給了c</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+</li>
+</ul>
+<h4 id="3-3-5-複習"><a href="#3-3-5-複習" class="headerlink" title="3.3.5 複習"></a>3.3.5 複習</h4><hr>
+<h2 id="jquery-插件"><a href="#jquery-插件" class="headerlink" title="jquery 插件"></a><code>jquery 插件</code></h2><ul>
+<li><p>常用插件</p>
+<p>插件：<code>jquery</code> 不可能包含所有的功能，我们可以通过插件扩展 <code>jquery</code> 的功能。<br><code>jQuery</code> 有着丰富的插件，使用这些插件能给 <code>jQuery</code> 提供一些额外的功能。</p>
+</li>
+</ul>
+<h3 id="4-1-jquery-color-js-的使用"><a href="#4-1-jquery-color-js-的使用" class="headerlink" title="4.1 jquery.color.js 的使用"></a>4.1 <code>jquery.color.js</code> 的使用</h3><ul>
+<li><p>animate不支持颜色的渐变，但是使用了jquery.color.js后，就可以支持颜色的渐变了。</p>
+<p>使用插件的步骤</p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token number">1.</span> 引入jQuery文件
+<span class="token number">2.</span> 引入插件（如果有用到css的话，需要引入css）
+<span class="token number">3.</span> 使用插件<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+</li>
+</ul>
+<h3 id="4-2-jquery-lazyload-js-的使用"><a href="#4-2-jquery-lazyload-js-的使用" class="headerlink" title="4.2 jquery.lazyload.js 的使用"></a>4.2 <code>jquery.lazyload.js</code> 的使用</h3><ul>
+<li>懒加载插件</li>
+</ul>
+<h3 id="4-3-jqueryui-實現新聞模塊"><a href="#4-3-jqueryui-實現新聞模塊" class="headerlink" title="4.3 jqueryui 實現新聞模塊"></a>4.3 <code>jqueryui</code> 實現新聞模塊</h3><ul>
+<li><p><code>jQueryUI</code> 專指由 <code>jQuery</code> 官方維護的UI方向的插件。</p>
+</li>
+<li><p>官方 API：<a target="_blank" rel="noopener" href="http://api.jqueryui.com/category/all/">http://api.jqueryui.com/category/all/</a></p>
+</li>
+<li><p>其他教程：<a target="_blank" rel="noopener" href="http://www.runoob.com/jqueryui/jqueryui-tutorial.html">jQueryUI教程</a></p>
+</li>
+<li><p>基本使用:</p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token number">1.</span> 引入 <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">jQueryUI</span><span class="token template-punctuation string">`</span></span> 的樣式檔
+<span class="token number">2.</span> 引入 <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">jQuery</span><span class="token template-punctuation string">`</span></span>
+<span class="token number">3.</span> 引入 <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">jQueryUI</span><span class="token template-punctuation string">`</span></span> 的 <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">js</span><span class="token template-punctuation string">`</span></span> 文件
+<span class="token number">4.</span> 使用 <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">jQueryUI</span><span class="token template-punctuation string">`</span></span> 功能<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>使用 <code>jquery.ui.js</code> 實現新聞模組的案例</p>
+</li>
+</ul>
+<h3 id="4-4-原型初體驗"><a href="#4-4-原型初體驗" class="headerlink" title="4.4 原型初體驗"></a>4.4 原型初體驗</h3><h3 id="4-5-簡易版本的-jquery-插件"><a href="#4-5-簡易版本的-jquery-插件" class="headerlink" title="4.5 簡易版本的 jquery 插件"></a>4.5 簡易版本的 <code>jquery</code> 插件</h3><ul>
+<li><p>原理：<code>jquery</code> 外掛程式其實說白了就是給 <code>jquery</code> 物件增加一個新的方法，讓 <code>jquery</code> 物件擁有某一個功能。</p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">//通過給 `$.fn` 添加方法就能夠擴展 `jquery` 物件</span>
+$<span class="token punctuation">.</span>fn<span class="token punctuation">.</span> <span class="token function-variable function">pluginName</span> <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+</li>
+</ul>
+<h3 id="4-6-手風琴"><a href="#4-6-手風琴" class="headerlink" title="4.6 手風琴"></a>4.6 手風琴</h3><h3 id="4-7-手風琴測試"><a href="#4-7-手風琴測試" class="headerlink" title="4.7 手風琴測試"></a>4.7 手風琴測試</h3><hr>
+<h2 id="javascript-與-jquery-的差異整理"><a href="#javascript-與-jquery-的差異整理" class="headerlink" title="javascript 與  jquery 的差異整理"></a><code>javascript</code> 與  <code>jquery</code> 的差異整理</h2><table>
+<thead>
+<tr>
+<th>功能</th>
+<th>javascript</th>
+<th>案例</th>
+<th>jQuery</th>
+<th>案例</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>樣式操作</td>
+<td>style.樣式 = “樣式值”;</td>
+<td>style.backgroundColor=”red”;</td>
+<td>css(“樣式名”,”樣式值”);</td>
+<td>css(“backgroundColor”, “red”)</td>
+<td>設置單個樣式</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>css(obj)</td>
+<td>css({“backgroundColor”:”red”,”fontSize”:”15px”})</td>
+<td>設置多個樣式</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>css(“樣式名”)</td>
+<td>css({“backgroundColor”:”red”,”fontSize”:”15px”})</td>
+<td>獲取樣式</td>
+</tr>
+<tr>
+<td></td>
+<td>className&nbsp;=&nbsp;“樣式類別名稱”</td>
+<td>className =”aa bb cc dd”;</td>
+<td>addClass(“樣式名”);</td>
+<td>addClass(“aa bb cc dd”);</td>
+<td>添加類</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>removeClass(“樣式類名”);</td>
+<td>removeClass(“樣式名”);</td>
+<td>removeClass(“one”);</td>
+<td>移除類</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>hasClass(“樣式名”)</td>
+<td></td>
+<td>判斷類</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>toggleClass(“樣式名”)</td>
+<td></td>
+<td>切換類</td>
+</tr>
+<tr>
+<td>屬性操作</td>
+<td>SetAttibute(“屬性名”,”值”);</td>
+<td></td>
+<td>attr(“屬性名”,”值”)</td>
+<td>attr({“屬性名1”,”值1”,”屬性名2”,”值2” });</td>
+<td>用法與css一樣</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>prop()</td>
+<td></td>
+<td>操作布林類型的屬性，disabled checked selected</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>removeAttr()</td>
+<td>removeAttr:</td>
+<td>移除屬性</td>
+</tr>
+<tr>
+<td>動畫</td>
+<td></td>
+<td></td>
+<td>show/hide</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>slideDown/slideUp/slideToggle</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>fadeIn/fadeOut/fadeToggle</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>animate(prop, [speed], [swing/linear], [callback])</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>stop()</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>節點操作</td>
+<td></td>
+<td></td>
+<td>$()</td>
+<td></td>
+<td>創建節點</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>append</td>
+<td></td>
+<td>添加節點</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>appendTo</td>
+<td></td>
+<td>添加節點</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>prepend</td>
+<td></td>
+<td>添加節點</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>prependTo</td>
+<td></td>
+<td>添加節點</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>before</td>
+<td></td>
+<td>添加節點</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>after</td>
+<td></td>
+<td>添加節點</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>remove</td>
+<td></td>
+<td>刪除節點</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>empty</td>
+<td></td>
+<td>清空節點</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>clone()</td>
+<td></td>
+<td>克隆節點</td>
+</tr>
+<tr>
+<td></td>
+<td>innerText</td>
+<td>innerText = “Hello”;</td>
+<td>text(“Hello”);</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>innerHtml</td>
+<td>innerHtml = “&lt;b&gt;Hello&lt;/b&gt;”;</td>
+<td>html(‘<b>Hello</b>‘);</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">Allen Tai</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章連結:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="http://blog.allen5183.synology.me/jquery/20201116-jquery/">http://blog.allen5183.synology.me/jquery/20201116-jquery/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版權聲明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別聲明外，均採用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    授權合約。轉載請注明來源
+                    <a href="/about" target="_blank">Allen Tai</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>複製成功，請遵循本文的轉載規則</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/jquery/">
+                                    <span class="chip bg-color">jquery</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,wechat,linkedin" data-wechat-qrcode-helper="<p>微信掃一掃即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+        <link rel="stylesheet" href="/libs/gitalk/gitalk.css">
+<link rel="stylesheet" href="/css/my-gitalk.css">
+
+<div class="card gitalk-card" data-aos="fade-up">
+    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
+        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+        <span>評論</span>
+    </div>
+    <div id="gitalk-container" class="card-content"></div>
+</div>
+
+<script src="/libs/gitalk/gitalk.min.js"></script>
+<script>
+    let gitalk = new Gitalk({
+        clientID: 'e484b237dd5bd59118c0',
+        clientSecret: '7071e58c699bdbdce68a1d36b72b4184f24e98b1',
+        repo: 'hexo-matery',
+        owner: 'allen-5183',
+        admin: ["allen-5183"],
+        id: '2020-11-16T13-26-40',
+        distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+
+    gitalk.render('gitalk-container');
+</script>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+        
+
+     <article id="prenext-posts" class="prev-next articles">
+         <div class="row article-row">
+             
+             <div class="article col s12 m6" data-aos="fade-up">
+                 <div class="article-badge left-badge text-color">
+                     <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                 <div class="card">
+                     <a href="/php/20201130-php-mvc/">
+                         <div class="card-image">
+                             
+                             
+                             <img src="/medias/loading.gif" data-original="/medias/featureimages/2.jpg" class="responsive-img" alt="php mvc 框架">
+                             
+                             <span class="card-title">php mvc 框架</span>
+                         </div>
+                     </a>
+                     <div class="card-content article-content">
+                         <div class="summary block-with-text">
+                             
+                                 php MVC
+1. 簡介   MVC 模式（Model-View-Controller）是軟體工程中的一種軟體架構模式。
+
+MVC 把軟體系統分為三個基本部分： 模型（Model）、視圖（View）和控制器（Controller）。
+
+P
+                             
+                         </div>
+                         <div class="publish-info">
+                             <span class="publish-date">
+                                 <i class="far fa-clock fa-fw icon-date"></i>2020-11-29
+                             </span>
+                             <span class="publish-author">
+                                 
+                                 <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                 
+                                 <a href="/categories/php/" class="post-category">
+                                         php
+                                     </a>
+                                 
+                                 
+                             </span>
+                         </div>
+                     </div>
+                     
+                     <div class="card-action article-tags">
+                         
+                         <a href="/tags/php/">
+                             <span class="chip bg-color">php</span>
+                         </a>
+                        
+                         <a href="/tags/mvc/">
+                             <span class="chip bg-color">mvc</span>
+                         </a>
+                        
+                     </div>
+                     
+                 </div>
+             </div>
+             
+             
+             <div class="article col s12 m6" data-aos="fade-up">
+                 <div class="article-badge right-badge text-color">
+                     下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+                 </div>
+                 <div class="card">
+                     <a href="/mysql/20201006-mysql/">
+                         <div class="card-image">
+                             
+                             
+                        <img src="/medias/loading.gif" data-original="/medias/featureimages/13.jpg" class="responsive-img" alt="mysql 資料庫">
+                        
+                        <span class="card-title">mysql 資料庫</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            1. MySQL資料庫使用與管理1.1 關於資料庫  要使一個網站達到互動的效果，不是讓網頁充滿了動畫、音樂，而是當瀏覽者對網頁提出要求時能出現回應的結果。而這樣的效果，大多必須搭配資料庫的使用，讓網頁讀出儲存在資料庫中的資料，顯示在網頁上
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-10-05
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/mysql/" class="post-category">
+                                    mysql
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/mysql/">
+                        <span class="chip bg-color">mysql</span>
+                    </a>
+                    
+                    <a href="/tags/MariaDB/">
+                        <span class="chip bg-color">MariaDB</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+      </div>
+    </article>
+
+</div>
+
+
+
+<!-- 代碼塊功能依賴 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代碼語言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代碼塊複製 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代碼塊收縮 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+<!-- 代碼塊折行 -->
+
+<style type="text/css">
+code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
+</style>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目錄</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 懸浮按鈕. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修復文章卡片 div 的寬度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切換TOC目錄展開收縮的相關操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='true'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='false'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+
+    
+    <div class="container row center-align" style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+
+            Copyright&nbsp;&copy;
+            <span id="year">2020</span>
+            <a href="/about" target="_blank">Allen Tai</a>
+            <br>
+
+            
+
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;總訪問量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;總訪問人數:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <br>
+            
+        </div>
+
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/allen-5183" class="tooltipped" target="_blank" data-tooltip="allen's GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:allen5183@gmail.com" class="tooltipped" target="_blank" data-tooltip="郵件聯繫我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+    <a href="https://www.facebook.com/allen5183" class="tooltipped" target="_blank" data-tooltip="關注我的 
+Facebook: https://www.facebook.com/allen5183" data-position="top" data-delay="50">
+        <i class="fab fa-facebook-f"></i>
+    </a>
+
+
+
+
+    <a href="" class="tooltipped" target="_blank"
+data-tooltip="關注我的 Twitter: https://twitter.com/allen5183" data-position="top" data-delay="50">                                                                                                               
+<i class="fab fa-twitter"></i>
+    </a>
+
+
+
+                                                                                                                                                                                   
+<a href="https://plus.google.com/allen5183" class="tooltipped" target="_blank"                                                                                                                                    
+data-tooltip="關注我的 Google: https://plus.google.com/allen5183" data-position="top" data-delay="50">                                                                                                              
+<i class="fab fa-google-plus-g"></i>                                                                                                                                                                                          
+</a>                                                                                                                                                                                                            
+   
+
+
+
+
+
+<!--
+
+    <a href="https://twitter.com/allen5183" class="tooltipped" target="_blank" data-tooltip="關注我的Twitter: https://twitter.com/allen5183" data-position="top" data-delay="50">
+        <i class="fab fa-twitter"></i>
+    </a>
+
+
+
+
+
+
+
+
+
+-->
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 訂閱" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+
+<!-- 燈籠左 -->
+<!-- <div class="deng-box"> -->
+<!--   <div class="deng"> -->
+<!--     <div class="xian"></div> -->
+<!--       <div class="deng-a"> -->
+<!--        <div class="deng-b"><div class="deng-t">雙十</div></div> -->
+<!--        </div>   -->
+<!--        <div class="shui shui-a">  -->
+<!--          <div class="shui-c"></div> -->
+<!--             <div class="shui-b"></div> -->
+<!--        </div> -->
+<!--    </div> -->
+<!-- </div> -->
+
+
+
+<!-- 燈籠右 -->
+<!-- <div class="deng-box1"> -->
+<!--    <div class="deng"> -->
+<!--        <div class="xian"></div> -->
+<!--        <div class="deng-a"> -->
+<!--            <div class="deng-b"><div class="deng-t">同慶</div></div>  -->
+<!--        </div>  -->
+<!--        <div class="shui shui-a"> -->
+<!--            <div class="shui-c"></div>  -->
+<!--            <div class="shui-b"></div>  -->
+<!--        </div> -->
+<!--    </div>  -->
+<!-- </div>  -->
+
+</footer>
+
+<div class="progress-bar"></div>
+
+<!-- 閒聊麼  -->
+<script>
+    var xlm_wid='16495';
+    var xlm_url='https://www.xianliao.me/';
+</script>
+<script type='text/javascript' charset='UTF-8' src='https://www.xianliao.me/embed.js'></script>
+
+
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="請輸入搜索的關鍵字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/search.xml", 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到頂部按鈕 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i["DaoVoiceObject"] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o), m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            a.charset = "utf-8";
+            m.parentNode.insertBefore(a, m)
+        })(window, document, "script", ('https:' == document.location.protocol ? 'https:' : 'http:') +
+            "//widget.daovoice.io/widget/6984b559.js", "daovoice")
+        daovoice('init', {
+            app_id: "22dc2875"
+        });
+        daovoice('update');
+    </script>
+    
+
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/nito.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true,"scale":0.5},"react":{"opacity":0.7},"log":false});</script><script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(n){n.imageLazyLoadSetting.processImages=o;var i=n.imageLazyLoadSetting.isSPA,r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function o(){i&&(r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")));for(var t,e,a=0;a<r.length;a++)t=r[a],e=void 0,0<=(e=t.getBoundingClientRect()).bottom&&0<=e.left&&e.top<=(n.innerHeight||document.documentElement.clientHeight)&&function(){var t,e,n,i,o=r[a];t=o,e=function(){r=r.filter(function(t){return o!==t})},n=new Image,i=t.getAttribute("data-original"),n.onload=function(){t.src=i,e&&e()},n.src=i}()}o(),n.addEventListener("scroll",function(){var t,e;t=o,e=n,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(e)},500)})}(this);</script></body>
+
+</html>

@@ -1,0 +1,168 @@
+/* Here is your custom css styles. */
+
+/* 主题圖片 */
+.img-topic
+  max-width: 300px;
+  max-height: 1800px;
+  display: block ;
+  margin-left: .7em;
+  margin-right: .7em;
+  padding: 0;
+  float: right;
+  clear: right;
+  
+/* Logo 圖片  */
+.img-logo 
+  max-width: 180px;
+  max-height: 96px;
+  display: block;
+  margin-right: .7em;
+  margin-left: .7em;
+  padding: 0;
+  float: right;
+  clear: right;
+  
+  /* 居中圖片 */
+.img-center
+  display: block ;
+  margin: auto;
+  
+  
+ /* 陰影圖片 */
+.img-shadow
+  box-shadow: 0 0 2px 3px #ddd;
+
+ 
+  
+
+
+@font-face{
+    font-family: 'myfont';
+    src: url('../font/HanyiSentyTang.ttf');
+}
+
+body{
+    font-family: '標楷體';
+    font-size: 24px;
+}
+
+
+
+.uk-alert {
+  margin-bottom: 15px;
+  padding: 10px;
+  background: #ebf7fd;
+  color: #2d7091;
+  border: 1px solid rgba(45, 112, 145, 0.3);
+  border-radius: 4px;
+  text-shadow: 0 1px 0 #ffffff;
+}
+
+/* Modifier: `uk-alert-success`
+ ========================================================================== */
+.uk-alert-success {
+  background: #f2fae3;
+  color: #659f13;
+  border-color: rgba(101, 159, 19, 0.3);
+}
+/* Modifier: `uk-alert-warning`
+ ========================================================================== */
+.uk-alert-warning {
+  background: #fffceb;
+  color: #e28327;
+  border-color: rgba(226, 131, 39, 0.3);
+}
+/* Modifier: `uk-alert-danger`
+ ========================================================================== */
+.uk-alert-danger {
+  background: #fff1f0;
+  color: #d85030;
+  border-color: rgba(216, 80, 48, 0.3);
+}
+
+
+
+
+
+
+
+/* hexo-filter-github-emojis */
+.github-emoji{
+    height: 2em;
+    width: 2em;
+    display: inline-block !important;
+    position: relative;
+    margin: 0 3px !important;
+    padding: 0;
+}
+.github-emoji:hover{
+    animation: emoji-face 5s infinite ease-in-out;
+}
+@keyframes emoji-face {
+    2% {
+        transform: translate(0, 1.5px) rotate(1.5deg);
+    }
+    4% {
+        transform: translate(0, -1.5px) rotate(-0.5deg);
+    }
+    6% {
+        transform: translate(0, 1.5px) rotate(-1.5deg);
+    }
+    8% {
+        transform: translate(0, -1.5px) rotate(-1.5deg);
+    }
+    10% {
+        transform: translate(0, 2.5px) rotate(1.5deg);
+    }
+    12% {
+        transform: translate(0, -0.5px) rotate(1.5deg);
+    }
+    14% {
+        transform: translate(0, -1.5px) rotate(1.5deg);
+    }
+    16% {
+        transform: translate(0, -0.5px) rotate(-1.5deg);
+    }
+    18% {
+        transform: translate(0, 0.5px) rotate(-1.5deg);
+    }
+    20% {
+        transform: translate(0, -1.5px) rotate(2.5deg);
+    }
+    22% {
+        transform: translate(0, 0.5px) rotate(-1.5deg);
+    }
+    24% {
+        transform: translate(0, 1.5px) rotate(1.5deg);
+    }
+    26% {
+        transform: translate(0, 0.5px) rotate(0.5deg);
+    }
+    28% {
+        transform: translate(0, 0.5px) rotate(1.5deg);
+    }
+}
+
+
+*{
+    cursor: url("/medias/cursor1.ico"),auto!important;
+}
+:active{
+    cursor: url("/medias/cursor2.ico"),auto!important;
+}
+
+
+.video-container {
+  position: relative;
+  padding-bottom: 56.25%;
+  padding-top: 30px;
+  height: 0;
+  overflow: hidden;
+  iframe, object, embed {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+}

@@ -1,0 +1,443 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>呆呆-博客</title>
+  
+  <subtitle>呆呆教室</subtitle>
+  <link href="http://blog.allen5183.synology.me/atom.xml" rel="self"/>
+  
+  <link href="http://blog.allen5183.synology.me/"/>
+  <updated>2021-06-10T11:43:17.595Z</updated>
+  <id>http://blog.allen5183.synology.me/</id>
+  
+  <author>
+    <name>Allen Tai</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>物聯網綜合應用(二)</title>
+    <link href="http://blog.allen5183.synology.me/iot/20210602-iot/"/>
+    <id>http://blog.allen5183.synology.me/iot/20210602-iot/</id>
+    <published>2021-06-02T12:23:55.000Z</published>
+    <updated>2021-06-10T11:43:17.595Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;\assets\css\APlayer.min.css&quot;&gt;&lt;script src=&quot;\assets\js\APlayer.min.js&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="iot" scheme="http://blog.allen5183.synology.me/categories/iot/"/>
+    
+    
+    <category term="iot" scheme="http://blog.allen5183.synology.me/tags/iot/"/>
+    
+    <category term="wiot" scheme="http://blog.allen5183.synology.me/tags/wiot/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>物聯網綜合應用(二)</title>
+    <link href="http://blog.allen5183.synology.me/iot/20210602-iot/"/>
+    <id>http://blog.allen5183.synology.me/iot/20210602-iot/</id>
+    <published>2021-06-02T12:23:55.000Z</published>
+    <updated>2021-06-03T22:38:17.468Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;\assets\css\APlayer.min.css&quot;&gt;&lt;script src=&quot;\assets\js\APlayer.min.js&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="iot" scheme="http://blog.allen5183.synology.me/categories/iot/"/>
+    
+    
+    <category term="iot" scheme="http://blog.allen5183.synology.me/tags/iot/"/>
+    
+    <category term="wiot" scheme="http://blog.allen5183.synology.me/tags/wiot/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>PHP 基礎篇</title>
+    <link href="http://blog.allen5183.synology.me/php/20210408-php-basic/"/>
+    <id>http://blog.allen5183.synology.me/php/20210408-php-basic/</id>
+    <published>2021-04-07T20:50:50.000Z</published>
+    <updated>2021-04-17T14:10:34.737Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;\assets\css\APlayer.min.css&quot;&gt;&lt;script src=&quot;\assets\js\APlayer.min.js&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="php" scheme="http://blog.allen5183.synology.me/categories/php/"/>
+    
+    
+    <category term="php" scheme="http://blog.allen5183.synology.me/tags/php/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>wiot</title>
+    <link href="http://blog.allen5183.synology.me/wiot/20210329-wiot/"/>
+    <id>http://blog.allen5183.synology.me/wiot/20210329-wiot/</id>
+    <published>2021-03-28T16:53:45.000Z</published>
+    <updated>2021-06-02T05:54:01.650Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;\assets\css\APlayer.min.css&quot;&gt;&lt;script src=&quot;\assets\js\APlayer.min.js&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="wiot" scheme="http://blog.allen5183.synology.me/categories/wiot/"/>
+    
+    
+    <category term="iot" scheme="http://blog.allen5183.synology.me/tags/iot/"/>
+    
+    <category term="wiot" scheme="http://blog.allen5183.synology.me/tags/wiot/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>樹莓派製作無線路由器</title>
+    <link href="http://blog.allen5183.synology.me/iot/20210207-pi3/"/>
+    <id>http://blog.allen5183.synology.me/iot/20210207-pi3/</id>
+    <published>2021-02-06T19:05:50.000Z</published>
+    <updated>2021-06-08T02:39:06.871Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;\assets\css\APlayer.min.css&quot;&gt;&lt;script src=&quot;\assets\js\APlayer.min.js&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="iot" scheme="http://blog.allen5183.synology.me/categories/iot/"/>
+    
+    
+    <category term="iot" scheme="http://blog.allen5183.synology.me/tags/iot/"/>
+    
+    <category term="wiot" scheme="http://blog.allen5183.synology.me/tags/wiot/"/>
+    
+    <category term="pi" scheme="http://blog.allen5183.synology.me/tags/pi/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>webduino</title>
+    <link href="http://blog.allen5183.synology.me/webdunio/20210204-webdunio/"/>
+    <id>http://blog.allen5183.synology.me/webdunio/20210204-webdunio/</id>
+    <published>2021-02-04T07:10:15.000Z</published>
+    <updated>2021-06-17T23:36:52.184Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;\assets\css\APlayer.min.css&quot;&gt;&lt;script src=&quot;\assets\js\APlayer.min.js&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="webdunio" scheme="http://blog.allen5183.synology.me/categories/webdunio/"/>
+    
+    
+    <category term="webdunio" scheme="http://blog.allen5183.synology.me/tags/webdunio/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>javascript</title>
+    <link href="http://blog.allen5183.synology.me/javascript/20210122-javascript/"/>
+    <id>http://blog.allen5183.synology.me/javascript/20210122-javascript/</id>
+    <published>2021-01-21T21:12:59.000Z</published>
+    <updated>2021-04-18T08:20:04.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;\assets\css\APlayer.min.css&quot;&gt;&lt;script src=&quot;\assets\js\APlayer.min.js&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="javascript" scheme="http://blog.allen5183.synology.me/categories/javascript/"/>
+    
+    
+    <category term="javascript" scheme="http://blog.allen5183.synology.me/tags/javascript/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>virtualbox</title>
+    <link href="http://blog.allen5183.synology.me/virtualbox/20201228-virtualbox/"/>
+    <id>http://blog.allen5183.synology.me/virtualbox/20201228-virtualbox/</id>
+    <published>2020-12-27T18:55:14.000Z</published>
+    <updated>2021-03-28T09:33:49.010Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;\assets\css\APlayer.min.css&quot;&gt;&lt;script src=&quot;\assets\js\APlayer.min.js&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="virtualbox" scheme="http://blog.allen5183.synology.me/categories/virtualbox/"/>
+    
+    
+    <category term="virtualbox" scheme="http://blog.allen5183.synology.me/tags/virtualbox/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>laravel</title>
+    <link href="http://blog.allen5183.synology.me/laravel/20201228-laravel/"/>
+    <id>http://blog.allen5183.synology.me/laravel/20201228-laravel/</id>
+    <published>2020-12-27T16:33:23.000Z</published>
+    <updated>2021-06-15T22:39:10.827Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;\assets\css\APlayer.min.css&quot;&gt;&lt;script src=&quot;\assets\js\APlayer.min.js&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="laravel" scheme="http://blog.allen5183.synology.me/categories/laravel/"/>
+    
+    
+    <category term="php" scheme="http://blog.allen5183.synology.me/tags/php/"/>
+    
+    <category term="laravel" scheme="http://blog.allen5183.synology.me/tags/laravel/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>php mvc 框架</title>
+    <link href="http://blog.allen5183.synology.me/php/20201130-php-mvc/"/>
+    <id>http://blog.allen5183.synology.me/php/20201130-php-mvc/</id>
+    <published>2020-11-29T22:08:28.000Z</published>
+    <updated>2021-04-18T08:29:32.322Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;\assets\css\APlayer.min.css&quot;&gt;&lt;script src=&quot;\assets\js\APlayer.min.js&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="php" scheme="http://blog.allen5183.synology.me/categories/php/"/>
+    
+    
+    <category term="php" scheme="http://blog.allen5183.synology.me/tags/php/"/>
+    
+    <category term="mvc" scheme="http://blog.allen5183.synology.me/tags/mvc/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>jquery</title>
+    <link href="http://blog.allen5183.synology.me/jquery/20201116-jquery/"/>
+    <id>http://blog.allen5183.synology.me/jquery/20201116-jquery/</id>
+    <published>2020-11-16T13:26:40.000Z</published>
+    <updated>2021-04-18T08:21:06.212Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;\assets\css\APlayer.min.css&quot;&gt;&lt;script src=&quot;\assets\js\APlayer.min.js&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="jquery" scheme="http://blog.allen5183.synology.me/categories/jquery/"/>
+    
+    
+    <category term="jquery" scheme="http://blog.allen5183.synology.me/tags/jquery/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>mysql 資料庫</title>
+    <link href="http://blog.allen5183.synology.me/mysql/20201006-mysql/"/>
+    <id>http://blog.allen5183.synology.me/mysql/20201006-mysql/</id>
+    <published>2020-10-05T19:53:15.000Z</published>
+    <updated>2021-04-30T01:38:17.552Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;\assets\css\APlayer.min.css&quot;&gt;&lt;script src=&quot;\assets\js\APlayer.min.js&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="mysql" scheme="http://blog.allen5183.synology.me/categories/mysql/"/>
+    
+    
+    <category term="mysql" scheme="http://blog.allen5183.synology.me/tags/mysql/"/>
+    
+    <category term="MariaDB" scheme="http://blog.allen5183.synology.me/tags/MariaDB/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>原生 Ajax 對象</title>
+    <link href="http://blog.allen5183.synology.me/ajax/20201005-ajax/"/>
+    <id>http://blog.allen5183.synology.me/ajax/20201005-ajax/</id>
+    <published>2020-10-05T11:12:09.000Z</published>
+    <updated>2020-12-27T09:29:04.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;\assets\css\APlayer.min.css&quot;&gt;&lt;script src=&quot;\assets\js\APlayer.min.js&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="ajax" scheme="http://blog.allen5183.synology.me/categories/ajax/"/>
+    
+    
+    <category term="ajax" scheme="http://blog.allen5183.synology.me/tags/ajax/"/>
+    
+    <category term="http" scheme="http://blog.allen5183.synology.me/tags/http/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>mysql pdo 物件</title>
+    <link href="http://blog.allen5183.synology.me/php-mysql/20200930-mysql-pdo/"/>
+    <id>http://blog.allen5183.synology.me/php-mysql/20200930-mysql-pdo/</id>
+    <published>2020-09-29T21:21:22.000Z</published>
+    <updated>2021-04-18T08:21:42.028Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;\assets\css\APlayer.min.css&quot;&gt;&lt;script src=&quot;\assets\js\APlayer.min.js&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="php&amp;mysql" scheme="http://blog.allen5183.synology.me/categories/php-mysql/"/>
+    
+    
+    <category term="php" scheme="http://blog.allen5183.synology.me/tags/php/"/>
+    
+    <category term="mysql" scheme="http://blog.allen5183.synology.me/tags/mysql/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>mysql pdo 物件</title>
+    <link href="http://blog.allen5183.synology.me/php-mysql/20200930-mysql-pdo/"/>
+    <id>http://blog.allen5183.synology.me/php-mysql/20200930-mysql-pdo/</id>
+    <published>2020-09-29T21:21:22.000Z</published>
+    <updated>2021-04-18T08:30:00.298Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;\assets\css\APlayer.min.css&quot;&gt;&lt;script src=&quot;\assets\js\APlayer.min.js&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="php&amp;mysql" scheme="http://blog.allen5183.synology.me/categories/php-mysql/"/>
+    
+    
+    <category term="php" scheme="http://blog.allen5183.synology.me/tags/php/"/>
+    
+    <category term="mysql" scheme="http://blog.allen5183.synology.me/tags/mysql/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>php &amp; mysql</title>
+    <link href="http://blog.allen5183.synology.me/php-mysql/20200930-php-mysql/"/>
+    <id>http://blog.allen5183.synology.me/php-mysql/20200930-php-mysql/</id>
+    <published>2020-09-29T21:15:43.000Z</published>
+    <updated>2021-05-03T06:15:57.503Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;\assets\css\APlayer.min.css&quot;&gt;&lt;script src=&quot;\assets\js\APlayer.min.js&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="php&amp;mysql" scheme="http://blog.allen5183.synology.me/categories/php-mysql/"/>
+    
+    
+    <category term="php" scheme="http://blog.allen5183.synology.me/tags/php/"/>
+    
+    <category term="mysql" scheme="http://blog.allen5183.synology.me/tags/mysql/"/>
+    
+  </entry>
+  
+</feed>
